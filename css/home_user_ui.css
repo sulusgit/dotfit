@@ -297,100 +297,144 @@
 
 .meta-actions {
     display: flex;
-    gap: 14px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: none;
+}
+
+/* ICON GROUP */
+.meta-actions .icons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* ← Одоо зай нэмэгдэнэ */
 }
 
 
- .learn-more {
-    text-decoration: none;
-    color: #fff;
+.learn-more {
+    font-size: 14px;
     font-weight: 600;
+    color: #ccc;
+    text-transform: uppercase;
     letter-spacing: 1px;
+    text-decoration: none;
+    position: relative;
+    transition: 0.25s ease;
+}
+
+.learn-more::after {
+    margin-left: 6px;
+    transition: margin-left 0.25s ease;
+}
+
+.learn-more:hover {
+    color: #1f8bff;
+}
+
+.learn-more:hover::after {
+    margin-left: 12px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #ccc;
     cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.25);
+    color: #fff;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+}
+.icon-btn i { font-size: 20px; 
+}
+
+.icon-btn:focus,
+.icon-btn:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+
+.fav-btn .fa-solid {
+    color: #ffffff;
 }
 
 .enroll-btn {
-    position: relative;
+  position: relative;
+  color: #ccc;
+  text-decoration: none; /* underline арилгана */
 }
-/* Enroll test show */
+
+.enroll-btn i {
+  text-decoration: none; /* icon дээр underline гарахаас сэргийлнэ */
+}
+
+.enroll-btn:hover {
+  color: #ccc;
+}
+
 .enroll-btn .tooltip {
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #000;
-    color: #fff;
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 4px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
 .enroll-btn:hover .tooltip {
-    opacity: 1;
+  opacity: 1;
 }
 
-    .course-duration::before {
-        content: '';
-        width: 16px;
-        height: 16px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23999'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'%3E%3C/path%3E%3C/svg%3E");
-        background-size: contain;
-    }
 
-    .course-link {
-        font-size: 14px;
-        font-weight: 600;
-        color: #000;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: gap 0.2s ease;
-    }
+/* DARK MODE */
+@media (prefers-color-scheme: dark) {
+  .meta-actions {
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
 
-    .course-card:hover .course-link {
-        gap: 16px;
-    }
+  .learn-more {
+    color: #ccc;
+  }
 
-    .course-link::after {
-        content: '→';
-        font-size: 16px;
-        transition: transform 0.2s ease;
-    }
+  .learn-more:hover {
+    color: #ccc;
+  }
 
-    /* ANIMATIONS */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
+  .icon-btn {
+    color: #ccc;
+  }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+  .icon-btn:hover {
+    color: #fff;
+  }
 
-    .course-card {
-        animation: fadeInUp 0.6s ease backwards;
-    }
-
-    .course-card:nth-child(1) {
-        animation-delay: 0.1s;
-    }
-
-    .course-card:nth-child(2) {
-        animation-delay: 0.2s;
-    }
-
-    .course-card:nth-child(3) {
-        animation-delay: 0.3s;
-    }
+  .enroll-btn .tooltip {
+    background: #fff;
+    color: #000;
+  }
+}
 
 
     /* CTA SECTION */

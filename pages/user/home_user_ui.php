@@ -87,49 +87,31 @@
                     <p class="course-description"> <?= $description ?> </p>
 
 
-                    <div class="meta-actions">
+<div class="meta-actions">
 
-                        <a href="<?= url('/user/learn_more') ?>" class="learn-more">
-                            LEARN MORE →
-                        </a>
+    <a href="<?= url('/user/learn_more') ?>" class="learn-more">
+        LEARN MORE →
+    </a>
 
-                        <a href="#" class="icon-btn fav-btn" data-id="<?= $id ?>">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                        <script>
-                        document.querySelectorAll('.fav-btn').forEach(btn => {
-                            btn.addEventListener('click', function(e) {
-                                e.preventDefault(); // STOP redirect
+    <div class="icons">
+        <a href="#" class="icon-btn fav-btn" data-id="<?= $id ?>">
+            <i class="fa-regular fa-heart"></i>
+        </a>
 
-                                const icon = this.querySelector('i');
-                                const courseId = this.dataset.id;
 
-                                // toggle heart visually
-                                icon.classList.toggle('fa-regular');
-                                icon.classList.toggle('fa-solid');
+        <a href="<?= url('/user/comment_scroll') ?>" class="icon-btn">
+            <i class="fa-regular fa-comment"></i>
+        </a>
 
-                                // save in backend
-                                fetch('/user/add_to_fevo.php', { //!!!!!!!!!!!!!!!
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/x-www-form-urlencoded'
-                                    },
-                                    body: 'id=' + courseId
-                                });
-                            });
-                        });
-                        </script>
+        <a href="<?= url('/user/add_to_enroll') ?>" class="icon-btn enroll-btn">
+            <i class="fa-solid fa-circle-plus"></i>
+            <span class="tooltip">Enroll</span>
+        </a>
+    </div>
 
-                        <a href="<?= url('/user/comment_scroll') ?>" class="icon-btn">
-                            <i class="fa-regular fa-comment"></i>
-                        </a>
-                        <!-- btn-view-details == ENROLL btn -->
-                        <a href="<?= url('/user/add_to_enroll') ?>" class="icon-btn">
-                            <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
-                        </a>
+</div>
 
-                    </div>
-                </div>
+
             </div>
             <?php endwhile;
             else:
