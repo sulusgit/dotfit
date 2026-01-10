@@ -402,6 +402,39 @@
             padding: 16px 40px;
             box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
         }
+
+        /* filter checkbox*/
+            /* --- STYPIE DLA FILTRA - DARK MODE --- */
+    @media (prefers-color-scheme: dark) {
+        .filter-menu {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .filter-option {
+            color: #ccc;
+        }
+
+        .filter-option:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Aktywna opcja w trybie ciemnym */
+        .filter-option.active-sort {
+            background-color: #252525;
+            color: #fff;
+        }
+
+        .filter-option.active-sort .checkbox-box {
+            border-color: #fff;
+        }
+
+        .filter-option.active-sort .checkbox-box::after {
+            background: #fff;
+        }
+    }
     </style>
 </head>
 
@@ -465,6 +498,48 @@
             }
         });
     </script> -->
+
+
+
+
+    
+    <script>
+
+                // --- FILTER LOGIC ---
+
+        // 1. Funkcja otwierająca/zamykająca menu (zatrzymuje propagację, żeby nie zamknąć się od razu)
+        function toggleFilter(event) {
+            event.stopPropagation(); // Zapobiega zamknięciu po kliknięciu w przycisk
+            const dropdown = document.getElementById('filterDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // 2. Funkcja obsługująca wybór opcji
+        function selectOption(element) {
+            // Usuń klasę 'active-sort' ze wszystkich opcji
+            const options = document.querySelectorAll('.filter-option');
+            options.forEach(opt => opt.classList.remove('active-sort'));
+
+            // Dodaj klasę 'active-sort' do klikniętego elementu
+            element.classList.add('active-sort');
+
+            // Tutaj możesz dodać logikę sortowania produktów, np.:
+            // console.log('Wybrano:', element.innerText.trim());
+            
+            // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
+            document.getElementById('filterDropdown').classList.remove('active');
+        }
+
+        // 3. Zamknij menu, jeśli klikniesz poza nim
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('filterDropdown');
+            const isClickInside = dropdown.contains(event.target);
+
+            if (!isClickInside) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
 
 </body>
 
