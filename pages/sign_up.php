@@ -10,7 +10,7 @@
 
 <body>
     <div class="signup-container">
-    <div class="close-btn" onclick="closeSignup()">×</div>
+        <div class="close-btn" onclick="closeSignup()">×</div>
         <div class="form-section">
             <h2>Sign Up</h2>
             <?php if (!empty($_SESSION['errors'])): //here errors show 
@@ -47,7 +47,7 @@
 
                 <p class="signin-link">
                     Already have an account?
-                    <a href="<?= url('sign_in') ?> ?>">Sign In</a><!-- sign_in.php -->
+                    <a href="<?= url('sign_in') ?> ">Sign In</a><!-- sign_in.php -->
                 </p>
 
                 <div class="input-group">
@@ -90,14 +90,12 @@
         }
     </script>
     <script>
-    function closeSignup() {
-        window.location.href = "<?= url('/') ?>";
-    }
-</script>
+        function closeSignup() {
+            window.location.href = "<?= url('/') ?>";
+        }
+    </script>
 
 
 </body>
 
-</html> 
-
-
+</html>

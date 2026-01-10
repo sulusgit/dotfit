@@ -24,7 +24,7 @@ if ($course_id <= 0) {
     <div class="course-details">
         <div class="course-header">
             <h1 class="course-title-main">Pilates Course</h1>
-            <a href="<?= url('/user/home_user_ui') ?>" class="close-inline">✕</a>
+            <a href="<?= url('user/home_user_ui') ?>" class="close-inline">✕</a>
         </div>
 
         <p class="course-intro">
@@ -47,7 +47,7 @@ if ($course_id <= 0) {
 
         <div class="comment-card">
             <h2>Comments</h2>
-            <form method="post" action="<?= url('pages/user/comment_add.php') ?> ">
+            <form method="post" action="<?= url('user/comment_add') ?> ">
                 <textarea name=" comment" required placeholder="Write your comment..."></textarea>
                 <!-- Stars -->
                 <div class="stars-input">
@@ -96,25 +96,25 @@ if ($course_id <= 0) {
                 ?>
 
                 <?php while (_fetch($stmt)): ?>
-                    <div class="recent-comment">
-                        <div class="stars">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <span class="<?= $i <= $stars ? 'filled' : '' ?>">★</span>
-                            <?php endfor; ?>
-                        </div>
-
-                        <p><?= htmlspecialchars($review ?? '') ?></p>
-
-                        <?php if ($comment_user_id == $user_id): ?>
-                            <div class="comment-actions">
-                                <a href="<?= url('/user/comment_edit') ?>?id=<?= $comment_id ?>">Edit</a>
-                                <a href="<?= url('/user/comment_delete') ?>?id=<?= $comment_id ?>"
-                                    onclick="return confirm('Delete this comment?')">
-                                    Delete
-                                </a>
-                            </div>
-                        <?php endif; ?>
+                <div class="recent-comment">
+                    <div class="stars">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="<?= $i <= $stars ? 'filled' : '' ?>">★</span>
+                        <?php endfor; ?>
                     </div>
+
+                    <p><?= htmlspecialchars($review ?? '') ?></p>
+
+                    <?php if ($comment_user_id == $user_id): ?>
+                    <div class="comment-actions">
+                        <a href="<?= url('user/comment_edit') ?>?id=<?= $comment_id ?>">Edit</a>
+                        <a href="<?= url('user/comment_delete') ?>?id=<?= $comment_id ?>"
+                            onclick="return confirm('Delete this comment?')">
+                            Delete
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                </div>
                 <?php endwhile; ?>
 
                 <?php _close_stmt($stmt); ?>

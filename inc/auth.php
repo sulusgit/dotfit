@@ -1,5 +1,5 @@
 <?php
-
+/* NOT USING THIS BECAUE WE DON'T DO ANYTHING WITH THIS ONE */
 /* function auth_login(array $user): void
 {
     session_regenerate_id(true);

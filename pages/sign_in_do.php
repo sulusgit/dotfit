@@ -23,7 +23,7 @@ _selectRow(
 // 3. validate login
 if (!$count || !password_verify($password, (string)$dbPassword)) {
     $_SESSION['errors'][] = "Your email or password is not correct";
-    _redirect(url('/sign_in'));
+    _redirect('sign_in');
     exit;
 }
 
@@ -35,9 +35,9 @@ $_SESSION['role']  = $role;
 
 // 5. redirect by role
 if ($role === 'administrator') {
-    _redirect(url('/admin/home_admin_ui'));
+    _redirect('admin/home_admin_ui');
 } else {
-    _redirect(url('/user/home_user_ui'));
+    _redirect('user/home_user_ui');
 }
 
 exit;

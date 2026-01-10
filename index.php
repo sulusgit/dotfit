@@ -1,33 +1,37 @@
 <?php
 session_start();
 ini_set('display_errors', 1);
+
 define('ROOT', __DIR__);
-define('BASE_URL', '/dotfit'); // folder name in htdocs
+define('BASE_URL', '/dotfit');
 
 require ROOT . '/inc/helper.php';
 require ROOT . '/inc/conf.php';
 require ROOT . '/inc/db.php';
 require ROOT . '/inc/flash.php';
 require ROOT . '/inc/auth.php';
+/* FRONT CONTROL TO URL LOOK BETTER */
 $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $base = rtrim(BASE_URL, '/');
 
 if ($base && strpos($uri, $base) === 0) {
     $uri = substr($uri, strlen($base));
 }
-
 $page = trim($uri, '/');
 
 if ($page === '') {
     require ROOT . '/pages/home.php';
-} else {
-    $file = ROOT . '/pages/' . $page . '.php';
-    if (file_exists($file)) {
-        require $file;
-    } else {
-        require ROOT . '/pages/404.php';
-    }
+    exit;
 }
+
+$file = ROOT . '/pages/' . $page . '.php';
+/* if not find that file it will show 404 page */
+if (file_exists($file)) {
+    require $file;
+} else {
+    require ROOT . '/pages/404.php';
+}
+
 
 //debug function 
 function dd($arr)
@@ -36,13 +40,8 @@ function dd($arr)
     print_r($arr);
     # exit;
 }
-//func to redirect page transactions
-function _redirect($url)
-{
-    header("Location: $url");
-    exit;
-}
 
+/* POST GET FUNC !!!!! */
 //Prevention to valid date type POST; sign_up.php d :: if inputs to long trim etc 
 function post($name, $length = null) // if that len is longer than our name's length so it is sth wierd so to prevent this
 {

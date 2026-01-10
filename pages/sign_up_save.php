@@ -93,7 +93,7 @@ if (!$errors) {
         _redirect('/user/home_user_ui');
     } */
     // if sign up with user/admin  that user/admin btn checked
-    _redirect(url('sign_in'));
+    _redirect('sign_in');
 
 
     exit;
@@ -103,5 +103,5 @@ if (!$errors) {
    6. ON ERROR → BACK
    ===================== */
 $_SESSION['errors'] = $errors;
-_redirect(url('/sign_up'));
+_redirect('sign_up');
 exit;
