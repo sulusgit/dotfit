@@ -86,7 +86,7 @@ if ($_SESSION['role'] !== 'user') {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            color: #787874;
             /*  transition: background 0.2s; */
             ;
         }
