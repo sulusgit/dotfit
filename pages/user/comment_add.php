@@ -1,7 +1,7 @@
 <?php
 session_start();
-echo '<pre>';
-print_r($_POST);
+/* echo '<pre>';
+print_r($_POST); */
 //require 'db.php';
 
 if (!isset($_SESSION['id'])) {
@@ -20,7 +20,7 @@ if ($review === '') {
     die('Review cannot be empty');
 }
 $count = 0;
-_exec(
+$success = _exec(
     "INSERT INTO comments (user_id, stars, usr_name, review, course_id)
      VALUES (?, ?, ?, ?, ?)",
     "isssi",
