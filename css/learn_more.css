@@ -1,0 +1,189 @@
+/* MAIN CONTAINER */
+.course-details {
+    max-width: 900px;
+    margin: 140px auto;
+    padding: 20px;
+}
+
+/* TITLE */
+.course-title-main {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+/* INTRO TEXT */
+.course-intro {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+    
+}
+
+/* INFO CARD */
+.info-card {
+    background: #fafafa;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    margin-bottom: 50px;
+}
+
+.info-card h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+    color: #000;
+}
+
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+    line-height: 1.8;
+    color: #000;
+}
+
+/* COMMENT CARD */
+.comment-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.comment-card h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* FORM */
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #000;
+}
+
+.agree-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #000;
+}
+
+.agree-box input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: black;
+  cursor: pointer;
+}
+
+
+.submit-comment {
+    padding: 12px 28px;
+    background: #000;
+    color: #fff;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.submit-comment:hover {
+    background: #333;
+}
+/* STARS */
+.stars-input {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+}
+
+.stars-input input {
+    display: none;
+}
+
+.stars-input label {
+    font-size: 22px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.stars-input input:checked ~ label,
+.stars-input label:hover,
+.stars-input label:hover ~ label {
+    color: #f5b301;
+}
+/* recent comments frame */
+.comment-actions {
+    margin-top: 6px;
+    font-size: 13px;
+}
+
+.comment-actions a {
+    margin-right: 10px;
+    color: #666;
+    text-decoration: none;
+}
+
+.comment-actions a:hover {
+    text-decoration: underline;
+}
+
+
+/* EXISTING COMMENTS */
+.existing-comments h3 {
+    margin-top: 40px;
+    font-size: 20px;
+    color: #000;
+}
+
+.comment-item {
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+    color: #000;
+}
+
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.course-title-main {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0;
+  color: #fff; /* dark background‑д тохируулсан */
+}
+
+.close-inline {
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+
+.close-inline:hover {
+  transform: scale(1.1);
+  color: #2d2d2d;
+}

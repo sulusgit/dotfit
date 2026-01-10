@@ -1,0 +1,255 @@
+
+/* ===============================
+   FORM BASE
+================================ */
+.profile-form {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ===============================
+   INPUT GROUP
+================================ */
+.input-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* inputs + select */
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* ===============================
+   TEXTAREAS (BASE)
+================================ */
+.input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+  resize: vertical;     /* prevent breaking layout */
+}
+
+/* ===============================
+   SMALL TEXTAREA (Description)
+================================ */
+.text_description {
+  min-height: 90px;
+  max-height: 150px;
+}
+
+/* ===============================
+   LARGE TEXTAREA (Article)
+================================ */
+.text_add_info {
+  min-height: 220px;
+  max-height: 500px;
+}
+
+/* ===============================
+   OPTIONAL TITLE
+================================ */
+.optional-title {
+  margin: 30px 0 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.cancel-btn,
+.save-btn {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+}
+.cancel-btn {
+  text-decoration: none;
+}
+
+.cancel-btn {
+  background: #ccc;
+}
+
+.save-btn {
+  background: #111;
+  color: #fff;
+}
+
+/* .profile-form {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+
+.image-upload-wrapper {
+  margin-bottom: 25px;
+}
+
+.image-upload {
+  width: 100%;
+  height: 200px;
+  background-color: #f0f0f0;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  overflow: hidden;
+
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.image-upload:hover {
+  background-color: #e8e8e8;
+}
+
+
+.image-upload img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+}
+
+
+
+/* INPUT FIELDS */
+/* .input-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+.input-group input, */
+/* .input-group select, */
+/* .input-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+} */
+
+/* .input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid;
+
+} */
+
+/* .input-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+} */
+
+/* .input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+} */
+/* TEXT AREAS */
+/* base textarea style */
+/* .input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+/* small textarea */
+/* .text_description {
+  min-height: 80px;
+    resize: none;
+} */
+
+/* large textarea */
+/* .text_add_info {
+  min-height: 300px;
+    resize: vertical;
+} */ 
+
+/* .input-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #1d1b1b;
+  border-radius: 6px;
+  box-sizing: border-box;  
+
+  max-width: 100%;   
+resize: none;} */
+/* 
+ BUTTONS 
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  background-color: #d2d2d2;
+  color: white;
+  margin-right: 10px;
+}
+
+.save-btn {
+  background-color: #333;
+  color: white;
+} */ 

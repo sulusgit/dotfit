@@ -1,0 +1,28 @@
+:::virtual host setings::::
+
+
+
+:::::FOLDERS::::
+_inc: folder for include to use using inlcude like header, footer.
+_conf.php: settings file (tohirgooni file)
+
+_www: folder when someone search on internet only see inside these.
+_pages: folder for pages.
+_htaccess: is apache settings file (useful for front controller)- useful to rewrite url. this line "RewriteRule ^(.*)$ index.php [PT,L]" does anyting writen in url sent/connect to index.php;
+:::Files:::
+_db.php: is for communication with tables every con created func so use them
+_home.php => is a home page of our site
+_index.php => is for frontcontroller
+_sign_up_save.php => for save new user's info
+_sing_in_do.php => for check user's info to sign in 
+_list_review.php => is for comments lists
+_my_fevo_lists.php => user can see the fevorite/liked courses (on the header heart btn)
+
+
+usefl sth:
+href="/admin/courses/delete_course?id=<?= $id ?>"
+
+  <a onclick="confirmDelete(<?= $id ?>,  '<?= $name  ?>')">
+                            <button class="menu-item danger">
+                                Delete</button>
+                        </a> 

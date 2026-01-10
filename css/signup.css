@@ -1,0 +1,128 @@
+/* Container */
+
+.signup-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: #f0f0f0;
+}
+
+/* Form section */
+.form-section {
+  width: 420px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.form-section h2 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Input groups */
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* Checkbox */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.checkbox-group input {
+  margin-right: 10px;
+}
+
+.checkbox-group label a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+/* Buttons */
+.signup-button,
+.social-buttons button {
+  width: 100%;
+  padding: 12px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.signup-button:hover {
+  background-color: #000;
+}
+
+/* Sign-in link */
+.signin-link {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.signin-link a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+
+
+
+/* ROLE BUTTONS */
+.role-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.role-buttons button {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 15px;
+}
+
+/* Hover */
+.role-buttons button:hover {
+  background: #e8e8e8;
+}
+
+/* ACTIVE (clicked) — soft grey */
+.role-buttons button.active {
+  background: #999;   /* light grey */
+  border-color: #bfbfbf; /* slightly darker border */
+  color: #333;           /* dark text */
+}
