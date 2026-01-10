@@ -100,7 +100,7 @@
         <div class="profile-form">
 
             <!-- Close → back to home -->
-            <a href="<?= url('/user/home_user_ui') ?>" class="close-x">&times;</a>
+            <a href="<?= url('user/home_user_ui') ?>" class="close-x">&times;</a>
 
             <h2>Enroll in Course</h2>
 
@@ -128,7 +128,7 @@
 
                 <div class="button-group">
                     <!-- Cancel → home -->
-                    <a href="<?= url('/user/home_user_ui') ?>" class="cancel-btn">Cancel</a>
+                    <a href="<?= url('user/home_user_ui') ?>" class="cancel-btn">Cancel</a>
 
                     <!-- Enroll → submit -->
                     <button type="submit" class="save-btn">

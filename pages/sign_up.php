@@ -9,11 +9,18 @@
 </head>
 
 <body>
+<<<<<<< HEAD
+    <div class="signup-container">
+        <div class="close-btn" onclick="closeSignup()">×</div>
+        <div class="form-section">
+            <h2>Sign Up</h2>
+=======
 
             <div class="signup-container">
                 <div class="form-section">
                     <span class="close-btn" onclick="window.location.href='home.php'">×</span>
                     <h2>Sign Up</h2>
+>>>>>>> e9c247aebc4af801afcec45a0c00c32b23c28e4d
             <?php if (!empty($_SESSION['errors'])): //here errors show 
             ?>
                 <ul>
@@ -46,6 +53,14 @@
                 // }
                 ?>
 
+<<<<<<< HEAD
+                <p class="signin-link">
+                    Already have an account?
+                    <a href="<?= url('sign_in') ?> ">Sign In</a><!-- sign_in.php -->
+                </p>
+
+=======
+>>>>>>> e9c247aebc4af801afcec45a0c00c32b23c28e4d
                 <div class="input-group">
                     <label>Name</label>
                     <input type="text" name="name" placeholder="Your name" required />
@@ -92,14 +107,12 @@
         }
     </script>
     <script>
-    function closeSignup() {
-        window.location.href = "<?= url('/') ?>";
-    }
-</script>
+        function closeSignup() {
+            window.location.href = "<?= url('/') ?>";
+        }
+    </script>
 
 
 </body>
 
-</html> 
-
-
+</html>

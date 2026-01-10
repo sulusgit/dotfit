@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
-    <link rel="stylesheet" href="<?= asset('/css/sign_in.css') ?>">
+    <link rel="stylesheet" href="<?= asset('css/sign_in.css') ?>">
 </head>
 
 <body>
 
     <div class="signup-container">
         <div class="form-section">
-            <span class="close-btn" onclick="window.location.href='home.php'">×</span>
+            <!-- <div class="close-btn" onclick="closeSignup()"> X </div> -->
+            <span class="close-btn" onclick="window.location.href='home'">×</span>
             <h2>Sign In</h2>
 
-            <form method="POST" action="<?= url('/sign_in_do') ?>">
+            <form method="POST" action="<?= url('sign_in_do') ?>">
 
                 <!-- ROLE BUTTONS -->
                 <div class="role-buttons">
@@ -65,7 +66,7 @@
 
             <p class="signin-link">
                 Don't have an account?
-                <a href="<?= url('/sign_up') ?>">Sign Up</a><!-- sign_up.php -->
+                <a href="<?= url('sign_up') ?>">Sign Up</a><!-- sign_up.php -->
             </p>
         </div>
     </div>
@@ -92,10 +93,10 @@
     </script>
 
     <script>
-    function closeSignup() {
-        window.location.href = "<?= url('/') ?>";
-    }
-</script>
+        function closeSignup() {
+            window.location.href = "<?= url('/') ?>";
+        }
+    </script>
 </body>
 
 </html>

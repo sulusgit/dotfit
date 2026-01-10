@@ -30,7 +30,7 @@
             <div class="input-group">
                 <label>Difficulty Level</label>
                 <select name="difficulty">
-                    <option value="">Not specified</option>
+                    <option value=""></option>
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>
                     <option value="Advanced">Advanced</option>
@@ -74,26 +74,26 @@
     </div>
 
     <script>
-    function triggerUpload() {
-        document.getElementById("imageInput").click();
-    }
-
-    document.getElementById("imageInput").addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        const previewBox = document.getElementById("previewBox");
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewBox.style.backgroundImage = `url('${e.target.result}')`;
-                previewBox.style.backgroundSize = 'cover';
-                previewBox.style.backgroundRepeat = 'no-repeat';
-                previewBox.style.backgroundPosition = 'center';
-                previewBox.innerHTML = '';
-            };
-            reader.readAsDataURL(file);
+        function triggerUpload() {
+            document.getElementById("imageInput").click();
         }
-    });
+
+        document.getElementById("imageInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            const previewBox = document.getElementById("previewBox");
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewBox.style.backgroundImage = `url('${e.target.result}')`;
+                    previewBox.style.backgroundSize = 'cover';
+                    previewBox.style.backgroundRepeat = 'no-repeat';
+                    previewBox.style.backgroundPosition = 'center';
+                    previewBox.innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 
 </body>

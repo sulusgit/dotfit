@@ -1,4 +1,5 @@
 <?php
+/* DO DTH !!!!!!! or same like LEARN MORE */
 $id = (int)($_GET['id'] ?? 0);
 
 if ($id <= 0) {

@@ -12,7 +12,7 @@ $price = (float) post('price');
 $text_add_info = trim($_POST['text_add_info'] ?? '');
 
 // badge is NOT decided now → DB logic later
-$badge = 'none';
+$badge = '';
 
 // difficulty: empty allowed → store NULL so default applies
 $difficulty = trim($_POST['difficulty'] ?? '');
@@ -68,4 +68,4 @@ if ($count > 0) {
     $_SESSION['errors'][] = "Course was not saved.";
 }
 
-_redirect(url('/admin/home_admin_ui'));
+_redirect('/admin/home_admin_ui');

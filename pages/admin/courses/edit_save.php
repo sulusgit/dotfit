@@ -8,7 +8,7 @@ $price       = (float) post('price');
 
 $text_add_info = trim($_POST['text_add_info'] ?? '');
 
-$badge = 'none';
+$badge = '';
 
 $difficulty = trim($_POST['difficulty'] ?? '');
 $difficulty = $difficulty === '' ? null : $difficulty;
@@ -44,7 +44,7 @@ $success = _exec(
 } */
 if ($id <= 0) {
     $_SESSION['errors'][] = 'Invalid course ID.';
-    _redirect(url('admin/home_admin_ui'));
+    _redirect('admin/home_admin_ui');
 }
 
 if ($success) {
@@ -54,7 +54,7 @@ if ($success) {
     $_SESSION['errors'][] = "Update failed.";
 }
 
-_redirect(url('admin/home_admin_ui'));
+_redirect('admin/home_admin_ui');
 
 
 

@@ -29,5 +29,5 @@ $success = _exec(
 );
 
 //header("Location: /course.php?id=" . $course_id);
-_redirect(url('learn_more'));
+_redirect('user/learn_more');
 exit;

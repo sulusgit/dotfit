@@ -1,10 +1,8 @@
 <?php
-
-
-
+/* Prevention to acess writing directly like page/admin/home_admin_ui */
 if ($_SESSION['role'] !== 'administrator') {
     $_SESSION['errors'] = ["you don't sign in, at first you have to sign in"];
-    _redirect(url('/sign_in'));
+    _redirect('sign_in');
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +14,7 @@ if ($_SESSION['role'] !== 'administrator') {
     <title>Admin Header</title>
 
 
-    <link rel="stylesheet" href="<?= asset('/css/header_admin.css') ?>">
+    <link rel="stylesheet" href="<?= asset('css/header_admin.css') ?>">
 
 </head>
 
@@ -24,7 +22,7 @@ if ($_SESSION['role'] !== 'administrator') {
     <header class="header">
         <!-- LOGO -->
 
-        <a href="<?= url('/admin/home_admin_ui') ?>" class="logo">.Fit</a>
+        <a href="<?= url('admin/home_admin_ui') ?>" class="logo">.Fit</a>
 
         <!-- CENTER SECTION -->
         <div class="center-section">
@@ -66,7 +64,7 @@ if ($_SESSION['role'] !== 'administrator') {
             </div>
 
             <!-- ADD COURSE BUTTON -->
-            <a href="<?= url('/admin/add_course') ?>" class="add-course-btn">
+            <a href="<?= url('admin/add_course') ?>" class="add-course-btn">
                 Add Coursee
             </a>
         </div>
