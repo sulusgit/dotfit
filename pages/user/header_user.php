@@ -156,13 +156,7 @@ if ($_SESSION['role'] !== 'user') {
             border-color: #000;
         }
 
-        .filter-option.active-sort .checkbox-box::after {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: #000;
-            border-radius: 50%;
-        }
+     
 
         @keyframes fadeIn {
             from {
@@ -450,6 +444,42 @@ if ($_SESSION['role'] !== 'user') {
             .profile-menu-divider {
                 background: rgba(255, 255, 255, 0.1);
             }
+                 /* --- STYLE DLA FILTRA - DARK MODE --- */
+    @media (prefers-color-scheme: dark) {
+        .filter-menu {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .filter-option {
+            color: #ccc;
+        }
+
+        .filter-option:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Aktywna opcja w trybie ciemnym */
+        .filter-option.active-sort {
+            background-color: #252525;
+            color: #fff;
+        }
+
+        /* Checkbox w trybie ciemnym - wypełniony biało z czarną kratką */
+        .filter-option.active-sort .checkbox-box {
+            background-color: #fff;
+            border-color: #fff;
+            
+            /* SVG Checkmark (Czarna kratka na białym tle) */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: 14px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+    
         }
     </style>
 </head>
@@ -461,28 +491,40 @@ if ($_SESSION['role'] !== 'user') {
 
         <!-- CENTER SECTION -->
         <div class="center-section">
-            <!-- FILTER at the heqader--- NOWY FILTR --- -->
-            <div class="filter-dropdown" id="filterDropdown">
-                <button class="filter-btn" onclick="toggleFilter()" title="Sort by Price">
-                    <!-- Ikona Lejka / Filtru -->
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                    </svg>
-                </button>
+                            <!-- FILTER at the header --- SORT UI --- -->
+        <div class="filter-dropdown" id="filterDropdown">
+            <button class="filter-btn" onclick="toggleFilter(event)" title="Filter & Sort">
+                <!-- Ikona Lejka / Filtru -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+            </button>
 
-                <div class="filter-menu">
-                    <a href="" class="filter-option">
-                        <div class="checkbox-box"></div>
-                        Lowest Price
-                    </a>
-                    <a href="" class="filter-option">
-                        <div class="checkbox-box"></div>
-                        Highest Price
-                    </a>
-                </div>
+            <div class="filter-menu">
+                <!-- Lowest Price -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Lowest Price
+                </a>
+                <!-- Highest Price -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Highest Price
+                </a>
+                <!-- Newest -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Newest
+                </a>
+                <!-- Oldest -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Oldest
+                </a>
             </div>
-            <!-- --- KONIEC FILTRA --- -->
+        </div>
+        <!-- --- END FILTER --- -->
 
             <!-- SEARCH -->
             <div class="search-box">
@@ -571,6 +613,44 @@ if ($_SESSION['role'] !== 'user') {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <script>
+
+                // --- FILTER LOGIC ---
+
+        // 1. Funkcja otwierająca/zamykająca menu (zatrzymuje propagację, żeby nie zamknąć się od razu)
+        function toggleFilter(event) {
+            event.stopPropagation(); // Zapobiega zamknięciu po kliknięciu w przycisk
+            const dropdown = document.getElementById('filterDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // 2. Funkcja obsługująca wybór opcji
+        function selectOption(element) {
+            // Usuń klasę 'active-sort' ze wszystkich opcji
+            const options = document.querySelectorAll('.filter-option');
+            options.forEach(opt => opt.classList.remove('active-sort'));
+
+            // Dodaj klasę 'active-sort' do klikniętego elementu
+            element.classList.add('active-sort');
+
+            // Tutaj możesz dodać logikę sortowania produktów, np.:
+            // console.log('Wybrano:', element.innerText.trim());
+            
+            // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
+            document.getElementById('filterDropdown').classList.remove('active');
+        }
+
+        // 3. Zamknij menu, jeśli klikniesz poza nim
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('filterDropdown');
+            const isClickInside = dropdown.contains(event.target);
+
+            if (!isClickInside) {
+                dropdown.classList.remove('active');
             }
         });
     </script>

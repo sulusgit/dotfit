@@ -29,28 +29,40 @@ if ($_SESSION['role'] !== 'administrator') {
         <!-- CENTER SECTION -->
         <div class="center-section">
 
-            <!-- FILTER at the heqader--- NOWY FILTR --- -->
-            <div class="filter-dropdown" id="filterDropdown">
-                <button class="filter-btn" onclick="toggleFilter()" title="Sort by Price">
-                    <!-- Ikona Lejka / Filtru -->
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                    </svg>
-                </button>
+             <!-- FILTER at the header --- SORT UI --- -->
+        <div class="filter-dropdown" id="filterDropdown">
+            <button class="filter-btn" onclick="toggleFilter(event)" title="Filter & Sort">
+                <!-- Ikona Lejka / Filtru -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+            </button>
 
-                <div class="filter-menu">
-                    <a href="" class="filter-option">
-                        <div class="checkbox-box"></div>
-                        Lowest Price
-                    </a>
-                    <a href="" class="filter-option">
-                        <div class="checkbox-box"></div>
-                        Highest Price
-                    </a>
-                </div>
+            <div class="filter-menu">
+                <!-- Lowest Price -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Lowest Price
+                </a>
+                <!-- Highest Price -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Highest Price
+                </a>
+                <!-- Newest -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Newest
+                </a>
+                <!-- Oldest -->
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Oldest
+                </a>
             </div>
-            <!-- --- KONIEC FILTRA --- -->
+        </div>
+        <!-- --- END FILTER --- -->
             <!-- SEARCH -->
             <div class="search-box">
 
@@ -148,6 +160,44 @@ if ($_SESSION['role'] !== 'administrator') {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <script>
+
+                // --- FILTER LOGIC ---
+
+        // 1. Funkcja otwierająca/zamykająca menu (zatrzymuje propagację, żeby nie zamknąć się od razu)
+        function toggleFilter(event) {
+            event.stopPropagation(); // Zapobiega zamknięciu po kliknięciu w przycisk
+            const dropdown = document.getElementById('filterDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // 2. Funkcja obsługująca wybór opcji
+        function selectOption(element) {
+            // Usuń klasę 'active-sort' ze wszystkich opcji
+            const options = document.querySelectorAll('.filter-option');
+            options.forEach(opt => opt.classList.remove('active-sort'));
+
+            // Dodaj klasę 'active-sort' do klikniętego elementu
+            element.classList.add('active-sort');
+
+            // Tutaj możesz dodać logikę sortowania produktów, np.:
+            // console.log('Wybrano:', element.innerText.trim());
+            
+            // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
+            document.getElementById('filterDropdown').classList.remove('active');
+        }
+
+        // 3. Zamknij menu, jeśli klikniesz poza nim
+        window.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('filterDropdown');
+            const isClickInside = dropdown.contains(event.target);
+
+            if (!isClickInside) {
+                dropdown.classList.remove('active');
             }
         });
     </script>
