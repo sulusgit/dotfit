@@ -22,4 +22,4 @@ try {
     $_SESSION['errors'] = ["Your $name of course record couldn't deleted, try again"];
 }
 
-_redirect(url('admin/home_admin_ui'));
+_redirect('admin/home_admin_ui');

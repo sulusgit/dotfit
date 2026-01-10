@@ -5,6 +5,7 @@ function url(string $path = ''): string
     return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/');
 }
 
+
 function asset(string $path): string
 {
     return url($path);
@@ -49,6 +50,7 @@ function _redirect(string $path): void
  * Build URL for static assets (CSS, JS, images)
  *
  * ✅ USE FOR:
+ *
  *
  *
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">

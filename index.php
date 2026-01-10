@@ -4,7 +4,6 @@ ini_set('display_errors', 1);
 
 define('ROOT', __DIR__);
 define('BASE_URL', '/dotfit');
-
 require ROOT . '/inc/helper.php';
 require ROOT . '/inc/conf.php';
 require ROOT . '/inc/db.php';

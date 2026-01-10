@@ -53,4 +53,11 @@ CREATE TABLE users (
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
- >>>> 
+ >>>> table users fevorite course list:
+ CREATE TABLE favorites (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_user_course (user_id, course_id)
+);

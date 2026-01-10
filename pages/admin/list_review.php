@@ -1,713 +1,737 @@
 <?php
 require 'header_admin.php';
 
+$user_id = $_SESSION['id'] ?? 0;
 
-$courses = ["Swimming", "Yoga Basics", "Advanced Fitness"];
-$opinions = [
-    ["text" => "Great course, very clear explanations.", "author" => "Sarah M.", "rating" => 5],
-    ["text" => "Very professional and easy to follow.", "author" => "Mike R.", "rating" => 5],
-    ["text" => "Highly recommended for beginners.", "author" => "Anna K.", "rating" => 4]
-];
+
+_select(
+    $stmt,
+    $count,
+    "SELECT id, review, stars, user_id
+     FROM comments
+     WHERE course_id = ?
+     ORDER BY created_at DESC
+     LIMIT 5",
+    "i",
+    [$course_id],
+    $comment_id,
+    $review,
+    $stars,
+    $comment_user_id
+);
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile -</title>
-
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-        background: #ffffff;
-        color: #1a1a1a;
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
-
-    /* HERO HEADER */
-    .profile-hero {
-        min-height: 45vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 80px 40px;
-        background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .profile-hero::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 800px;
-        height: 800px;
-        background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-    }
-
-    .profile-hero::after {
-        content: '';
-        position: absolute;
-        bottom: -30%;
-        left: -10%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(0, 0, 0, 0.015) 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-    }
-
-    .hero-content {
-        text-align: center;
-        z-index: 1;
-        animation: fadeInUp 1s ease;
-    }
-
-
-
-    .avatar {
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-        background: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 32px;
-        font-weight: 500;
-        color: #fff;
-        margin: 0 auto 20px;
-    }
-
-    .profile-name {
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 28px;
-        font-weight: 500;
-        letter-spacing: -0.5px;
-        line-height: 1.2;
-        margin-bottom: 8px;
-        color: #000;
-    }
-
-
-
-
-
-
-
-
-    .profile-email {
-        font-size: 18px;
-        font-weight: 400;
-        color: #666;
-        letter-spacing: 0.5px;
-        margin-bottom: 8px;
-    }
-
-    .profile-role {
-        display: inline-block;
-        background: rgba(0, 0, 0, 0.05);
-        padding: 8px 20px;
-        border-radius: 24px;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: #000;
-        margin-top: 16px;
-    }
-
-    /* MAIN CONTENT */
-    .main-content {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 0 40px 120px;
-    }
-
-    /* SECTION STYLES */
-    .section {
-        margin-bottom: 60px;
-        animation: fadeInUp 1s ease;
-    }
-
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 40px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .section-label {
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: #999;
-        margin-bottom: 8px;
-    }
-
-    .section-title {
-        font-size: 36px;
-        font-weight: 700;
-        letter-spacing: -2px;
-    }
-
-    .edit-btn {
-        background: #000;
-        color: #fff;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .edit-btn:hover {
-        background: #333;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    .edit-btn svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    /* INFO CARD */
-    .info-card {
-        background: #fafafa;
-        border-radius: 20px;
-        padding: 40px;
-        border: 1px solid rgba(0, 0, 0, 0.04);
-    }
-
-    .info-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-
-    .info-row:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
-    .info-row:first-child {
-        padding-top: 0;
-    }
-
-    .info-label {
-        font-size: 14px;
-        font-weight: 500;
-        color: #999;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .info-value {
-        font-size: 18px;
-        font-weight: 600;
-        color: #000;
-    }
-
-    /* EDITABLE INPUT */
-    .info-value.editable {
-        background: transparent;
-        border: none;
-        text-align: right;
-        font-family: inherit;
-        outline: none;
-        transition: all 0.3s ease;
-        padding: 8px 12px;
-        border-radius: 8px;
-        min-width: 200px;
-    }
-
-    .info-value.editable:focus {
-        background: #fff;
-        box-shadow: 0 0 0 2px #000;
-    }
-
-    .info-value.editable:disabled {
-        opacity: 1;
-        cursor: default;
-    }
-
-    /* COURSES LIST */
-    .courses-list {
-        display: grid;
-        gap: 16px;
-    }
-
-    .course-item {
-        background: #fafafa;
-        border-radius: 16px;
-        padding: 28px 32px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        transition: all 0.3s ease;
-    }
-
-    .course-item:hover {
-        background: #f5f5f5;
-        transform: translateX(8px);
-    }
-
-    .course-name {
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: -0.5px;
-    }
-
-    .course-name.editable {
-        background: transparent;
-        border: none;
-        font-family: inherit;
-        outline: none;
-        transition: all 0.3s ease;
-        padding: 8px 12px;
-        border-radius: 8px;
-        width: 100%;
-        max-width: 300px;
-    }
-
-    .course-name.editable:focus {
-        background: #fff;
-        box-shadow: 0 0 0 2px #000;
-    }
-
-    .course-arrow {
-        font-size: 20px;
-        color: #999;
-        transition: transform 0.3s ease;
-    }
-
-    .course-item:hover .course-arrow {
-        transform: translateX(8px);
-        color: #000;
-    }
-
-    .delete-btn {
-        background: #ff4444;
-        color: #fff;
-        border: none;
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .delete-btn:hover {
-        background: #cc0000;
-        transform: scale(1.1);
-    }
-
-    .delete-btn.visible {
-        display: flex;
-    }
-
-    /* ADD BUTTON */
-    .add-btn {
-        background: transparent;
-        border: 2px dashed rgba(0, 0, 0, 0.15);
-        border-radius: 16px;
-        padding: 24px;
-        width: 100%;
-        font-size: 15px;
-        font-weight: 600;
-        color: #999;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 16px;
-        display: none;
-    }
-
-    .add-btn.visible {
-        display: block;
-    }
-
-    .add-btn:hover {
-        border-color: #000;
-        color: #000;
-        background: #fafafa;
-    }
-
-    /* OPINIONS */
-    .opinions-list {
-        display: grid;
-        gap: 24px;
-    }
-
-    .opinion-card {
-        background: #fafafa;
-        border-radius: 20px;
-        padding: 32px;
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        position: relative;
-    }
-
-    .opinion-quote {
-        font-size: 48px;
-        color: rgba(0, 0, 0, 0.08);
-        position: absolute;
-        top: 20px;
-        left: 28px;
-        font-family: Georgia, serif;
-        line-height: 1;
-    }
-
-    .opinion-text {
-        font-size: 18px;
-        color: #333;
-        line-height: 1.7;
-        margin-bottom: 20px;
-        padding-left: 24px;
-    }
-
-    .opinion-text.editable {
-        background: transparent;
-        border: none;
-        font-family: inherit;
-        outline: none;
-        width: 100%;
-        resize: none;
-        transition: all 0.3s ease;
-        padding: 12px;
-        border-radius: 8px;
-    }
-
-    .opinion-text.editable:focus {
-        background: #fff;
-        box-shadow: 0 0 0 2px #000;
-    }
-
-    .opinion-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-left: 24px;
-    }
-
-    .opinion-author {
-        font-size: 14px;
-        font-weight: 600;
-        color: #000;
-    }
-
-    .opinion-rating {
-        display: flex;
-        gap: 4px;
-    }
-
-    .star {
-        color: #ffc107;
-        font-size: 16px;
-    }
-
-    .star.empty {
-        color: #ddd;
-    }
-
-    /* SAVE INDICATOR */
-    .save-indicator {
-        position: fixed;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%) translateY(100px);
-        background: #000;
-        color: #fff;
-        padding: 16px 32px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        z-index: 1000;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    .save-indicator.visible {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    .save-indicator .checkmark {
-        width: 20px;
-        height: 20px;
-        background: #4CAF50;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    /* EDIT MODE STYLES */
-    .editing .edit-btn {
-        background: #4CAF50;
-    }
-
-    .editing .edit-btn:hover {
-        background: #45a049;
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes pulse {
-
-        0%,
-        100% {
-            transform: scale(1);
-        }
-
-        50% {
-            transform: scale(1.05);
-        }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-        .profile-hero {
-            padding: 60px 24px;
-            min-height: 40vh;
-        }
-
-        .profile-name {
-            letter-spacing: -2px;
-        }
-
-        .main-content {
-            padding: 0 24px 80px;
-        }
-
-        .section-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        .info-card {
-            padding: 24px;
-        }
-
-        .info-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        .info-value.editable {
-            text-align: left;
-            width: 100%;
-        }
-
-        .course-item {
-            padding: 20px 24px;
-        }
-
-        .opinion-card {
-            padding: 24px;
-        }
-    }
-    </style>
-</head>
-
-<body>
-
-    <!-- HERO HEADER -->
-    <section class="profile-hero">
-        <div class="hero-content">
-
+<?php while (_fetch($stmt)): ?>
+    <div class="recent-comment">
+        <div class="stars">
+            <?php for ($i = 1; $i <= 5; $i++): ?>
+                <span class="<?= $i <= $stars ? 'filled' : '' ?>">★</span>
+            <?php endfor; ?>
         </div>
-    </section>
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
+        <p><?= htmlspecialchars($review ?? '') ?></p>
+
+        <?php if ($comment_user_id == $user_id): ?>
+            ?>
+            <!DOCTYPE html>
+            <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Profile -</title>
+
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
+
+                    body {
+                        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+                        background: #ffffff;
+                        color: #1a1a1a;
+                        line-height: 1.6;
+                        overflow-x: hidden;
+                    }
+
+                    /* HERO HEADER */
+                    .profile-hero {
+                        min-height: 45vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 80px 40px;
+                        background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .profile-hero::before {
+                        content: '';
+                        position: absolute;
+                        top: -50%;
+                        right: -20%;
+                        width: 800px;
+                        height: 800px;
+                        background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
+                        border-radius: 50%;
+                        pointer-events: none;
+                    }
+
+                    .profile-hero::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -30%;
+                        left: -10%;
+                        width: 600px;
+                        height: 600px;
+                        background: radial-gradient(circle, rgba(0, 0, 0, 0.015) 0%, transparent 70%);
+                        border-radius: 50%;
+                        pointer-events: none;
+                    }
+
+                    .hero-content {
+                        text-align: center;
+                        z-index: 1;
+                        animation: fadeInUp 1s ease;
+                    }
+
+
+
+                    .avatar {
+                        width: 96px;
+                        height: 96px;
+                        border-radius: 50%;
+                        background: #000;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-family: Helvetica, Arial, sans-serif;
+                        font-size: 32px;
+                        font-weight: 500;
+                        color: #fff;
+                        margin: 0 auto 20px;
+                    }
+
+                    .profile-name {
+                        font-family: Helvetica, Arial, sans-serif;
+                        font-size: 28px;
+                        font-weight: 500;
+                        letter-spacing: -0.5px;
+                        line-height: 1.2;
+                        margin-bottom: 8px;
+                        color: #000;
+                    }
 
 
 
 
-        <!-- OPINIONS SECTION -->
-        <section class="section" id="opinions-section">
-            <div class="section-header">
-                <div>
 
-                    <h2 class="section-title">Course Reviews</h2>
-                </div>
 
-            </div>
 
-            <div class="opinions-list" id="opinions-list">
-                <?php foreach ($opinions as $index => $opinion): ?>
-                <div class="opinion-card" data-index="<?= $index ?>">
-                    <span class="opinion-quote">"</span>
-                    <textarea class="opinion-text editable" rows="2"
-                        disabled><?= htmlspecialchars($opinion['text']) ?></textarea>
-                    <div class="opinion-footer">
-                        <span class="opinion-author">— <?= htmlspecialchars($opinion['author']) ?></span>
-                        <div class="opinion-rating">
-                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <span class="star <?= $i > $opinion['rating'] ? 'empty' : '' ?>">★</span>
-                            <?php endfor; ?>
-                        </div>
+
+                    .profile-email {
+                        font-size: 18px;
+                        font-weight: 400;
+                        color: #666;
+                        letter-spacing: 0.5px;
+                        margin-bottom: 8px;
+                    }
+
+                    .profile-role {
+                        display: inline-block;
+                        background: rgba(0, 0, 0, 0.05);
+                        padding: 8px 20px;
+                        border-radius: 24px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        color: #000;
+                        margin-top: 16px;
+                    }
+
+                    /* MAIN CONTENT */
+                    .main-content {
+                        max-width: 1000px;
+                        margin: 0 auto;
+                        padding: 0 40px 120px;
+                    }
+
+                    /* SECTION STYLES */
+                    .section {
+                        margin-bottom: 60px;
+                        animation: fadeInUp 1s ease;
+                    }
+
+                    .section-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 40px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                    }
+
+                    .section-label {
+                        font-size: 12px;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        color: #999;
+                        margin-bottom: 8px;
+                    }
+
+                    .section-title {
+                        font-size: 36px;
+                        font-weight: 700;
+                        letter-spacing: -2px;
+                    }
+
+                    .edit-btn {
+                        background: #000;
+                        color: #fff;
+                        border: none;
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        font-size: 13px;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                    }
+
+                    .edit-btn:hover {
+                        background: #333;
+                        transform: translateY(-2px);
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                    }
+
+                    .edit-btn svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+
+                    /* INFO CARD */
+                    .info-card {
+                        background: #fafafa;
+                        border-radius: 20px;
+                        padding: 40px;
+                        border: 1px solid rgba(0, 0, 0, 0.04);
+                    }
+
+                    .info-row {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 20px 0;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                    }
+
+                    .info-row:last-child {
+                        border-bottom: none;
+                        padding-bottom: 0;
+                    }
+
+                    .info-row:first-child {
+                        padding-top: 0;
+                    }
+
+                    .info-label {
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #999;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+
+                    .info-value {
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #000;
+                    }
+
+                    /* EDITABLE INPUT */
+                    .info-value.editable {
+                        background: transparent;
+                        border: none;
+                        text-align: right;
+                        font-family: inherit;
+                        outline: none;
+                        transition: all 0.3s ease;
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        min-width: 200px;
+                    }
+
+                    .info-value.editable:focus {
+                        background: #fff;
+                        box-shadow: 0 0 0 2px #000;
+                    }
+
+                    .info-value.editable:disabled {
+                        opacity: 1;
+                        cursor: default;
+                    }
+
+                    /* COURSES LIST */
+                    .courses-list {
+                        display: grid;
+                        gap: 16px;
+                    }
+
+                    .course-item {
+                        background: #fafafa;
+                        border-radius: 16px;
+                        padding: 28px 32px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        border: 1px solid rgba(0, 0, 0, 0.04);
+                        transition: all 0.3s ease;
+                    }
+
+                    .course-item:hover {
+                        background: #f5f5f5;
+                        transform: translateX(8px);
+                    }
+
+                    .course-name {
+                        font-size: 20px;
+                        font-weight: 600;
+                        letter-spacing: -0.5px;
+                    }
+
+                    .course-name.editable {
+                        background: transparent;
+                        border: none;
+                        font-family: inherit;
+                        outline: none;
+                        transition: all 0.3s ease;
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        width: 100%;
+                        max-width: 300px;
+                    }
+
+                    .course-name.editable:focus {
+                        background: #fff;
+                        box-shadow: 0 0 0 2px #000;
+                    }
+
+                    .course-arrow {
+                        font-size: 20px;
+                        color: #999;
+                        transition: transform 0.3s ease;
+                    }
+
+                    .course-item:hover .course-arrow {
+                        transform: translateX(8px);
+                        color: #000;
+                    }
+
+                    .delete-btn {
+                        background: #ff4444;
+                        color: #fff;
+                        border: none;
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        display: none;
+                        align-items: center;
+                        justify-content: center;
+                        transition: all 0.3s ease;
+                    }
+
+                    .delete-btn:hover {
+                        background: #cc0000;
+                        transform: scale(1.1);
+                    }
+
+                    .delete-btn.visible {
+                        display: flex;
+                    }
+
+                    /* ADD BUTTON */
+                    .add-btn {
+                        background: transparent;
+                        border: 2px dashed rgba(0, 0, 0, 0.15);
+                        border-radius: 16px;
+                        padding: 24px;
+                        width: 100%;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: #999;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        margin-top: 16px;
+                        display: none;
+                    }
+
+                    .add-btn.visible {
+                        display: block;
+                    }
+
+                    .add-btn:hover {
+                        border-color: #000;
+                        color: #000;
+                        background: #fafafa;
+                    }
+
+                    /* OPINIONS */
+                    .opinions-list {
+                        display: grid;
+                        gap: 24px;
+                    }
+
+                    .opinion-card {
+                        background: #fafafa;
+                        border-radius: 20px;
+                        padding: 32px;
+                        border: 1px solid rgba(0, 0, 0, 0.04);
+                        position: relative;
+                    }
+
+                    .opinion-quote {
+                        font-size: 48px;
+                        color: rgba(0, 0, 0, 0.08);
+                        position: absolute;
+                        top: 20px;
+                        left: 28px;
+                        font-family: Georgia, serif;
+                        line-height: 1;
+                    }
+
+                    .opinion-text {
+                        font-size: 18px;
+                        color: #333;
+                        line-height: 1.7;
+                        margin-bottom: 20px;
+                        padding-left: 24px;
+                    }
+
+                    .opinion-text.editable {
+                        background: transparent;
+                        border: none;
+                        font-family: inherit;
+                        outline: none;
+                        width: 100%;
+                        resize: none;
+                        transition: all 0.3s ease;
+                        padding: 12px;
+                        border-radius: 8px;
+                    }
+
+                    .opinion-text.editable:focus {
+                        background: #fff;
+                        box-shadow: 0 0 0 2px #000;
+                    }
+
+                    .opinion-footer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding-left: 24px;
+                    }
+
+                    .opinion-author {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #000;
+                    }
+
+                    .opinion-rating {
+                        display: flex;
+                        gap: 4px;
+                    }
+
+                    .star {
+                        color: #ffc107;
+                        font-size: 16px;
+                    }
+
+                    .star.empty {
+                        color: #ddd;
+                    }
+
+                    /* SAVE INDICATOR */
+                    .save-indicator {
+                        position: fixed;
+                        bottom: 40px;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(100px);
+                        background: #000;
+                        color: #fff;
+                        padding: 16px 32px;
+                        border-radius: 12px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                        z-index: 1000;
+                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .save-indicator.visible {
+                        transform: translateX(-50%) translateY(0);
+                    }
+
+                    .save-indicator .checkmark {
+                        width: 20px;
+                        height: 20px;
+                        background: #4CAF50;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    /* EDIT MODE STYLES */
+                    .editing .edit-btn {
+                        background: #4CAF50;
+                    }
+
+                    .editing .edit-btn:hover {
+                        background: #45a049;
+                    }
+
+                    /* ANIMATIONS */
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                        }
+
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+
+                    @keyframes pulse {
+
+                        0%,
+                        100% {
+                            transform: scale(1);
+                        }
+
+                        50% {
+                            transform: scale(1.05);
+                        }
+                    }
+
+                    /* RESPONSIVE */
+                    @media (max-width: 768px) {
+                        .profile-hero {
+                            padding: 60px 24px;
+                            min-height: 40vh;
+                        }
+
+                        .profile-name {
+                            letter-spacing: -2px;
+                        }
+
+                        .main-content {
+                            padding: 0 24px 80px;
+                        }
+
+                        .section-header {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 20px;
+                        }
+
+                        .info-card {
+                            padding: 24px;
+                        }
+
+                        .info-row {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 8px;
+                        }
+
+                        .info-value.editable {
+                            text-align: left;
+                            width: 100%;
+                        }
+
+                        .course-item {
+                            padding: 20px 24px;
+                        }
+
+                        .opinion-card {
+                            padding: 24px;
+                        }
+                    }
+                </style>
+            </head>
+
+            <body>
+
+                <!-- HERO HEADER -->
+                <section class="profile-hero">
+                    <div class="hero-content">
+
                     </div>
+                </section>
+
+                <!-- MAIN CONTENT -->
+                <main class="main-content">
+
+
+
+
+                    <!-- OPINIONS SECTION -->
+                    <section class="section" id="opinions-section">
+                        <div class="section-header">
+                            <div>
+
+                                <h2 class="section-title">Course Reviews</h2>
+                            </div>
+
+                        </div>
+
+                        <div class="opinions-list" id="opinions-list">
+                            <?php foreach ($opinions as $index => $opinion): ?>
+                                <div class="opinion-card" data-index="<?= $index ?>">
+                                    <span class="opinion-quote">"</span>
+                                    <textarea class="opinion-text editable" rows="2"
+                                        disabled><?= htmlspecialchars($opinion['text']) ?></textarea>
+                                    <div class="opinion-footer">
+                                        <span class="opinion-author">— <?= htmlspecialchars($opinion['author']) ?></span>
+                                        <div class="opinion-rating">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <span class="star <?= $i > $opinion['rating'] ? 'empty' : '' ?>">★</span>
+                                            <?php endfor; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+
+                </main>
+
+                <!-- SAVE INDICATOR -->
+                <div class="save-indicator" id="save-indicator">
+                    <div class="checkmark">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                            <path d="M20 6L9 17l-5-5"></path>
+                        </svg>
+                    </div>
+                    Changes saved successfully!
                 </div>
-                <?php endforeach; ?>
-            </div>
-        </section>
 
-    </main>
+                <script>
+                    // State management
+                    const editState = {
+                        profile: false,
+                        courses: false,
+                        opinions: false
+                    };
 
-    <!-- SAVE INDICATOR -->
-    <div class="save-indicator" id="save-indicator">
-        <div class="checkmark">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
-                <path d="M20 6L9 17l-5-5"></path>
-            </svg>
-        </div>
-        Changes saved successfully!
-    </div>
+                    // Toggle edit mode for sections
+                    function toggleEdit(section) {
+                        editState[section] = !editState[section];
+                        const sectionEl = document.getElementById(`${section}-section`);
+                        const btn = sectionEl.querySelector('.edit-btn span');
+                        const inputs = sectionEl.querySelectorAll('.editable');
 
-    <script>
-    // State management
-    const editState = {
-        profile: false,
-        courses: false,
-        opinions: false
-    };
+                        if (editState[section]) {
+                            // Enable editing
+                            sectionEl.classList.add('editing');
+                            btn.textContent = 'Save';
+                            inputs.forEach(input => {
+                                input.disabled = false;
+                                input.style.cursor = 'text';
+                            });
 
-    // Toggle edit mode for sections
-    function toggleEdit(section) {
-        editState[section] = !editState[section];
-        const sectionEl = document.getElementById(`${section}-section`);
-        const btn = sectionEl.querySelector('.edit-btn span');
-        const inputs = sectionEl.querySelectorAll('.editable');
+                            // Show delete buttons and add button for courses
+                            if (section === 'courses') {
+                                sectionEl.querySelectorAll('.delete-btn').forEach(btn => btn.classList.add('visible'));
+                                sectionEl.querySelectorAll('.course-arrow').forEach(arrow => arrow.style.display = 'none');
+                                document.getElementById('add-course-btn').classList.add('visible');
+                            }
+                        } else {
+                            // Save and disable editing
+                            sectionEl.classList.remove('editing');
+                            btn.textContent = 'Edit';
+                            inputs.forEach(input => {
+                                input.disabled = true;
+                                input.style.cursor = 'default';
+                            });
 
-        if (editState[section]) {
-            // Enable editing
-            sectionEl.classList.add('editing');
-            btn.textContent = 'Save';
-            inputs.forEach(input => {
-                input.disabled = false;
-                input.style.cursor = 'text';
-            });
+                            // Hide delete buttons and add button
+                            if (section === 'courses') {
+                                sectionEl.querySelectorAll('.delete-btn').forEach(btn => btn.classList.remove('visible'));
+                                sectionEl.querySelectorAll('.course-arrow').forEach(arrow => arrow.style.display = 'block');
+                                document.getElementById('add-course-btn').classList.remove('visible');
+                            }
 
-            // Show delete buttons and add button for courses
-            if (section === 'courses') {
-                sectionEl.querySelectorAll('.delete-btn').forEach(btn => btn.classList.add('visible'));
-                sectionEl.querySelectorAll('.course-arrow').forEach(arrow => arrow.style.display = 'none');
-                document.getElementById('add-course-btn').classList.add('visible');
-            }
-        } else {
-            // Save and disable editing
-            sectionEl.classList.remove('editing');
-            btn.textContent = 'Edit';
-            inputs.forEach(input => {
-                input.disabled = true;
-                input.style.cursor = 'default';
-            });
+                            // Show save indicator
+                            showSaveIndicator();
 
-            // Hide delete buttons and add button
-            if (section === 'courses') {
-                sectionEl.querySelectorAll('.delete-btn').forEach(btn => btn.classList.remove('visible'));
-                sectionEl.querySelectorAll('.course-arrow').forEach(arrow => arrow.style.display = 'block');
-                document.getElementById('add-course-btn').classList.remove('visible');
-            }
+                            // Update hero section if profile was edited
+                            if (section === 'profile') {
+                                updateHero();
+                            }
+                        }
+                    }
 
-            // Show save indicator
-            showSaveIndicator();
+                    // Update hero section with new values
+                    function updateHero() {
+                        const name = document.getElementById('edit-name').value;
+                        const email = document.getElementById('edit-email').value;
+                        const role = document.getElementById('edit-role').value;
 
-            // Update hero section if profile was edited
-            if (section === 'profile') {
-                updateHero();
-            }
-        }
-    }
+                        document.querySelector('.profile-name').textContent = name;
+                        document.querySelector('.profile-email').textContent = email;
+                        document.querySelector('.profile-role').textContent = role;
+                        document.querySelector('.avatar').textContent = name.charAt(0).toUpperCase();
+                    }
 
-    // Update hero section with new values
-    function updateHero() {
-        const name = document.getElementById('edit-name').value;
-        const email = document.getElementById('edit-email').value;
-        const role = document.getElementById('edit-role').value;
+                    // Show save indicator
+                    function showSaveIndicator() {
+                        const indicator = document.getElementById('save-indicator');
+                        indicator.classList.add('visible');
 
-        document.querySelector('.profile-name').textContent = name;
-        document.querySelector('.profile-email').textContent = email;
-        document.querySelector('.profile-role').textContent = role;
-        document.querySelector('.avatar').textContent = name.charAt(0).toUpperCase();
-    }
-
-    // Show save indicator
-    function showSaveIndicator() {
-        const indicator = document.getElementById('save-indicator');
-        indicator.classList.add('visible');
-
-        setTimeout(() => {
-            indicator.classList.remove('visible');
-        }, 3000);
-    }
+                        setTimeout(() => {
+                            indicator.classList.remove('visible');
+                        }, 3000);
+                    }
 
 
 
-    // Delete course
-    function deleteCourse(index) {
-        const courseItem = document.querySelector(`.course-item[data-index="${index}"]`);
-        if (courseItem) {
-            courseItem.style.animation = 'fadeOut 0.3s ease forwards';
-            setTimeout(() => {
-                courseItem.remove();
-                // Re-index remaining courses
-                document.querySelectorAll('.course-item').forEach((item, i) => {
-                    item.dataset.index = i;
-                });
-            }, 300);
-        }
-    }
+                    // Delete course
+                    function deleteCourse(index) {
+                        const courseItem = document.querySelector(`.course-item[data-index="${index}"]`);
+                        if (courseItem) {
+                            courseItem.style.animation = 'fadeOut 0.3s ease forwards';
+                            setTimeout(() => {
+                                courseItem.remove();
+                                // Re-index remaining courses
+                                document.querySelectorAll('.course-item').forEach((item, i) => {
+                                    item.dataset.index = i;
+                                });
+                            }, 300);
+                        }
+                    }
 
-    // Add fadeOut animation
-    const style = document.createElement('style');
-    style.textContent = `
+                    // Add fadeOut animation
+                    const style = document.createElement('style');
+                    style.textContent = `
         @keyframes fadeOut {
             to {
                 opacity: 0;
@@ -715,17 +739,22 @@ $opinions = [
             }
         }
     `;
-    document.head.appendChild(style);
+                    document.head.appendChild(style);
 
-    // Auto-resize textareas
-    document.querySelectorAll('textarea.editable').forEach(textarea => {
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = this.scrollHeight + 'px';
-        });
-    });
-    </script>
+                    // Auto-resize textareas
+                    document.querySelectorAll('textarea.editable').forEach(textarea => {
+                        textarea.addEventListener('input', function() {
+                            this.style.height = 'auto';
+                            this.style.height = this.scrollHeight + 'px';
+                        });
+                    });
+                </script>
 
-</body>
+            </body>
 
-</html>
+            </html>
+
+        <?php endif; ?>
+    </div>
+<?php endwhile; ?>
+<?php _close_stmt($stmt); ?>

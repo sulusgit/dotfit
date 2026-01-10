@@ -1,7 +1,5 @@
 <?php
-
-
-
+/* Prevention to acess writing directly like page/admin/home_admin_ui */
 if ($_SESSION['role'] !== 'administrator') {
     $_SESSION['errors'] = ["you don't sign in, at first you have to sign in"];
     _redirect('sign_in');

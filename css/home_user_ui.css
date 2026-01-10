@@ -182,11 +182,12 @@
   position: absolute;
   top: 42px; /* under badge */
   left: 12px;
-  background: rgba(0,0,0,0.75);
+   background: #00c853;
   color: #fff;
-  padding: 4px 10px;
+  padding: 5px 10px;
   border-radius: 20px;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 600;
   text-transform: capitalize;
 }
 /* If NO badge → difficulty moves up */

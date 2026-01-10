@@ -2,7 +2,7 @@
 //cheching that user has login? while search directly=> http://dotfit.pl/user/home_user_ui
 if ($_SESSION['role'] !== 'user') {
     $_SESSION['errors'] = ["you don't have account at first you have to sign up"];
-    _redirect(url('/sign_in'));
+    _redirect('sign_in');
     exit;
 }
 ?>
@@ -87,7 +87,8 @@ if ($_SESSION['role'] !== 'user') {
             align-items: center;
             justify-content: center;
             color: #333;
-            transition: background 0.2s;
+            /*  transition: background 0.2s; */
+            ;
         }
 
         .filter-btn:hover {
@@ -126,7 +127,7 @@ if ($_SESSION['role'] !== 'user') {
             text-decoration: none;
             color: #333;
             font-size: 14px;
-            transition: background 0.2s;
+            /* transition: background 0.2s; */
         }
 
         .filter-option:hover {

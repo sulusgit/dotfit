@@ -81,7 +81,6 @@
             <?php
             $search = trim($_GET['search'] ?? '');
 
-
             if ($search !== '') {
                 // SEARCH HAS VALUE → filter
                 _select(
@@ -142,7 +141,7 @@
                             </div>
 
 
-                            <span class="course-badge"><?= $badge ?></span>
+                            <!-- <span class="course-badge"><?= $badge ?></span> -->
                             <span class="course-difficulty"><?= $difficulty ?></span>
 
                             <img src="<?= $image ? asset($image) : asset('course_images/default.jpg') ?>">
