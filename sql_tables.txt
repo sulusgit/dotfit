@@ -20,7 +20,7 @@ ADD enroll_count INT DEFAULT 0;
 
 #### table for badge setter###
 
-__________users table____ 1 ________
+__________users table____ 1  USE THIS TABLE________
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NULL,
