@@ -53,4 +53,3 @@ CREATE TABLE users (
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-//no need deleted
