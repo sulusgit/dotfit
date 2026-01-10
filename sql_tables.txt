@@ -53,3 +53,10 @@ CREATE TABLE users (
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+no need  -- OPTIONAL FEATURES
+    remember_token VARCHAR(64) DEFAULT NULL,
+    reset_token VARCHAR(64) DEFAULT NULL,
+    reset_expires DATETIME DEFAULT NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+git 
