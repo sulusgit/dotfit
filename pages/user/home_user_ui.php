@@ -48,7 +48,6 @@
  </script>
 
  <body>
-
      <!-- Main title section -->
      <section class="hero">
          <div class="hero-content">
@@ -185,7 +184,8 @@
 
      <!-- search  end-->
      <!-- CTA SECTION -->
-     <section class="cta-section"> <a href="all-courses.php" class="cta-button">View All Courses</a> </section>
+     <section class="cta-section"> <a href="<?= url('all-courses') ?>" class="cta-button">View All Courses</a>
+     </section>
      <?php require ROOT . '../pages/footer.php'; ?>
  </body>
 
