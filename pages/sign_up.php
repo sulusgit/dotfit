@@ -10,6 +10,7 @@
 
 <body>
     <div class="signup-container">
+    <div class="close-btn" onclick="closeSignup()">×</div>
         <div class="form-section">
             <h2>Sign Up</h2>
             <?php if (!empty($_SESSION['errors'])): //here errors show 
@@ -88,7 +89,15 @@
             document.getElementById(role + '-btn').classList.add('active');
         }
     </script>
+    <script>
+    function closeSignup() {
+        window.location.href = "<?= url('/') ?>";
+    }
+</script>
+
 
 </body>
 
-</html>
+</html> 
+
+

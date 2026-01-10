@@ -11,6 +11,7 @@
 
     <div class="signup-container">
         <div class="form-section">
+            <div class="close-btn" onclick="closeSignup()">×</div>
             <h2>Sign In</h2>
 
             <form method="POST" action="<?= url('/sign_in_do') ?>">
@@ -90,6 +91,11 @@
             } */
     </script>
 
+    <script>
+    function closeSignup() {
+        window.location.href = "<?= url('/') ?>";
+    }
+</script>
 </body>
 
 </html>
