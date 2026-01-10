@@ -1,15 +1,19 @@
 <?php
-session_start()
+session_start();
+
+// Хэрвээ хэрэглэгч login хийгээгүй бол буцаана
+if (!isset($_SESSION['email'])) {
+    header("Location: /pages/sign_in.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - <?= $_SESSION['name'] ?></title>
     <link rel="stylesheet" href="<?= asset('/css/admin_profile.css') ?>">
-    <title>Profile - <?= $_SESSION['name'] ?></title>
-
 </head>
 
 <body>
@@ -17,7 +21,7 @@ session_start()
     <!-- HERO HEADER -->
     <section class="profile-hero">
         <div class="hero-content">
-            <div class="avatar"> <?= $_SESSION['name'] ?> </div>
+            <div class="avatar"><?= strtoupper($_SESSION['name'][0]) ?></div>
             <h1 class="profile-name"><?= $_SESSION['name'] ?></h1>
             <p class="profile-email"><?= $_SESSION['email'] ?></p>
             <span class="profile-role"><?= $_SESSION['role'] ?></span>
@@ -27,13 +31,13 @@ session_start()
     <!-- MAIN CONTENT -->
     <main class="main-content">
 
-        <!-- PROFILE INFO SECTION -->
         <section class="section" id="profile-section">
             <div class="section-header">
                 <div>
                     <p class="section-label">Personal</p>
                     <h2 class="section-title">Profile Information</h2>
                 </div>
+
                 <button class="edit-btn" onclick="toggleEdit('profile')">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -46,20 +50,27 @@ session_start()
             <div class="info-card">
                 <div class="info-row">
                     <span class="info-label">Full Name</span>
-                    <input type="text" class="info-value editable" id="edit-name" value="<?= $_SESSION['name'] ?> "
-                        disabled>
+                    <input type="text" class="info-value editable" id="edit-name"
+                           value="<?= $_SESSION['name'] ?>" disabled>
                 </div>
+
                 <div class="info-row">
                     <span class="info-label">Email Address</span>
-                    <input type="email" class="info-value editable" id="edit-email" value="<?= $_SESSION['email'] ?> "
-                        disabled>
+                    <input type="email" class="info-value editable" id="edit-email"
+                           value="<?= $_SESSION['email'] ?>" disabled>
                 </div>
-
             </div>
-            <span class="info-label"> !!!!!!here add DELETE_ACCOUNT BTN </span>
-            <span class="info-label"> !!!!!!here add close or back sign(<-) to close this page </span>
-        </section>
 
+            <div class="action-buttons">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+
+                <!-- USER DELETE ACCOUNT -->
+                <form method="POST" action="/pages/user/delete_account.php"
+                      onsubmit="return confirm('Are you sure you want to delete your account?');">
+                    <button type="submit" class="delete-account-btn">Delete Account</button>
+                </form>
+            </div>
+        </section>
 
     </main>
 
@@ -74,14 +85,8 @@ session_start()
     </div>
 
     <script>
-        // State management
-        const editState = {
-            profile: false,
-            courses: false,
-            opinions: false
-        };
+        const editState = { profile: false };
 
-        // Toggle edit mode for sections
         function toggleEdit(section) {
             editState[section] = !editState[section];
             const sectionEl = document.getElementById(`${section}-section`);
@@ -89,90 +94,27 @@ session_start()
             const inputs = sectionEl.querySelectorAll('.editable');
 
             if (editState[section]) {
-                // Enable editing
                 sectionEl.classList.add('editing');
                 btn.textContent = 'Save';
-                inputs.forEach(input => {
-                    input.disabled = false;
-                    input.style.cursor = 'text';
-                });
-
-                // Show delete buttons and add button for courses
-                if (section === 'courses') {
-                    sectionEl.querySelectorAll('.delete-btn').forEach(btn => btn.classList.add('visible'));
-                    sectionEl.querySelectorAll('.course-arrow').forEach(arrow => arrow.style.display = 'none');
-                    document.getElementById('add-course-btn').classList.add('visible');
-                }
+                inputs.forEach(i => i.disabled = false);
             } else {
-                // Save and disable editing
                 sectionEl.classList.remove('editing');
                 btn.textContent = 'Edit';
-                inputs.forEach(input => {
-                    input.disabled = true;
-                    input.style.cursor = 'default';
-                });
-
-                // Hide delete buttons and add button
-                if (section === 'courses') {
-                    sectionEl.querySelectorAll('.delete-btn').forEach(btn => btn.classList.remove('visible'));
-                    sectionEl.querySelectorAll('.course-arrow').forEach(arrow => arrow.style.display = 'block');
-                    document.getElementById('add-course-btn').classList.remove('visible');
-                }
-
-                // Show save indicator
+                inputs.forEach(i => i.disabled = true);
                 showSaveIndicator();
-
-                // Update hero section if profile was edited
-                if (section === 'profile') {
-                    updateHero();
-                }
             }
         }
 
-        // Update hero section with new values
-        function updateHero() {
-            const name = document.getElementById('edit-name').value;
-            const email = document.getElementById('edit-email').value;
-            const role = document.getElementById('edit-role').value;
-
-            document.querySelector('.profile-name').textContent = name;
-            document.querySelector('.profile-email').textContent = email;
-            document.querySelector('.profile-role').textContent = role;
-            document.querySelector('.avatar').textContent = name.charAt(0).toUpperCase();
-        }
-
-        // Show save indicator
         function showSaveIndicator() {
             const indicator = document.getElementById('save-indicator');
             indicator.classList.add('visible');
-
-            setTimeout(() => {
-                indicator.classList.remove('visible');
-            }, 3000);
+            setTimeout(() => indicator.classList.remove('visible'), 3000);
         }
 
-
-        // Add fadeOut animation
-        const style = document.createElement('style');
-        style.textContent = `
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
+        function goBack() {
+            window.location.href = "/pages/home.php";
         }
-    `;
-        document.head.appendChild(style);
-
-        // Auto-resize textareas
-        document.querySelectorAll('textarea.editable').forEach(textarea => {
-            textarea.addEventListener('input', function() {
-                this.style.height = 'auto';
-                this.style.height = this.scrollHeight + 'px';
-            });
-        });
     </script>
 
 </body>
-
 </html>

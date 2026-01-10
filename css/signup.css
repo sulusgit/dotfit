@@ -10,25 +10,21 @@
   background: #f0f0f0;
 }
 .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    transition: 0.2s;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: 0.2s;
+  z-index: 10;
 }
 
-.close-btn:hover {
-    color: #c0bebe;
-}
-.signup-container {
-    position: relative;
-}
 
 /* Form section */
 .form-section {
+  position: relative;
   width: 420px;
   padding: 40px;
   background-color: #ffffff;

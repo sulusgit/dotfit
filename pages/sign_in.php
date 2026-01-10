@@ -11,7 +11,7 @@
 
     <div class="signup-container">
         <div class="form-section">
-            <div class="close-btn" onclick="closeSignup()">×</div>
+            <span class="close-btn" onclick="window.location.href='home.php'">×</span>
             <h2>Sign In</h2>
 
             <form method="POST" action="<?= url('/sign_in_do') ?>">
