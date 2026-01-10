@@ -112,7 +112,7 @@ if (!isset($_SESSION['email'])) {
         }
 
         function goBack() {
-            window.location.href = "/pages/home.php";
+            window.history.back();
         }
     </script>
 

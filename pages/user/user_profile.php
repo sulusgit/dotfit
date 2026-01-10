@@ -1,12 +1,13 @@
 <?php
-session_start();
 
-// Хэрвээ хэрэглэгч login хийгээгүй бол буцаана
 if (!isset($_SESSION['email'])) {
     header("Location: /pages/sign_in.php");
     exit;
 }
+
+    include 'header_user.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,9 +113,11 @@ if (!isset($_SESSION['email'])) {
         }
 
         function goBack() {
-            window.location.href = "/pages/home.php";
+            window.history.back();
         }
+
     </script>
+    
 
 </body>
 </html>
