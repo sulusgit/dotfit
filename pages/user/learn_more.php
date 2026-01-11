@@ -31,7 +31,7 @@ if ($course_id <= 0) {
 
     .stars-input label,
     .stars span {
-        color: gold;
+        color: gray;
         font-size: 18px;
         cursor: pointer;
     }

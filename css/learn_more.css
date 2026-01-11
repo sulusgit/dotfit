@@ -285,7 +285,7 @@ body {
 .rating-label {
     font-size: 13px;
     font-weight: 500;
-    color: #666;
+    color: #345070;
     margin-bottom: 12px;
     display: block;
 }
@@ -305,7 +305,7 @@ body {
 
 .stars-input label {
     font-size: 26px;
-    color: #ddd;
+    color: #c11515;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -317,7 +317,7 @@ body {
 .stars-input input:checked ~ label,
 .stars-input label:hover,
 .stars-input label:hover ~ label {
-    color: #000;
+    color: #f2b900;
 }
 
 /* EXISTING COMMENTS SECTION */
