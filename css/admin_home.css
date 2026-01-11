@@ -1,4 +1,14 @@
 /* CSS ADD BY K */
+/* CSS ADD BY K - UPDATED STYLE */
+
+.courses h2 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  color: inherit; /* Dziedziczy kolor z body, aby pasować do motywu */
+}
+
 .courses-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -6,22 +16,28 @@
   align-items: stretch;
 }
 
-.courses h2 {
-  margin-bottom: 20px;
-}
-
 .course-card {
-  background: #181818;
-  border-radius: 16px;
+  background: #181818; /* Ciemne tło karty */
+  border-radius: 16px; /* Zaokrąglenie jak w kodzie 1 */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: all 0.3s ease; /* Płynne przejścia */
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtelna ramka */
+}
+
+/* Efekt unoszenia się karty i cienia */
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: transparent;
 }
 
 .course-image-wrapper {
   position: relative;
-  height: 180px;
+  height: 260px; /* Zwiększona wysokość obrazka z 180px na 260px */
   overflow: hidden;
 }
 
@@ -29,9 +45,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease; /* Płynne powiększenie */
 }
 
 /* DEFAULT BADGE */
+/* BADGE - Główna odznaka */
 .course-badge {
   position: absolute;
   top: 12px;
@@ -42,6 +60,8 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 /* CUSTOM BADGE COLORS */
@@ -61,16 +81,20 @@
   background: #d32f2f;
 }
 
-/* difficulty always exists */
+/* DIFFICULTY - Druga odznaka */
 .course-difficulty {
   position: absolute;
-  top: 42px;
+  top: 42px; /* Pod główną odznaką */
   left: 12px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   color: #fff;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+  z-index: 2;
 }
 
 /* if NO badge → difficulty moves up */
@@ -86,9 +110,12 @@
 }
 
 .course-title {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 28px; /* Większy tytuł jak w kodzie 1 */
+  margin-bottom: 12px;
   color: #fff;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
 }
 
 .course-description {
@@ -96,74 +123,81 @@
   font-size: 14px;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 4; /* Ograniczenie do 4 linii */
   line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: calc(1.5em * 4);
+  min-height: calc(1.5em * 4); /* Rezerwacja miejsca */
+  margin-bottom: 18px;
 }
 
-/* 3 dots button */
+/* CARD MENU (Przycisk 3 kropki) */
 .card-menu {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   z-index: 10;
 }
 
 .menu-btn {
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.4);
   border: none;
   color: white;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-/* dropdown */
+.menu-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* DROPDOWN */
 .menu-dropdown {
   display: none;
   position: absolute;
   right: 0;
-  top: 38px;
-  background: #1c1c1c;
+  top: 40px; /* Tuż pod przyciskiem */
+  background: #252525;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  min-width: 120px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  min-width: 140px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  z-index: 20;
 }
 
-/* EDIT / DELETE ITEMS */
+/* ELEMENTY MENU */
 .menu-item {
-  text-decoration: none !important;
-  border: none;
-  outline: none;
-  color: white;
-  padding: 10px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: #ccc;
+  padding: 10px 16px;
+  font-size: 14px;
   cursor: pointer;
-  background: none !important; /* no background */
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
 }
 
-/* Edit hover */
 .menu-item:hover {
-  background: none !important;
-  padding: 10px !important;
-  color: #ddd; 
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
 }
 
-
-/* DELETE BUTTON */
+/* PRZYCISK USUWANIA */
 .menu-item.danger {
-  font-size: 16px;
-  color: #ffffff;
-  background: none !important;
+  color: #ff5252;
 }
 
 .menu-item.danger:hover {
-  background: none !important;
-  padding: 10px !important; 
-  color: #ff1a1a;
+  background: rgba(255, 82, 82, 0.1);
 }
 
 
