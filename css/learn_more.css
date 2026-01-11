@@ -1,195 +1,195 @@
-
-
-
-
 /* MAIN CONTAINER */
 .course-details {
     max-width: 900px;
-    margin: 140px auto;
+    margin: 120px auto;
     padding: 20px;
+    color: #fff;
+}
+
+/* HEADER */
+.course-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.close-inline {
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.close-inline:hover {
+    transform: scale(1.1);
+    color: #ddd;
 }
 
 /* TITLE */
 .course-title-main {
-    font-size: 42px;
-    font-weight: 800;
+    font-size: 46px;
+    font-weight: 900;
     margin-bottom: 20px;
+    letter-spacing: -1px;
 }
 
 /* INTRO TEXT */
 .course-intro {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 40px;
-    
+  font-size: 18px;
+  color: #ccc;
+  margin-bottom: 20px;
+  line-height: 1.7;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
-/* INFO CARD */
+
 .info-card {
-    background: #fafafa;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    margin-bottom: 50px;
-}
-
-.info-card h2 {
-    font-size: 28px;
-    margin-bottom: 16px;
-    color: #000;
-}
-
-.info-card ul {
-    list-style: none;
-    padding-left: 0;
-    line-height: 1.8;
-    color: #000;
-}
-/* .course-intro p {
-    color: #ffffff;
-} */
-/* COMMENT CARD */
-.comment-card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-}
-
-.comment-card h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #000;
-}
-
-/* FORM */
-.comment-form input,
-.comment-form textarea {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 16px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    color: #000;
-}
-
-.agree-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-  font-size: 14px;
+  background: #fff;
+  padding: 32px;
+  border-radius: 14px;
+  backdrop-filter: blur(8px); /* 🔥 glass effect */
+  border: 1px solid #eee;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  margin-top: 20px;
   color: #000;
 }
 
-.agree-box input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: black;
-  cursor: pointer;
+.info-card h2 {
+  font-size: 26px;
+  margin-bottom: 14px;
+  color: #000;
+}
+
+.info-card ul {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.9;
+  color: #000;
+}
+
+.info-card li strong {
+  color: #000;
 }
 
 
-.submit-comment {
-    padding: 12px 28px;
-    background: #000;
-    color: #fff;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 1px;
+/* COMMENT CARD */
+.comment-card {
+  background: #fff;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin-top: 60px;
 }
 
-.submit-comment:hover {
-    background: #333;
+.comment-card h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #000;
 }
-/* STARS */
+
+.comment-form textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  resize: vertical;
+  margin-bottom: 20px;
+  color: #000;
+}
+
 .stars-input {
-    display: inline-flex;
-    flex-direction: row-reverse;
-    gap: 5px;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 6px;
+  margin-bottom: 20px;
 }
 
 .stars-input input {
-    display: none;
+  display: none;
 }
 
 .stars-input label {
-    font-size: 22px;
-    color: #ccc;
-    cursor: pointer;
+  font-size: 22px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .stars-input input:checked ~ label,
 .stars-input label:hover,
 .stars-input label:hover ~ label {
-    color: #f5b301;
+  color: #f5b301;
 }
-/* recent comments frame */
+
+.submit-comment {
+  padding: 12px 28px;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: background 0.3s ease;
+}
+
+.submit-comment:hover {
+  background: #333;
+}
+
+/* RECENT COMMENTS */
+.existing-comments h3 {
+  margin-top: 40px;
+  font-size: 20px;
+  color: #000;
+}
+
+.recent-comment {
+  background: #f9f9f9;
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: 14px;
+  border: 1px solid #eee;
+}
+
+.recent-comment p {
+  color: #333;
+  margin-top: 6px;
+}
+
+.stars span {
+  font-size: 18px;
+  color: #ccc;
+}
+
+.stars .filled {
+  color: #f5b301;
+}
+
 .comment-actions {
-    margin-top: 6px;
-    font-size: 13px;
+  margin-top: 8px;
+  font-size: 14px;
 }
 
 .comment-actions a {
-    margin-right: 10px;
-    color: #666;
-    text-decoration: none;
+  margin-right: 12px;
+  color: #666;
+  text-decoration: none;
 }
 
 .comment-actions a:hover {
-    text-decoration: underline;
-}
-
-
-/* EXISTING COMMENTS */
-.existing-comments h3 {
-    margin-top: 40px;
-    font-size: 20px;
-    color: #000;
-}
-
-.comment-item {
-    background: #f5f5f5;
-    padding: 16px;
-    border-radius: 8px;
-    margin-top: 12px;
-    color: #000;
-}
-
-
-.course-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.course-title-main {
-  font-size: 42px;
-  font-weight: 800;
-  margin: 0;
-  color: #fff; /* dark background‑д тохируулсан */
-}
-
-.close-inline {
-  font-size: 28px;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s ease;
-}
-
-.close-inline:hover {
-  transform: scale(1.1);
-  color: #2d2d2d;
+  text-decoration: underline;
+  color: #000;
 }
