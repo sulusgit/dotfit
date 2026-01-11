@@ -203,8 +203,56 @@
             .main-content {
                 padding: 0 20px 80px;
             }
+            
+            
+
+           
         }
     </style>
+
+
+<style>
+    /* ACTION BUTTONS WRAPPER */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* DELETE ACCOUNT BUTTON (TUSDAA CLASS) */
+.delete-account-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #333;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.delete-account-btn:hover {
+    background-color: #999;
+}
+</style>
 </head>
 
 <body>
@@ -260,7 +308,11 @@
             </div>
         </div>
 
-    </div>
+        <div class="action-buttons">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+
+                
+        </div>
 
 </body>
 
