@@ -86,7 +86,7 @@ if ($_SESSION['role'] !== 'user') {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            color: #787874;
             /*  transition: background 0.2s; */
             ;
         }
@@ -513,16 +513,7 @@ if ($_SESSION['role'] !== 'user') {
                     <div class="checkbox-box"></div>
                     Highest Price
                 </a>
-                <!-- Newest -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Newest
-                </a>
-                <!-- Oldest -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Oldest
-                </a>
+        
             </div>
         </div>
         <!-- --- END FILTER --- -->

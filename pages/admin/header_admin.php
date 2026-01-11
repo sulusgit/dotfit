@@ -48,16 +48,7 @@ if ($_SESSION['role'] !== 'administrator') {
                     <div class="checkbox-box"></div>
                     Highest Price
                 </a>
-                <!-- Newest -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Newest
-                </a>
-                <!-- Oldest -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Oldest
-                </a>
+            
             </div>
         </div>
         <!-- --- END FILTER --- -->
