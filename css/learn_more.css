@@ -1,3 +1,7 @@
+
+
+
+
 /* MAIN CONTAINER */
 .course-details {
     max-width: 900px;
@@ -41,7 +45,9 @@
     line-height: 1.8;
     color: #000;
 }
-
+/* .course-intro p {
+    color: #ffffff;
+} */
 /* COMMENT CARD */
 .comment-card {
     background: #fff;

@@ -12,40 +12,73 @@
 
      <!-- FOR ICON-BTNS -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <!-- This styke for for comment scrool  -->
+     <style>
+         .comments-overlay {
+             position: fixed;
+             inset: 0;
+             background: rgba(0, 0, 0, 0.7);
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             z-index: 9999;
+         }
+
+         .comments-overlay.hidden {
+             display: none;
+         }
+
+         .comments-box {
+             background: #2b2b2b;
+             color: #fff;
+             width: 420px;
+             max-height: 80vh;
+             border-radius: 16px;
+             padding: 20px;
+             display: flex;
+             flex-direction: column;
+         }
+
+         .comments-list {
+             flex: 1;
+             /* take remaining space */
+             overflow-y: auto;
+             /* scroll INSIDE popup */
+             margin: 15px 0;
+         }
+
+         .comment-item {
+             background: #3a3a3a;
+             border-radius: 12px;
+             padding: 12px;
+             margin-bottom: 10px;
+         }
+
+         .comment-user {
+             font-weight: 600;
+         }
+
+         .comment-stars {
+             color: gold;
+             font-size: 14px;
+         }
+
+         .comment-date {
+             font-size: 12px;
+             opacity: 0.6;
+         }
+
+         .close-btn {
+             border: none;
+             background: #d6d3c8;
+             color: #000;
+             padding: 10px;
+             border-radius: 20px;
+             cursor: pointer;
+         }
+     </style>
  </head>
 
-
- <script>
-     document.addEventListener('DOMContentLoaded', () => {
-         document.querySelectorAll('.fav-btn').forEach(btn => {
-             btn.addEventListener('click', function(e) {
-                 e.preventDefault();
-
-                 const icon = this.querySelector('i');
-                 const courseId = this.dataset.id;
-
-                 fetch('/user/add_to_fevo.php', {
-                         method: 'POST',
-                         headers: {
-                             'Content-Type': 'application/x-www-form-urlencoded'
-                         },
-                         credentials: 'same-origin',
-                         body: 'id=' + courseId
-                     })
-                     .then(res => res.text())
-                     .then(result => {
-                         if (result === 'added') {
-                             icon.classList.remove('fa-regular');
-                             icon.classList.add('fa-solid');
-                         } else if (result === 'removed') {
-                             icon.classList.remove('fa-solid');
-                             icon.classList.add('fa-regular');
-                         }
-                     });
-             });
-         });
-     });
- </script>
 
  <body>
      <!-- Main title section -->
@@ -55,6 +88,7 @@
              <p class="hero-subtitle">Transform your body and mind with our premium fitness courses</p>
          </div>
      </section>
+
 
      <!-- COURSES SECTION -->
      <!--start  search try -->
@@ -69,7 +103,6 @@
              <?php
                 $search = trim($_GET['search'] ?? '');
                 $user_id = $_SESSION['id'] ?? 0;
-
                 if ($search !== '') {
                     // SEARCH HAS VALUE → filter
                     _select(
@@ -153,7 +186,7 @@
 
                              <div class="meta-actions">
 
-                                 <a href="<?= url('user/learn_more') ?>" class="learn-more">
+                                 <a href="<?= url('user/learn_more?id=' . $id) ?>" class="learn-more">
                                      LEARN MORE →
                                  </a>
 
@@ -161,9 +194,14 @@
                                      <i class="<?= $is_fav ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
                                  </a>
 
-                                 <a href="<?= url('user/comment_scroll') ?>" class="icon-btn">
+                                 <!-- Coment scrool view -->
+
+                                 <!--  <a href="javascript:void(0)" class="icon-btn comment-btn" data-course="<?= $id ?>">
+                                 </a> -->
+                                 <a href="javascript:void(0)" class="icon-btn comment-btn" data-course="<?= $id ?>">
                                      <i class="fa-regular fa-comment"></i>
                                  </a>
+
                                  <!-- btn-view-details == ENROLL btn -->
                                  <a href="<?= url('user/add_to_enroll') ?>" class="icon-btn">
                                      <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
@@ -181,12 +219,108 @@
                 ?>
          </div>
      </section>
+     <!-- for comments scrool -->
+
+     <div id="commentsModal" class="comments-overlay hidden">
+         <div class="comments-box">
+             <h3>Comments</h3>
+             <div id="commentsList" class="comments-list"></div>
+             <button id="closeComments" class="close-btn">Close</button>
+         </div>
+     </div>
 
      <!-- search  end-->
      <!-- CTA SECTION -->
      <section class="cta-section"> <a href="<?= url('all-courses') ?>" class="cta-button">View All Courses</a>
      </section>
      <?php require ROOT . '../pages/footer.php'; ?>
+
+     <!-- script for comment btn -->
+
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+
+             const modal = document.getElementById('commentsModal');
+             const box = modal.querySelector('.comments-box');
+             const list = document.getElementById('commentsList');
+             const close = document.getElementById('closeComments');
+
+             function openModal(html) {
+                 list.innerHTML = html;
+                 modal.classList.remove('hidden');
+                 document.body.style.overflow = 'hidden'; // disable scroll background
+             }
+
+             function closeModal() {
+                 modal.classList.add('hidden');
+                 document.body.style.overflow = ''; // restore scroll bground
+             }
+
+             // open comments
+             document.querySelectorAll('.comment-btn').forEach(btn => {
+                 btn.addEventListener('click', function(e) {
+                     e.preventDefault();
+
+                     const courseId = this.dataset.course;
+                     if (!courseId) return;
+
+                     fetch('<?= url("user/comment_scroll") ?>?course_id=' + courseId)
+                         .then(res => res.text())
+                         .then(html => openModal(html))
+                         .catch(err => console.error(err));
+                 });
+             });
+
+             // close via button
+             close.addEventListener('click', closeModal);
+
+             // close when clicking outside the popup
+             modal.addEventListener('click', function() {
+                 closeModal();
+             });
+
+             // prevent closing when clicking inside the popup
+             box.addEventListener('click', function(e) {
+                 e.stopPropagation();
+             });
+
+         });
+     </script>
+
+
+     <!-- script for fevo btn -->
+     <script>
+         document.addEventListener('DOMContentLoaded', () => {
+             document.querySelectorAll('.fav-btn').forEach(btn => {
+                 btn.addEventListener('click', function(e) {
+                     e.preventDefault();
+
+                     const icon = this.querySelector('i');
+                     const courseId = this.dataset.id;
+
+                     fetch('/user/add_to_fevo.php', {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/x-www-form-urlencoded'
+                             },
+                             credentials: 'same-origin',
+                             body: 'id=' + courseId
+                         })
+                         .then(res => res.text())
+                         .then(result => {
+                             if (result === 'added') {
+                                 icon.classList.remove('fa-regular');
+                                 icon.classList.add('fa-solid');
+                             } else if (result === 'removed') {
+                                 icon.classList.remove('fa-solid');
+                                 icon.classList.add('fa-regular');
+                             }
+                         });
+                 });
+             });
+         });
+     </script>
+
  </body>
 
  </html>
