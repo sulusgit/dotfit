@@ -9,86 +9,122 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-    background: #ffffff;
+    background: #f8f8f8;
     color: #1a1a1a;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 /* MAIN CONTAINER */
 .course-details {
-    max-width: 900px;
-    margin: 100px auto;
-    padding: 0 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
 }
 
 /* HEADER AREA */
 .course-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 /* TITLE */
 .course-title-main {
-    font-size: 42px;
+    font-size: 48px;
     font-weight: 800;
     margin: 0;
-    letter-spacing: -1.5px;
+    letter-spacing: -2px;
     color: #000;
+    line-height: 1.1;
+    max-width: 700px;
 }
 
 .close-inline {
-    font-size: 24px;
-    color: #666;
+    font-size: 20px;
+    color: #999;
     text-decoration: none;
-    background: transparent;
-    border: 1px solid rgba(0,0,0,0.1);
-    width: 44px;
-    height: 44px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    margin-left: 40px;
+    margin-top: 8px;
 }
 
 .close-inline:hover {
     background: #000;
     color: #fff;
     border-color: #000;
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.05);
 }
 
 /* INTRO TEXT */
 .course-intro {
     font-size: 18px;
-    color: #666;
-    margin-bottom: 60px;
-    line-height: 1.8;
-    max-width: 800px;
+    color: #555;
+    margin-bottom: 64px;
+    line-height: 1.9;
+    max-width: 720px;
+    font-weight: 400;
 }
 
-/* CARDS GENERAL STYLE (Inspired by reference) */
+/* SECTION LABEL */
+.section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #999;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* CARDS CONTAINER */
+.cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 64px;
+}
+
+/* CARDS GENERAL STYLE */
 .info-card,
 .comment-card {
-    background: #fafafa;
-    border: 1px solid rgba(0, 0, 0, 0.04);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     padding: 40px;
-    border-radius: 20px;
-    margin-bottom: 60px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+    border-radius: 24px;
+    margin-bottom: 48px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-card:hover,
+.comment-card:hover {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
 }
 
 /* INFO CARD SPECIFIC */
 .info-card h2 {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     color: #999;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 .info-card ul {
@@ -98,39 +134,66 @@ body {
 }
 
 .info-card li {
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    font-size: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 15px;
     font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .info-card li:last-child {
     border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-card li:first-child {
+    padding-top: 0;
 }
 
 /* COMMENT CARD SPECIFIC */
+.comment-card {
+    background: #fff;
+}
+
 .comment-card h2 {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     color: #999;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 /* FORM INPUTS */
 .comment-form input,
 .comment-form textarea {
     width: 100%;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: #fff;
+    padding: 18px 24px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    border: 2px solid rgba(0,0,0,0.06);
+    background: #fafafa;
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 400;
     color: #000;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.comment-form input::placeholder,
+.comment-form textarea::placeholder {
+    color: #aaa;
+    font-weight: 400;
+}
+
+.comment-form input:hover,
+.comment-form textarea:hover {
+    border-color: rgba(0,0,0,0.12);
+    background: #fff;
 }
 
 .comment-form input:focus,
@@ -138,53 +201,102 @@ body {
     outline: none;
     border-color: #000;
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
+}
+
+.comment-form textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+/* FORM ROW */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 /* CHECKBOX */
 .agree-box {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 14px;
+    margin: 24px 0 32px;
     font-size: 14px;
     color: #666;
+    cursor: pointer;
 }
 
 .agree-box input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     accent-color: #000;
     cursor: pointer;
+    border-radius: 4px;
+}
+
+.agree-box label {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* FORM FOOTER */
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
 }
 
 /* SUBMIT BUTTON */
 .submit-comment {
-    padding: 16px 32px;
+    padding: 18px 40px;
     background: #000;
     color: #fff;
-    border-radius: 8px;
+    border-radius: 12px;
     border: none;
     cursor: pointer;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+    letter-spacing: 1.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .submit-comment:hover {
-    background: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    background: #222;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+}
+
+.submit-comment:active {
+    transform: translateY(-1px);
 }
 
 /* STARS RATING */
+.rating-wrapper {
+    margin-bottom: 24px;
+}
+
+.rating-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 12px;
+    display: block;
+}
+
 .stars-input {
     display: inline-flex;
     flex-direction: row-reverse;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 6px;
+    background: #f5f5f5;
+    padding: 12px 16px;
+    border-radius: 12px;
 }
 
 .stars-input input {
@@ -192,65 +304,206 @@ body {
 }
 
 .stars-input label {
-    font-size: 24px;
-    color: #e0e0e0;
+    font-size: 26px;
+    color: #ddd;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .stars-input label:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .stars-input input:checked ~ label,
 .stars-input label:hover,
 .stars-input label:hover ~ label {
-    color: #f5b301;
+    color: #000;
 }
 
-/* RECENT COMMENTS FRAME */
-.comment-actions {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(0,0,0,0.05);
+/* EXISTING COMMENTS SECTION */
+.existing-comments {
+    margin-top: 80px;
+    padding-top: 64px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.existing-comments h3 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #999;
+    margin-bottom: 32px;
+}
+
+/* COMMENT ITEM */
+.comment-item {
+    background: #fff;
+    padding: 32px 36px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    color: #000;
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.comment-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.06);
+    border-color: rgba(0,0,0,0.08);
+}
+
+.comment-item::before {
+    content: '"';
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    font-size: 64px;
+    font-weight: 800;
+    color: rgba(0,0,0,0.03);
+    line-height: 1;
+    font-family: Georgia, serif;
+}
+
+/* COMMENT HEADER */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.comment-author {
+    font-weight: 600;
+    font-size: 15px;
+    color: #000;
+}
+
+.comment-date {
     font-size: 13px;
+    color: #999;
+    font-weight: 400;
+}
+
+.comment-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* COMMENT ACTIONS */
+.comment-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    gap: 24px;
 }
 
 .comment-actions a {
-    margin-right: 16px;
-    color: #666;
+    color: #888;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .comment-actions a:hover {
     color: #000;
-    text-decoration: underline;
 }
 
-/* EXISTING COMMENTS LIST */
-.existing-comments h3 {
-    margin-top: 60px;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #999;
-    margin-bottom: 20px;
-}
-
-.comment-item {
-    background: #fff; /* Contrast against main bg */
-    padding: 24px 32px;
-    border-radius: 16px;
-    margin-bottom: 16px;
+/* COMMENT STARS */
+.comment-stars {
     color: #000;
-    border: 1px solid rgba(0,0,0,0.04);
-    transition: transform 0.2s ease;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
 }
 
-.comment-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+/* EMPTY STATE */
+.no-comments {
+    text-align: center;
+    padding: 64px 40px;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px dashed rgba(0,0,0,0.08);
+}
+
+.no-comments p {
+    color: #999;
+    font-size: 15px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .course-details {
+        padding: 48px 24px 80px;
+    }
+    
+    .course-header {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 24px;
+    }
+    
+    .close-inline {
+        margin-left: 0;
+        margin-top: 0;
+        align-self: flex-end;
+    }
+    
+    .course-title-main {
+        font-size: 36px;
+        letter-spacing: -1.5px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-card,
+    .comment-card {
+        padding: 28px;
+        border-radius: 20px;
+    }
+    
+    .comment-item {
+        padding: 24px;
+    }
+    
+    .form-footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .submit-comment {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* SCROLLBAR STYLING */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }
