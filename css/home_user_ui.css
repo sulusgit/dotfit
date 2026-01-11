@@ -165,32 +165,54 @@
         transform: scale(1.08);
     }
  
-/* COURSE BADGE */
+/* DEFAULT BADGE */
 .course-badge {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: #00c853;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+  padding: 6px 14px !important;
+  border-radius: 24px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  backdrop-filter: blur(6px) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important;
 }
-/* BADGE COURSE DIFFICULTY */
+
+
+
+.course-badge.none,
+.course-badge.beginner,
+.course-badge.intermediate,
+.course-badge.advanced {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #fff !important;
+}
+
+
+/* difficulty always exists */
 .course-difficulty {
   position: absolute;
-  top: 42px; /* under badge */
+  top: 42px;
   left: 12px;
-   background: #00c853;
+  background: rgba(255, 255, 255, 0.12); /* тунгалаг цагаан */
   color: #fff;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 24px;
+  font-size: 11px;
   font-weight: 600;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(6px); /* 🔥 glass effect */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
 }
-/* If NO badge → difficulty moves up */
+
+
+/* if NO badge → difficulty moves up */
 .course-badge:empty + .course-difficulty {
   top: 12px;
 }
