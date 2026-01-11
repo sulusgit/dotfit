@@ -203,8 +203,56 @@
             .main-content {
                 padding: 0 20px 80px;
             }
+            
+            
+
+           
         }
     </style>
+
+
+<style>
+    /* ACTION BUTTONS WRAPPER */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* DELETE ACCOUNT BUTTON (TUSDAA CLASS) */
+.delete-account-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: #333;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.delete-account-btn:hover {
+    background-color: #999;
+}
+</style>
 </head>
 
 <body>
@@ -213,7 +261,6 @@
     <div class="profile-hero">
         <div class="hero-content">
             <!-- Ikona/Avatar administratora -->
-
             <h1 class="profile-name">Enrollment Requests</h1>
             <div class="profile-role">Dashboard Overview</div>
         </div>
@@ -234,20 +281,20 @@
                 <!-- KARTA STUDENTA -->
                 <div class="student-card">
                     <div class="student-info">
-                        <h3><?php echo htmlspecialchars($row['name']); ?></h3>
-                        <p><?php echo htmlspecialchars($row['email']); ?></p>
+                        <h3>name of user</h3>
+                        <p></p>
                         <span style="font-size: 13px; color: #999; margin-top: 4px; display: block;">
-                            Course ID: <?php echo $row['course_id']; ?>
+                            Course ID:
                         </span>
                     </div>
 
                     <div class="student-details">
                         <span class="detail-label">Course Starts</span>
-                        <div class="detail-value"><?php echo $start_date; ?></div>
+                        <div class="detail-value"></div>
 
                         <span class="detail-label" style="margin-top: 8px;">Enrolled On</span>
                         <div style="font-size: 14px; color: #666;">
-                            <?php echo $enrolled_at; ?>
+
                         </div>
                     </div>
                 </div>
@@ -261,7 +308,11 @@
             </div>
         </div>
 
-    </div>
+        <div class="action-buttons">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+
+                
+        </div>
 
 </body>
 

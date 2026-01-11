@@ -156,7 +156,6 @@
                         </div>
                     </div>
 
-
             <?php endwhile;
             else:
                 echo "NO COURSES FOUND";
