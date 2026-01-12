@@ -27,7 +27,11 @@
             <!-- CENTER SECTION -->
             <div class="center-section">
 
+<<<<<<< HEAD
                 <!-- FILTER at the header --- SORT UI --- -->
+=======
+            <!-- FILTER at the header --- SORT UI --- -->
+>>>>>>> f2dcdbd691239d71d9e7f676b114880381ccda71
             <div class="filter-dropdown" id="filterDropdown">
                 <button class="filter-btn" onclick="toggleFilter(event)" title="Filter & Sort">
                     <!-- Ikona Lejka / Filtru -->
@@ -48,6 +52,7 @@
                         <div class="checkbox-box"></div>
                         Highest Price
                     </a>
+<<<<<<< HEAD
                        <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
                         <div class="checkbox-box"></div>
                         Newest First
@@ -56,6 +61,44 @@
                             <div class="checkbox-box"></div>
                             Oldest First
                         </a>
+=======
+
+                </div>
+            </div>
+            <!-- --- END FILTER --- -->
+            <!-- SEARCH -->
+            <div class="search-box">
+
+                <form method="GET" action="">
+                    <input value="<?php if (isset($_GET['search'])) {
+                                        echo $_GET['search'];
+                                    } ?>" type="text" name="search" placeholder="Search courses..."
+                        oninput="if(this.value==='') window.location='<?= strtok($_SERVER['REQUEST_URI'], '?') ?>'">
+                </form>
+            </div>
+
+            <!-- ADD COURSE BUTTON -->
+            <a href="<?= url('admin/add_course') ?>" class="add-course-btn">
+                Add Coursee
+            </a>
+        </div>
+
+        <!-- PROFILE DROPDOWN -->
+        <div class="profile-dropdown">
+            <button class="profile-trigger" onclick="toggleProfile()">
+                <span class="profile-name"><?= $_SESSION['name']; //what for?? 
+                                            ?></span>
+
+                <img src="https://ui-avatars.com/api/?name=<?= $_SESSION['name']; ?>&background=000&color=fff"
+                    alt="Profile" class="profile-avatar">
+                <span class="profile-arrow"></span>
+            </button>
+
+            <div class="profile-menu">
+                <div class="profile-menu-header">
+                    <div class="profile-menu-name"><?= $_SESSION['name']; ?></div>
+                    <div class="profile-menu-email"><?= $_SESSION['email']; ?></div>
+>>>>>>> f2dcdbd691239d71d9e7f676b114880381ccda71
 
                 </div>
             </div>
@@ -77,6 +120,7 @@
                 </a>
             </div>
 
+<<<<<<< HEAD
             <!-- PROFILE DROPDOWN -->
             <div class="profile-dropdown">
                 <button class="profile-trigger" onclick="toggleProfile()">
@@ -187,6 +231,71 @@
                 // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
                 document.getElementById('filterDropdown').classList.remove('active');
             }
+=======
+    <script>
+    // Toggle profile dropdown
+    function toggleProfile() {
+        const dropdown = document.querySelector('.profile-dropdown');
+        dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        const dropdown = document.querySelector('.profile-dropdown');
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+
+    // Optional: Add scroll effect
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    </script>
+
+    <script>
+    // --- FILTER LOGIC ---
+
+    // 1. Funkcja otwierająca/zamykająca menu (zatrzymuje propagację, żeby nie zamknąć się od razu)
+    function toggleFilter(event) {
+        event.stopPropagation(); // Zapobiega zamknięciu po kliknięciu w przycisk
+        const dropdown = document.getElementById('filterDropdown');
+        dropdown.classList.toggle('active');
+    }
+
+    // 2. Funkcja obsługująca wybór opcji
+    function selectOption(element) {
+        // Usuń klasę 'active-sort' ze wszystkich opcji
+        const options = document.querySelectorAll('.filter-option');
+        options.forEach(opt => opt.classList.remove('active-sort'));
+
+        // Dodaj klasę 'active-sort' do klikniętego elementu
+        element.classList.add('active-sort');
+
+        // Tutaj możesz dodać logikę sortowania produktów, np.:
+        // console.log('Wybrano:', element.innerText.trim());
+
+        // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
+        document.getElementById('filterDropdown').classList.remove('active');
+    }
+
+    // 3. Zamknij menu, jeśli klikniesz poza nim
+    window.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('filterDropdown');
+        const isClickInside = dropdown.contains(event.target);
+
+        if (!isClickInside) {
+            dropdown.classList.remove('active');
+        }
+    });
+    </script>
+</body>
+>>>>>>> f2dcdbd691239d71d9e7f676b114880381ccda71
 
             // 3. Zamknij menu, jeśli klikniesz poza nim
             window.addEventListener('click', function(event) {

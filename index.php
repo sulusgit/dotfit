@@ -1,7 +1,6 @@
 <?php
 session_start();
 ini_set('display_errors', 1);
-
 define('ROOT', __DIR__);
 define('BASE_URL', '/dotfit');
 require ROOT . '/inc/helper.php';
@@ -39,6 +38,32 @@ function dd($arr)
     print_r($arr);
     # exit;
 }
+/* 3. function flash(string $type, string $message): void
+{
+    if (!isset($_SESSION['messages'])) {
+        $_SESSION['messages'] = [];
+    }
+
+    $_SESSION['messages'][$type][] = $message;
+} */
+
+/*1.  function flash(string $type, string $message): void
+{
+    $_SESSION['messages'][$type][] = $message;
+} */
+function flash(string $type, string $message): void
+{
+    if (!isset($_SESSION['messages'])) {
+        $_SESSION['messages'] = [];
+    }
+
+    if (!isset($_SESSION['messages'][$type])) {
+        $_SESSION['messages'][$type] = [];
+    }
+
+    $_SESSION['messages'][$type][] = $message;
+}
+
 
 /* POST GET FUNC !!!!! */
 //Prevention to valid date type POST; sign_up.php d :: if inputs to long trim etc 

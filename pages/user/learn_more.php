@@ -94,7 +94,7 @@ if ($course_id <= 0) {
             goals.
         </p>
 
-            <!-- ADDITIONAL INFO -->
+        <!-- ADDITIONAL INFO -->
         <div class="info-card">
             <h2> Details: </h2>
             <li> <strong> </strong><?= $description ?></li>
@@ -154,64 +154,67 @@ if ($course_id <= 0) {
 
 
         <!-- COMMENTS SECTION -->
-<div class="comment-card">
-  <h2><?= $edit_id ? 'Edit your review' : 'Write about this course' ?></h2>
+        <div class="comment-card">
+            <h2><?= $edit_id ? 'Edit your review' : 'Write about this course' ?></h2>
 
-  <form method="post" action="<?= url('user/comment_add') ?>" class="comment-form">
-    <textarea name="comment" required placeholder="Write your comment..."><?= htmlspecialchars($edit_review) ?></textarea>
+            <form method="post" action="<?= url('user/comment_add') ?>" class="comment-form">
+                <textarea name="comment" required
+                    placeholder="Write your comment..."><?= htmlspecialchars($edit_review) ?></textarea>
 
-    <!-- STARS -->
-    <div class="stars-input">
-      <?php for ($i = 5; $i >= 1; $i--): ?>
-        <input type="radio" name="stars" value="<?= $i ?>" id="star<?= $i ?>" <?= $edit_stars == $i ? 'checked' : '' ?>>
-        <label for="star<?= $i ?>">★</label>
-      <?php endfor; ?>
-    </div>
+                <!-- STARS -->
+                <div class="stars-input">
+                    <?php for ($i = 5; $i >= 1; $i--): ?>
+                        <input type="radio" name="stars" value="<?= $i ?>" id="star<?= $i ?>"
+                            <?= $edit_stars == $i ? 'checked' : '' ?>>
+                        <label for="star<?= $i ?>">★</label>
+                    <?php endfor; ?>
+                </div>
 
-    <input type="hidden" name="course_id" value="<?= $course_id ?>">
-    <input type="hidden" name="edit_id" value="<?= $edit_id ?>">
+                <input type="hidden" name="course_id" value="<?= $course_id ?>">
+                <input type="hidden" name="edit_id" value="<?= $edit_id ?>">
 
-    <button type="submit" class="submit-comment"><?= $edit_id ? 'Update' : 'Submit' ?></button>
-  </form>
+                <button type="submit" class="submit-comment"><?= $edit_id ? 'Update' : 'Submit' ?></button>
+            </form>
 
-  <!-- RECENT COMMENTS -->
-  <div class="existing-comments">
-    <h3>Recent Comments</h3>
+            <!-- RECENT COMMENTS -->
+            <div class="existing-comments">
+                <h3>Recent Comments</h3>
 
-    <?php
-    _select(
-      $stmt,
-      $count,
-      "SELECT id, review, stars, user_id FROM comments WHERE course_id=? ORDER BY created_at DESC LIMIT 5",
-      "i",
-      [$course_id],
-      $comment_id,
-      $review,
-      $stars,
-      $comment_user_id
-    );
-    ?>
+                <?php
+                _select(
+                    $stmt,
+                    $count,
+                    "SELECT id, review, stars, user_id FROM comments WHERE course_id=? ORDER BY created_at DESC LIMIT 5",
+                    "i",
+                    [$course_id],
+                    $comment_id,
+                    $review,
+                    $stars,
+                    $comment_user_id
+                );
+                ?>
 
-    <?php while (_fetch($stmt)): ?>
-      <div class="recent-comment">
-        <div class="stars">
-          <?php for ($i = 1; $i <= 5; $i++): ?>
-            <span class="<?= $i <= $stars ? 'filled' : '' ?>">★</span>
-          <?php endfor; ?>
+                <?php while (_fetch($stmt)): ?>
+                    <div class="recent-comment">
+                        <div class="stars">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="<?= $i <= $stars ? 'filled' : '' ?>">★</span>
+                            <?php endfor; ?>
+                        </div>
+                        <p><?= $review ?></p>
+
+                        <?php if ($comment_user_id == $user_id): ?>
+                            <div class="comment-actions">
+                                <a href="<?= url('user/learn_more?id=' . $course_id . '&edit=' . $comment_id) ?>">Edit</a>
+                                <a href="<?= url('user/comment_delete?id=' . $comment_id . '&course_id=' . $course_id) ?>"
+                                    onclick="return confirm('Delete this comment?')">Delete</a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endwhile; ?>
+                <?php _close_stmt($stmt); ?>
+            </div>
         </div>
-        <p><?= $review ?></p>
-
-        <?php if ($comment_user_id == $user_id): ?>
-          <div class="comment-actions">
-            <a href="<?= url('user/learn_more?id=' . $course_id . '&edit=' . $comment_id) ?>">Edit</a>
-            <a href="<?= url('user/comment_delete?id=' . $comment_id . '&course_id=' . $course_id) ?>" onclick="return confirm('Delete this comment?')">Delete</a>
-          </div>
-        <?php endif; ?>
-      </div>
-    <?php endwhile; ?>
-    <?php _close_stmt($stmt); ?>
-  </div>
-</div>
 
 
     </div>
