@@ -7,3 +7,8 @@
 
 [L77]: useful if you want to save your error to error log table it is useful for site ownwer.
 [L80]: about msg alerts about deleted/ updated etc.
+[l81]: JS communiction msg
+
+to prvent access
+index: define('APP_STARTED', true);
+others: defined('APP_STARTED') or exit;

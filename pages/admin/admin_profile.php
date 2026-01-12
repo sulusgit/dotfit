@@ -1,11 +1,10 @@
 <?php
-session_start();
 
 // Хэрвээ хэрэглэгч login хийгээгүй бол буцаана
-if (!isset($_SESSION['email'])) {
+/* if (!isset($_SESSION['email'])) {
     header("Location: /pages/sign_in.php");
     exit;
-}
+} */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,14 +49,14 @@ if (!isset($_SESSION['email'])) {
             <div class="info-card">
                 <div class="info-row">
                     <span class="info-label">Full Name</span>
-                    <input type="text" class="info-value editable" id="edit-name"
-                           value="<?= $_SESSION['name'] ?>" disabled>
+                    <input type="text" class="info-value editable" id="edit-name" value="<?= $_SESSION['name'] ?>"
+                        disabled>
                 </div>
 
                 <div class="info-row">
                     <span class="info-label">Email Address</span>
-                    <input type="email" class="info-value editable" id="edit-email"
-                           value="<?= $_SESSION['email'] ?>" disabled>
+                    <input type="email" class="info-value editable" id="edit-email" value="<?= $_SESSION['email'] ?>"
+                        disabled>
                 </div>
             </div>
 
@@ -65,10 +64,13 @@ if (!isset($_SESSION['email'])) {
                 <button class="back-btn" onclick="goBack()">← Back</button>
 
                 <!-- USER DELETE ACCOUNT -->
-                <form method="POST" action="/pages/user/delete_account.php"
-                      onsubmit="return confirm('Are you sure you want to delete your account?');">
+                <form method="POST" action="<?= url('delete_account') ?>"
+                    onsubmit="return confirm('Are you sure you want to delete your account?');">
                     <button type="submit" class="delete-account-btn">Delete Account</button>
                 </form>
+
+            </div>
+
             </div>
         </section>
 
@@ -85,7 +87,9 @@ if (!isset($_SESSION['email'])) {
     </div>
 
     <script>
-        const editState = { profile: false };
+        const editState = {
+            profile: false
+        };
 
         function toggleEdit(section) {
             editState[section] = !editState[section];
@@ -117,4 +121,5 @@ if (!isset($_SESSION['email'])) {
     </script>
 
 </body>
+
 </html>

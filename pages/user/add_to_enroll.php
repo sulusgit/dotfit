@@ -1,3 +1,18 @@
+<?php
+
+if (!isset($_SESSION['id'])) {
+    die('Login required');
+}
+$name  = $_SESSION['name'];
+$email = $_SESSION['email'];
+
+
+$course_id = (int) ($_GET['course_id'] ?? 0);
+if ($course_id <= 0) {
+    die('Invalid course');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +29,11 @@
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(4px);
+        }
+
+        h2,
+        label {
+            color: #0b0a0a;
         }
 
         .profile-form {
@@ -99,38 +119,35 @@
     <div class="enrollOverlay">
         <div class="profile-form">
 
-            <!-- Close → back to home -->
-            <a href="<?= url('user/home_user_ui') ?>" class="close-x">&times;</a>
+            <!-- Close -->
 
+            <a href="<?= url('user/home_user_ui') ?>" class="close-x">&times;</a>
             <h2>Enroll in Course</h2>
 
-            <!-- FORM (can be connected later to admin/publisher) -->
-            <form action="#" method="post">
+
+
+            <form action="<?= url('user/enroll_submit') ?>" method="post">
+
+                <!-- IMPORTANT -->
+                <input type="hidden" name="course_id" value="<?= $course_id ?>">
 
                 <div class="input-group">
                     <label>Name</label>
-                    <input type="text" required placeholder="Enter your full name">
+                    <input type="text" name="name" value="<?= $name ?>" required>
                 </div>
 
                 <div class="input-group">
                     <label>Email</label>
-                    <input type="email" required placeholder="Enter your email">
+                    <input type="email" name="email" value="<?= $email ?>" required>
                 </div>
-
                 <div class="input-group">
-                    <label>Choose start date</label>
-                    <select required>
-                        <option disabled selected>-- Select date --</option>
-                        <option>20.01.2026</option>
-                        <option>05.03.2026</option>
-                    </select>
+                    <label>Choose your start date </label>
+                    <input type="date" name="start_date" value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>"
+                        required>
                 </div>
-
                 <div class="button-group">
-                    <!-- Cancel → home -->
                     <a href="<?= url('user/home_user_ui') ?>" class="cancel-btn">Cancel</a>
 
-                    <!-- Enroll → submit -->
                     <button type="submit" class="save-btn">
                         Enroll Now
                     </button>

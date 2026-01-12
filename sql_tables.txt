@@ -66,7 +66,29 @@ CREATE TABLE users (
     user_id INT NOT NULL,
     course_id INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY uniq_user_course (user_id, course_id)
+
+    UNIQUE KEY uniq_user_course (user_id, course_id),
+
+    INDEX idx_user (user_id),
+    INDEX idx_course (course_id),
+
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
+
 --------------------
+Enroll requist table:
+CREATE TABLE enroll_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    name VARCHAR(150),
+    email VARCHAR(150),
+    start_date DATE,
+    status ENUM('pending','approved','rejected') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);//----------------
+ALTER TABLE enroll_requests
+ADD UNIQUE KEY uniq_user_course (user_id, course_id);
+
+////---------------

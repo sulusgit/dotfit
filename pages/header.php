@@ -36,6 +36,7 @@
         }
 
         /* LOGO */
+        /* LOGO */
         .logo {
             font-size: 24px;
             font-weight: 700;
@@ -43,10 +44,23 @@
             color: #000;
             cursor: pointer;
             transition: opacity 0.2s ease;
+            text-decoration: none;
         }
 
         .logo:hover {
             opacity: 0.7;
+        }
+
+        /* FILTER  */
+
+        /* CENTER SECTION */
+        .center-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+            justify-content: center;
+            max-width: 600px;
         }
 
         /* FILTER */
@@ -67,8 +81,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
-            transition: background 0.2s;
+            color: #787874;
+            /*  transition: background 0.2s; */
+            ;
         }
 
         .filter-btn:hover {
@@ -107,7 +122,7 @@
             text-decoration: none;
             color: #333;
             font-size: 14px;
-            transition: background 0.2s;
+            /* transition: background 0.2s; */
         }
 
         .filter-option:hover {
@@ -137,13 +152,7 @@
             border-color: #000;
         }
 
-        .filter-option.active-sort .checkbox-box::after {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: #000;
-            border-radius: 50%;
-        }
+
 
         @keyframes fadeIn {
             from {
@@ -159,11 +168,9 @@
 
         /* SEARCH */
         .search-box {
-            flex: 1;
             position: relative;
-            /* ← TO JEST KLUCZ */
-            max-width: 400px;
-            margin: 0 60px;
+            flex: 1;
+            max-width: 350px;
         }
 
         .search-box form {
@@ -210,6 +217,7 @@
             pointer-events: none;
             z-index: 1;
         }
+
 
         /* NAVIGATION */
         .nav {
@@ -404,37 +412,37 @@
         }
 
         /* filter checkbox*/
-            /* --- STYPIE DLA FILTRA - DARK MODE --- */
-    @media (prefers-color-scheme: dark) {
-        .filter-menu {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
+        /* --- STYPIE DLA FILTRA - DARK MODE --- */
+        @media (prefers-color-scheme: dark) {
+            .filter-menu {
+                background: #1a1a1a;
+                border: 1px solid #333;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            }
 
-        .filter-option {
-            color: #ccc;
-        }
+            .filter-option {
+                color: #ccc;
+            }
 
-        .filter-option:hover {
-            background-color: #333;
-            color: #fff;
-        }
+            .filter-option:hover {
+                background-color: #333;
+                color: #fff;
+            }
 
-        /* Aktywna opcja w trybie ciemnym */
-        .filter-option.active-sort {
-            background-color: #252525;
-            color: #fff;
-        }
+            /* Aktywna opcja w trybie ciemnym */
+            .filter-option.active-sort {
+                background-color: #252525;
+                color: #fff;
+            }
 
-        .filter-option.active-sort .checkbox-box {
-            border-color: #fff;
-        }
+            .filter-option.active-sort .checkbox-box {
+                border-color: #fff;
+            }
 
-        .filter-option.active-sort .checkbox-box::after {
-            background: #fff;
+            .filter-option.active-sort .checkbox-box::after {
+                background: #fff;
+            }
         }
-    }
     </style>
 </head>
 
@@ -443,38 +451,49 @@
     <header class="header">
         <!-- LOGO -->
         <div class="logo">
-            .Fit
-        </div>
-        <!-- FILTER at the heqader--- NOWY FILTR --- -->
-        <div class="filter-dropdown" id="filterDropdown">
-            <button class="filter-btn" onclick="toggleFilter()" title="Sort by Price">
-                <!-- Ikona Lejka / Filtru -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                </svg>
-            </button>
+            <a href="<?= url('home') ?>" class="logo">.Fit</a>
 
-            <div class="filter-menu">
-                <a href="" class="filter-option">
-                    <div class="checkbox-box"></div>
-                    Lowest Price
-                </a>
-                <a href="" class="filter-option">
-                    <div class="checkbox-box"></div>
-                    Highest Price
-                </a>
-            </div>
         </div>
-        <!-- --- KONIEC FILTRA --- -->
-        <!-- SEARCH -->
-        <div class="search-box">
-            <form method="GET" action="">
-                <input value="<?php if (isset($_GET['search'])) {
-                                    echo $_GET['search'];
-                                } ?>" type="text" name="search" placeholder="Search courses..."
-                    oninput="if(this.value==='') window.location='<?= strtok($_SERVER['REQUEST_URI'], '?') ?>'">
-            </form>
+
+        <!-- CENTER SECTION -->
+        <div class="center-section">
+            <!-- FILTER at the header --- SORT UI --- -->
+            <div class="filter-dropdown" id="filterDropdown">
+                <button class="filter-btn" onclick="toggleFilter(event)" title="Filter & Sort">
+                    <!-- Ikona Lejka / Filtru -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                </button>
+
+                <div class="filter-menu">
+                    <!-- Lowest Price -->
+                    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                        <div class="checkbox-box"></div>
+                        Lowest Price
+                    </a>
+                    <!-- Highest Price -->
+                    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                        <div class="checkbox-box"></div>
+                        Highest Price
+                    </a>
+
+                </div>
+            </div>
+            <!-- --- END FILTER --- -->
+
+            <!-- SEARCH -->
+            <div class="search-box">
+                <form method="GET" action="">
+                    <input value="<?php if (isset($_GET['search'])) {
+                                        echo $_GET['search'];
+                                    } ?>" type="text" name="search" placeholder="Search courses..."
+                        oninput="if(this.value==='') window.location='<?= strtok($_SERVER['REQUEST_URI'], '?') ?>'">
+                </form>
+            </div>
+
+
 
         </div>
 
@@ -502,10 +521,9 @@
 
 
 
-    
-    <script>
 
-                // --- FILTER LOGIC ---
+    <script>
+        // --- FILTER LOGIC ---
 
         // 1. Funkcja otwierająca/zamykająca menu (zatrzymuje propagację, żeby nie zamknąć się od razu)
         function toggleFilter(event) {
@@ -525,7 +543,7 @@
 
             // Tutaj możesz dodać logikę sortowania produktów, np.:
             // console.log('Wybrano:', element.innerText.trim());
-            
+
             // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
             document.getElementById('filterDropdown').classList.remove('active');
         }

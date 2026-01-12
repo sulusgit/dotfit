@@ -64,7 +64,7 @@ include 'header_user.php';
                 <button class="back-btn" onclick="goBack()">← Back</button>
 
                 <!-- USER DELETE ACCOUNT -->
-                <form method="POST" action="/pages/user/delete_account.php"
+                <form method="POST" action="<?= url('delete_account') ?>"
                     onsubmit="return confirm('Are you sure you want to delete your account?');">
                     <button type="submit" class="delete-account-btn">Delete Account</button>
                 </form>
@@ -84,37 +84,37 @@ include 'header_user.php';
     </div>
 
     <script>
-        const editState = {
-            profile: false
-        };
+    const editState = {
+        profile: false
+    };
 
-        function toggleEdit(section) {
-            editState[section] = !editState[section];
-            const sectionEl = document.getElementById(`${section}-section`);
-            const btn = sectionEl.querySelector('.edit-btn span');
-            const inputs = sectionEl.querySelectorAll('.editable');
+    function toggleEdit(section) {
+        editState[section] = !editState[section];
+        const sectionEl = document.getElementById(`${section}-section`);
+        const btn = sectionEl.querySelector('.edit-btn span');
+        const inputs = sectionEl.querySelectorAll('.editable');
 
-            if (editState[section]) {
-                sectionEl.classList.add('editing');
-                btn.textContent = 'Save';
-                inputs.forEach(i => i.disabled = false);
-            } else {
-                sectionEl.classList.remove('editing');
-                btn.textContent = 'Edit';
-                inputs.forEach(i => i.disabled = true);
-                showSaveIndicator();
-            }
+        if (editState[section]) {
+            sectionEl.classList.add('editing');
+            btn.textContent = 'Save';
+            inputs.forEach(i => i.disabled = false);
+        } else {
+            sectionEl.classList.remove('editing');
+            btn.textContent = 'Edit';
+            inputs.forEach(i => i.disabled = true);
+            showSaveIndicator();
         }
+    }
 
-        function showSaveIndicator() {
-            const indicator = document.getElementById('save-indicator');
-            indicator.classList.add('visible');
-            setTimeout(() => indicator.classList.remove('visible'), 3000);
-        }
+    function showSaveIndicator() {
+        const indicator = document.getElementById('save-indicator');
+        indicator.classList.add('visible');
+        setTimeout(() => indicator.classList.remove('visible'), 3000);
+    }
 
-        function goBack() {
-            window.history.back();
-        }
+    function goBack() {
+        window.history.back();
+    }
     </script>
 
 

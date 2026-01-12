@@ -1,28 +1,22 @@
-Home page GUEST
-
-<!--OTHERS  -->
-<!--janper8877 -->
-
-<?php require 'header.php';
+<?php
+include 'header.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>.Fit - Transform Your Life</title>
-    <link rel="stylesheet" href="<?= asset('/css/home.css') ?>">
-    <!-- thie STYLE what for !!!! -->
-    <!--   <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    </style> -->
+    <title>.Fit - Transform Your Life</title> <!-- HOME PAGE CSS -->
+    <link rel="stylesheet" href="<?= asset('/css/home_user_ui.css') ?>">
+
+    <!-- FOR ICON-BTNS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- HERO SECTION -->
+    <!-- Main title section -->
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Just Do It</h1>
@@ -31,86 +25,149 @@ Home page GUEST
     </section>
 
     <!-- COURSES SECTION -->
+    <!--start  search try -->
     <section class="courses">
         <div class="section-header">
             <p class="section-label">Our Courses</p>
             <h2 class="section-title">Choose Your Journey</h2>
             <p class="section-description">Expert-led programs designed to help you achieve your fitness goals</p>
         </div>
-
         <div class="courses-grid">
-            <!-- SWIMMING COURSE -->
-            <a href="course-swimming.php" class="course-card">
-                <div class="course-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop"
-                        alt="Swimming" class="course-image">
-                    <span class="course-badge">Popular</span>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">Swimming</h3>
-                    <p class="course-description">
-                        Master the art of swimming with professional techniques. From beginners to advanced swimmers,
-                        improve your strokes, breathing, and endurance in our state-of-the-art pools.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">8 weeks program</span>
-                        <span class="course-link">Learn More</span>
-                    </div>
-                </div>
-            </a>
 
-            <!-- YOGA COURSE -->
-            <a href="course-yoga.php" class="course-card">
-                <div class="course-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=600&fit=crop" alt="Yoga"
-                        class="course-image">
-                    <span class="course-badge">Bestseller</span>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">Yoga</h3>
-                    <p class="course-description">
-                        Find your inner peace and flexibility through ancient yoga practices. Build strength,
-                        improve posture, and achieve mental clarity with our certified yoga instructors.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">6 weeks program</span>
-                        <span class="course-link">Learn More</span>
-                    </div>
-                </div>
-            </a>
+            <?php
+            $search = trim($_GET['search'] ?? '');
 
-            <!-- PILATES COURSE -->
-            <a href="course-pilates.php" class="course-card">
-                <div class="course-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&h=600&fit=crop"
-                        alt="Pilates" class="course-image">
-                    <span class="course-badge">New</span>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">Pilates</h3>
-                    <p class="course-description">
-                        Strengthen your core and improve body alignment with controlled Pilates movements.
-                        Perfect for rehabilitation, toning, and developing long, lean muscles.
-                    </p>
-                    <div class="course-meta">
-                        <span class="course-duration">10 weeks program</span>
-                        <span class="course-link">Learn More</span>
+
+            if ($search !== '') {
+                // SEARCH HAS VALUE → filter
+                _select(
+                    $stmt,
+                    $count,
+                    "SELECT id, name, description, duration, badge, price, difficulty
+                    FROM courses
+                    WHERE name LIKE ?
+                    ORDER BY created_at DESC",
+                    's',
+                    ["%$search%"],
+                    $id,
+                    $name,
+                    $description,
+                    $duration,
+                    $badge,
+                    $price,
+                    $difficulty
+                );
+            } else {
+                // SEARCH EMPTY → show all
+                _selectAll(
+                    $stmt,
+                    $count,
+                    "SELECT id, name, description, duration, badge, price, difficulty FROM courses ORDER BY created_at DESC",
+                    $id,
+                    $name,
+                    $description,
+                    $duration,
+                    $badge,
+                    $price,
+                    $difficulty
+                );
+                /*   this one abit problems _selectAll(
+                    $stmt,
+                    $count,
+                    "SELECT id, name, description, duration, badge, price, difficulty
+                    FROM courses
+                    WHERE name LIKE ?
+                    ORDER BY created_at DESC",
+                    $id,
+                    $name,
+                    $description,
+                    $duration,
+                    $badge,
+                    $price,
+                    $difficulty
+                ); */
+            }
+
+            if ($count > 0):
+                while (_fetch($stmt)): ?>
+                    <!-- COURSE CARD -->
+                    <div class="course-card">
+                        <div class="course-image-wrapper">
+                            <a href="<?= url('sign_in') ?>" class="course-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop"
+                                    alt="<?= $name ?>" class="course-image">
+                            </a>
+                            <span class="course-badge"><?= $badge ?></span>
+                            <span class="course-difficulty"><?= $difficulty ?></span>
+                        </div>
+
+                        <div class="course-content">
+                            <h3 class="course-title"><?= $name ?></h3>
+                            <p class="course-description"> <?= $description ?> </p>
+
+
+                            <div class="meta-actions">
+
+                                <a href="<?= url('sign_in') ?>" class="learn-more">
+                                    LEARN MORE →
+                                </a>
+
+                                <a href="<?= url('sign_in') ?>" class="icon-btn fav-btn" data-id="<?= $id ?>">
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                                <script>
+                                    document.querySelectorAll('.fav-btn').forEach(btn => {
+                                        btn.addEventListener('click', function(e) {
+                                            e.preventDefault(); // STOP redirect
+
+                                            const icon = this.querySelector('i');
+                                            const courseId = this.dataset.id;
+
+                                            // toggle heart visually
+                                            icon.classList.toggle('fa-regular');
+                                            icon.classList.toggle('fa-solid');
+
+                                            // save in backend
+                                            fetch('sign_in.php', { //!!!!!!!!!!!!!!!
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                                },
+                                                body: 'id=' + courseId
+                                            });
+                                        });
+                                    });
+                                </script>
+
+                                <a href="<?= url('sign_in') ?>" class="icon-btn">
+                                    <i class="fa-regular fa-comment"></i>
+                                </a>
+                                <!-- btn-view-details == ENROLL btn -->
+                                <a href="<?= url('sign_in') ?>" class="icon-btn">
+                                    <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
+                                </a>
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </a>
+            <?php endwhile;
+            else:
+                echo "NO COURSES FOUND";
+            endif;
+
+            _close_stmt($stmt);
+            ?>
         </div>
     </section>
 
+    <!-- search try  end-->
+
+
+
+
     <!-- CTA SECTION -->
-    <section class="cta-section">
-        <a href="all-courses.php" class="cta-button">View All Courses</a>
-    </section>
-
+    <section class="cta-section"> <a href="#" class="cta-button">View All Courses</a> </section>
+    <?php require ROOT . '../pages/footer.php'; ?>
 </body>
-<?php //include '../pages/footer.php'; 
-?>
-<?php require ROOT . '/pages/footer.php'; ?>
-
-
 
 </html>
