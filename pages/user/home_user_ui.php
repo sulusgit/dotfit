@@ -122,21 +122,7 @@
                         $price,
                         $difficulty
                     );
-                } else {
-                    // SEARCH EMPTY → show all
-                    /*     _selectAll(
-                        $stmt,
-                        $count,
-                        "SELECT id, name, description, duration, badge, price, difficulty FROM courses ORDER BY created_at DESC",
-                        $id,
-                        $name,
-                        $description,
-                        $duration,
-                        $badge,
-                        $price,
-                        $difficulty
-                    ); */
-                    _select(
+                } else {t(
                         $stmt,
                         $count,
                         "SELECT

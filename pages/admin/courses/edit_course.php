@@ -55,7 +55,7 @@ _selectRow(
             <div class="image-upload-wrapper">
                 <input type="file" id="imageInput" name="course_image" accept="image/*" style="display:none;">
                 <div class="image-upload" id="previewBox" onclick="triggerUpload()">
-                    Insert course image here
+                    
                 </div>
             </div>
 
@@ -100,7 +100,7 @@ _selectRow(
 
             <!-- OPTIONAL FIELDS -->
             <h3 class="optional-title">Optional <div class="input-group">
-                    <label>Additional Information / Article</label>
+                    <label>Additional Information | Article</label>
                     <textarea class="text_add_info" name="text_add_info" rows="4"
                         placeholder="You can write any article or additional information about your course..."><?= htmlspecialchars($text_add_info ?? '') ?></textarea>
                 </div>
