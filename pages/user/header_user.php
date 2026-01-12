@@ -513,6 +513,15 @@ if ($_SESSION['role'] !== 'user') {
                     <div class="checkbox-box"></div>
                     Highest Price
                 </a>
+
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                    Newest First
+                </a>
+                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+                    <div class="checkbox-box"></div>
+                        Oldest First
+                </a>
         
             </div>
         </div>
