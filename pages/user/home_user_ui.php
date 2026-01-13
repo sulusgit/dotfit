@@ -14,18 +14,83 @@
      <!-- This styke for for comment scrool  -->
      <style>
          /* ennroll btn status */
-         .enroll-btn.requested {
-             background: #28a745;
-             color: #fff;
-         }
+         
+/* BASE BUTTON STYLE */
+.enroll-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
 
-         .enroll-btn.approved {
-             background: #aaa;
-             color: #fff;
-             cursor: not-allowed;
-         }
+/* ENROLL (default) */
+.enroll-btn.enroll {
+  background: #222;
+  color: #fff;
+}
 
-         /* enrool btn status */
+.enroll-btn.enroll:hover {
+  background: #333;
+}
+
+/* REQUESTED */
+.enroll-btn.requested {
+  background: #444;
+  color: #fff;
+  cursor: default;
+}
+
+.enroll-btn.requested .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #999;
+  animation: pulse 1.5s infinite;
+}
+
+/* ENROLLED */
+.enroll-btn.enrolled {
+  background: #333;
+  color: #ccc;
+  cursor: default;
+}
+
+.enroll-btn.enrolled .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #666;
+}
+
+/* PULSE ANIMATION */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .enroll-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+    gap: 4px;
+  }
+
+  .enroll-btn .dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
          .comments-overlay {
              position: fixed;
              inset: 0;
@@ -135,7 +200,7 @@
                         $price,
                         $difficulty
                     );
-                } else {t(
+                } else {_select(
                         $stmt,
                         $count,
                         "SELECT

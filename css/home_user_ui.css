@@ -396,40 +396,6 @@
     color: #ffffff;
 } */
 
-.enroll-btn {
-  position: relative;
-  color: #ccc;
-  text-decoration: none; /* underline арилгана */
-}
-
-.enroll-btn i {
-  text-decoration: none; /* icon дээр underline гарахаас сэргийлнэ */
-}
-
-.enroll-btn:hover {
-  color: #ccc;
-}
-
-.enroll-btn .tooltip {
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #000;
-  color: #fff;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.enroll-btn:hover .tooltip {
-  opacity: 1;
-}
-
 
 /* DARK MODE */
 @media (prefers-color-scheme: dark) {
