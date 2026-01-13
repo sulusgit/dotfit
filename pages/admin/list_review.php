@@ -365,9 +365,7 @@
 
 
 
-            <a href="javascript:void(0);" onclick="history.back();">
-                ← Back to Previous Page
-            </a>
+           <button class="back-btn" onclick="history.back();">← Back</button>
 
         </div>
 
