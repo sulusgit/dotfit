@@ -14,7 +14,7 @@
      <!-- This styke for for comment scrool  -->
      <style>
          /* ennroll btn status */
-         
+
 /* BASE BUTTON STYLE */
 .enroll-btn {
   display: inline-flex;
@@ -306,7 +306,7 @@
                                  <?php else: ?>
 
                                      <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn">
-                                         Enroll
+                                        ENROLL
                                      </a>
 
                                  <?php endif; ?>

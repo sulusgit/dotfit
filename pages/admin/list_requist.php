@@ -348,6 +348,7 @@
     <!-- HERO SECTION (Nagłówek) -->
     <div class="profile-hero">
         <div class="hero-content">
+            
             <!-- Ikona/Avatar administratora -->
             <h1 class="profile-name">Enrollment Requests</h1>
             <div class="profile-role">Dashboard Overview</div>
@@ -398,6 +399,9 @@
                 );
 
                 ?>
+                
+
+                
                 <h2 class="course-title">
                     Enrollment Requests – <?= $course_name ?>
                 </h2>
@@ -447,7 +451,8 @@
                 ← Back to Previous Page
             </a> -->
 
-                `
+            <button class="back-btn" onclick="history.back();">← Back</button>
+                
             </div>
 
 </body>
