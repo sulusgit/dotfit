@@ -15,9 +15,9 @@ $difficulty = $difficulty === '' ? null : $difficulty;
 
 // image not handled yet
 $image = null;
-
-$success = _exec(
-    "UPDATE courses SET
+try {
+    $success = _exec(
+        "UPDATE courses SET
         name=?,
         description=?,
         text_add_info=?,
@@ -26,35 +26,37 @@ $success = _exec(
         price=?,
         difficulty=?
      WHERE id=?",
-    "sssssdsi",
-    [
-        $course_name,
-        $description,
-        $text_add_info,
-        $duration,
-        $badge,
-        $price,
-        $difficulty,
-        $id
-    ],
-    $count
-);
-/* if ($success) {
-    $_SESSION['messages'][] = "Course saved successfully.";
-} */
-if ($id <= 0) {
-    $_SESSION['errors'][] = 'Invalid course ID.';
-    _redirect('admin/home_admin_ui');
-}
+        "sssssdsi",
+        [
+            $course_name,
+            $description,
+            $text_add_info,
+            $duration,
+            $badge,
+            $price,
+            $difficulty,
+            $id
+        ],
+        $count
+    );
 
-if ($success) {
-    $_SESSION['messages'][] =
-        $count > 0 ? "Course updated successfully!" : "No changes were made.";
-} else {
-    $_SESSION['errors'][] = "Update failed.";
+    flash('info', 'Course edit saved successfully.');
+} catch (Exception $e) {
+    flash('error', 'An error occurred: ' . $e->getMessage());
+    /*    _redirect('admin/home_admin_ui'); */
 }
-
 _redirect('admin/home_admin_ui');
+/* if ($id <= 0) {
+    flash('error', 'Invalid course ID.');
+    /*   _redirect('admin/home_admin_ui'); */
+
+
+/* if ($success) {
+    flash('success', $count > 0 ? "Course updated successfully!" : "No changes were made.");
+} else {
+    flash('error', 'An error occurred while updating the course. Please try again.');
+}
+ */
 
 
 

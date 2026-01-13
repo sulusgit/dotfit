@@ -9,11 +9,23 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>.Fit - Transform Your Life</title> <!-- HOME PAGE CSS -->
      <link rel="stylesheet" href="<?= asset('css/home_user_ui.css') ?>">
-
      <!-- FOR ICON-BTNS -->
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
      <!-- This styke for for comment scrool  -->
      <style>
+         /* ennroll btn status */
+         .enroll-btn.requested {
+             background: #28a745;
+             color: #fff;
+         }
+
+         .enroll-btn.approved {
+             background: #aaa;
+             color: #fff;
+             cursor: not-allowed;
+         }
+
+         /* enrool btn status */
          .comments-overlay {
              position: fixed;
              inset: 0;
@@ -103,6 +115,7 @@
              <?php
                 $search = trim($_GET['search'] ?? '');
                 $user_id = $_SESSION['id'] ?? 0;
+
                 if ($search !== '') {
                     // SEARCH HAS VALUE → filter
                     _select(
@@ -154,10 +167,26 @@
 
                 if ($count > 0):
                     while (_fetch($stmt)): ?>
+                     <!-- TO CHECK EVERY COURSE ENROLLS -->
+                     <?php $enroll_status = null;
+                        _selectRow(
+                            $stmt2,
+                            $count2,
+                            "SELECT status FROM enroll_requests WHERE user_id=? AND course_id=?",
+                            "ii",
+                            [$user_id, $id],
+                            $status
+                        );
+
+                        if ($count2 > 0) {
+                            $enroll_status = $status; // 'pending' | 'approved' | 'rejected'
+                        }
+
+                        ?>
                      <!-- COURSE CARD -->
                      <div class="course-card">
                          <div class="course-image-wrapper">
-                             <a href="<?= url('/course_details') ?> id=<?= $id ?>" class="course-image-wrapper">
+                             <a href="<?= url('user/learn_more?id=' . $id) ?> id=<?= $id ?>" class="course-image-wrapper">
                                  <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop"
                                      alt="<?= $name ?>" class="course-image">
                              </a>
@@ -176,9 +205,13 @@
                                      LEARN MORE →
                                  </a>
 
-                                 <a href="#" class="icon-btn fav-btn" data-id="<?= $id ?>">
-                                     <i class="<?= $is_fav ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
+                                 <!-- FEVO WITH ACTION -->
+                                 <a href="#" class="icon-btn fav-btn <?= $is_fav ? 'active' : '' ?>" data-id="<?= $id ?>">
+                                     <!--   <i class="fa-heart"></i> -->
+                                     <i class="fa-solid fa-heart"> </i>
                                  </a>
+
+
 
                                  <!-- Coment scrool view -->
 
@@ -189,9 +222,30 @@
                                  </a>
 
                                  <!-- btn-view-details == ENROLL btn -->
-                                 <a href="<?= url('user/add_to_enroll') ?>" class="icon-btn">
+                                 <!--   <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="icon-btn" class="icon-btn">
                                      <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
-                                 </a>
+                                 </a> -->
+                                 <!-- ENTROLL BTN WITH STATUS -->
+                                 <?php if ($enroll_status === 'pending'): ?>
+
+                                     <button class="enroll-btn requested" data-course="<?= $id ?>">
+                                         Requested
+                                     </button>
+
+                                 <?php elseif ($enroll_status === 'approved'): ?>
+
+                                     <button class="enroll-btn approved" disabled>
+                                         Enrolled
+                                     </button>
+
+                                 <?php else: ?>
+
+                                     <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn">
+                                         Enroll
+                                     </a>
+
+                                 <?php endif; ?>
+
 
                              </div>
                          </div>
@@ -205,6 +259,7 @@
                 ?>
          </div>
      </section>
+
      <!-- for comments scrool -->
 
      <div id="commentsModal" class="comments-overlay hidden">
@@ -217,9 +272,30 @@
 
      <!-- search  end-->
      <!-- CTA SECTION -->
-     <section class="cta-section"> <a href="<?= url('all-courses') ?>" class="cta-button">View All Courses</a>
+     <section class="cta-section"> <a href="#" class="cta-button">View All Courses</a>
      </section>
      <?php require ROOT . '../pages/footer.php'; ?>
+     <!-- for entroll btn controll -->
+
+     <script>
+         document.addEventListener('DOMContentLoaded', () => {
+             document.querySelectorAll('.enroll-btn.requested').forEach(btn => {
+                 btn.addEventListener('click', () => {
+                     if (!confirm('Cancel enrollment request?')) return;
+
+                     fetch('<?= url("user/enroll_cancel") ?>', {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/x-www-form-urlencoded'
+                             },
+                             body: 'course_id=' + btn.dataset.course
+                         })
+                         .then(() => location.reload());
+                 });
+             });
+         });
+     </script>
+
 
      <!-- script for comment btn -->
 
@@ -275,37 +351,59 @@
 
 
      <!-- script for fevo btn -->
+
      <script>
-         document.addEventListener('DOMContentLoaded', () => {
-             document.querySelectorAll('.fav-btn').forEach(btn => {
-                 btn.addEventListener('click', function(e) {
-                     e.preventDefault();
+         document.querySelectorAll('.fav-btn').forEach(btn => {
+             btn.addEventListener('click', e => {
+                 e.preventDefault();
 
-                     const icon = this.querySelector('i');
-                     const courseId = this.dataset.id;
-
-                     fetch('/user/add_to_fevo.php', {
-                             method: 'POST',
-                             headers: {
-                                 'Content-Type': 'application/x-www-form-urlencoded'
-                             },
-                             credentials: 'same-origin',
-                             body: 'id=' + courseId
-                         })
-                         .then(res => res.text())
-                         .then(result => {
-                             if (result === 'added') {
-                                 icon.classList.remove('fa-regular');
-                                 icon.classList.add('fa-solid');
-                             } else if (result === 'removed') {
-                                 icon.classList.remove('fa-solid');
-                                 icon.classList.add('fa-regular');
-                             }
-                         });
-                 });
+                 fetch('<?= url("user/add_to_fevo") ?>', {
+                         method: 'POST',
+                         headers: {
+                             'Content-Type': 'application/x-www-form-urlencoded'
+                         },
+                         body: 'course_id=' + btn.dataset.id
+                     })
+                     .then(res => res.text())
+                     .then(() => {
+                         btn.classList.toggle('active');
+                     });
              });
          });
      </script>
+
+
+     <!--  <script>
+     document.addEventListener('DOMContentLoaded', () => {
+         document.querySelectorAll('.fav-btn').forEach(btn => {
+             btn.addEventListener('click', function(e) {
+                 e.preventDefault();
+
+                 const icon = this.querySelector('i');
+                 const courseId = this.dataset.id;
+
+                 fetch('/user/add_to_fevo.php', {
+                         method: 'POST',
+                         headers: {
+                             'Content-Type': 'application/x-www-form-urlencoded'
+                         },
+                         credentials: 'same-origin',
+                         body: 'id=' + courseId
+                     })
+                     .then(res => res.text())
+                     .then(result => {
+                         if (result === 'added') {
+                             icon.classList.remove('fa-regular');
+                             icon.classList.add('fa-solid');
+                         } else if (result === 'removed') {
+                             icon.classList.remove('fa-solid');
+                             icon.classList.add('fa-regular');
+                         }
+                     });
+             });
+         });
+     });
+     </script> -->
 
  </body>
 

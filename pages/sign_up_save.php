@@ -94,14 +94,11 @@ if (!$errors) {
     } */
     // if sign up with user/admin  that user/admin btn checked
     _redirect('sign_in');
-
-
-    exit;
 }
 
 /* =====================
    6. ON ERROR → BACK
    ===================== */
 $_SESSION['errors'] = $errors;
+
 _redirect('sign_up');
-exit;

@@ -358,7 +358,7 @@
 .learn-more:hover::after {
     margin-left: 12px;
 }
-
+/* ---------------------- */
 .icon-btn {
     background: transparent;
     border: none;
@@ -392,9 +392,9 @@
 }
 
 
-.fav-btn .fa-solid {
+/* .fav-btn .fa-solid {
     color: #ffffff;
-}
+} */
 
 .enroll-btn {
   position: relative;
@@ -458,6 +458,39 @@
     color: #000;
   }
 }
+/* FEVO BTN SULUS */
+/* base heart */
+.fav-btn i {
+  color: #111;            /* black */
+  font-size: 18px;
+}
+
+/* active but NOT filled */
+
+/* base heart (outline) */
+.fav-btn i {
+font-family: "Font Awesome 6 Free"; 
+  font-weight: 400;          /* regular = outline */
+  color: transparent;
+  -webkit-text-stroke: 0.8px #fff;
+  font-size: 18px;
+  transition: all 0.2s ease;
+}
+
+/* ACTIVE = filled white */
+.fav-btn.active i {
+  font-weight: 900;          /* solid = filled */
+  color: #fff;
+  -webkit-text-stroke: 3;
+}
+
+/* hover (optional) */
+.fav-btn:hover i {
+  transform: scale(1.1);
+}
+
+
+/* FEVO BTN SULUS */
 
 
 

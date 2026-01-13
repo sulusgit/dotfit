@@ -5,7 +5,9 @@ if ($_SESSION['role'] !== 'user') {
     _redirect('sign_in');
     exit;
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -15,6 +17,61 @@ if ($_SESSION['role'] !== 'user') {
     <title>User Header</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        /* for flash messages infos */
+        .flash-wrapper {
+            position: fixed;
+            top: 70px;
+            /* height of header */
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            padding: 0 20px;
+        }
+
+        .flash {
+            margin: 10px auto;
+            max-width: 1100px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-weight: 500;
+            animation: slideDown 0.3s ease;
+        }
+
+        /* types */
+        .flash-success {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .flash-error {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .flash-info {
+            background: #0dcaf0;
+            color: #000;
+        }
+
+        .flash-warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* flash msges end here */
 
         * {
             margin: 0;
@@ -157,7 +214,7 @@ if ($_SESSION['role'] !== 'user') {
             border-color: #000;
         }
 
-     
+
 
         @keyframes fadeIn {
             from {
@@ -445,45 +502,47 @@ if ($_SESSION['role'] !== 'user') {
             .profile-menu-divider {
                 background: rgba(255, 255, 255, 0.1);
             }
-                 /* --- STYLE DLA FILTRA - DARK MODE --- */
-    @media (prefers-color-scheme: dark) {
-        .filter-menu {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
 
-        .filter-option {
-            color: #ccc;
-        }
+            /* --- STYLE DLA FILTRA - DARK MODE --- */
+            @media (prefers-color-scheme: dark) {
+                .filter-menu {
+                    background: #1a1a1a;
+                    border: 1px solid #333;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+                }
 
-        .filter-option:hover {
-            background-color: #333;
-            color: #fff;
-        }
+                .filter-option {
+                    color: #ccc;
+                }
 
-        /* Aktywna opcja w trybie ciemnym */
-        .filter-option.active-sort {
-            background-color: #252525;
-            color: #fff;
-        }
+                .filter-option:hover {
+                    background-color: #333;
+                    color: #fff;
+                }
 
-        /* Checkbox w trybie ciemnym - wypełniony biało z czarną kratką */
-        .filter-option.active-sort .checkbox-box {
-            background-color: #fff;
-            border-color: #fff;
-            
-            /* SVG Checkmark (Czarna kratka na białym tle) */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-            background-size: 14px;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    }
-    
+                /* Aktywna opcja w trybie ciemnym */
+                .filter-option.active-sort {
+                    background-color: #252525;
+                    color: #fff;
+                }
+
+                /* Checkbox w trybie ciemnym - wypełniony biało z czarną kratką */
+                .filter-option.active-sort .checkbox-box {
+                    background-color: #fff;
+                    border-color: #fff;
+
+                    /* SVG Checkmark (Czarna kratka na białym tle) */
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+                    background-size: 14px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+            }
+
         }
     </style>
 </head>
+
 
 <body>
     <header class="header">
@@ -492,31 +551,41 @@ if ($_SESSION['role'] !== 'user') {
 
         <!-- CENTER SECTION -->
         <div class="center-section">
-                            <!-- FILTER at the header --- SORT UI --- -->
-        <div class="filter-dropdown" id="filterDropdown">
-            <button class="filter-btn" onclick="toggleFilter(event)" title="Filter & Sort">
-                <!-- Ikona Lejka / Filtru -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                </svg>
-            </button>
+            <!-- FILTER at the header --- SORT UI --- -->
+            <div class="filter-dropdown" id="filterDropdown">
+                <button class="filter-btn" onclick="toggleFilter(event)" title="Filter & Sort">
+                    <!-- Ikona Lejka / Filtru -->
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                </button>
+                <div class="filter-menu">
 
-            <div class="filter-menu">
-                <!-- Lowest Price -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Lowest Price
-                </a>
-                <!-- Highest Price -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Highest Price
-                </a>
-        
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Lowest Price
+    </a>
+
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Highest Price
+    </a>
+
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Newest First
+    </a>
+
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Oldest First
+    </a>
+
+</div>
+
             </div>
-        </div>
-        <!-- --- END FILTER --- -->
+            <!-- --- END FILTER --- -->
 
             <!-- SEARCH -->
             <div class="search-box">
@@ -609,8 +678,7 @@ if ($_SESSION['role'] !== 'user') {
     </script>
 
     <script>
-
-                // --- FILTER LOGIC ---
+        // --- FILTER LOGIC ---
 
         // 1. Funkcja otwierająca/zamykająca menu (zatrzymuje propagację, żeby nie zamknąć się od razu)
         function toggleFilter(event) {
@@ -630,7 +698,7 @@ if ($_SESSION['role'] !== 'user') {
 
             // Tutaj możesz dodać logikę sortowania produktów, np.:
             // console.log('Wybrano:', element.innerText.trim());
-            
+
             // Opcjonalnie: Zamknij menu po wybraniu (usuń poniższą linię, jeśli chcesz, żeby zostało otwarte)
             document.getElementById('filterDropdown').classList.remove('active');
         }

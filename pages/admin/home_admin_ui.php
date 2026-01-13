@@ -16,51 +16,51 @@
 </head>
 <!-- Style for ALERT MESSAGES -->
 <style>
-    .site-alert {
-        max-width: 1100px;
-        margin: 12px auto;
-        padding: 12px 16px;
-        border-radius: 6px;
-        font-size: 14px;
-    }
+.site-alert {
+    max-width: 1100px;
+    margin: 12px auto;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+}
 
-    .site-alert.error {
-        background: #ffecec;
-        color: #b30000;
-        border: 1px solid #ffb3b3;
-    }
+.site-alert.error {
+    background: #ffecec;
+    color: #b30000;
+    border: 1px solid #ffb3b3;
+}
 
-    .site-alert.success {
-        background: #eef8ff;
-        color: #004a80;
-        border: 1px solid #b3daff;
-    }
+.site-alert.success {
+    background: #eef8ff;
+    color: #004a80;
+    border: 1px solid #b3daff;
+}
 
-    .site-alert p {
-        margin: 4px 0;
-    }
+.site-alert p {
+    margin: 4px 0;
+}
 </style>
 <script>
-    function toggleMenu(e, id) {
-        e.stopPropagation(); // prevents card click const 
-        menu = document.getElementById('menu-' + id);
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    } // close menu when clicking elsewhere document.
-    addEventListener('click', () => {
-        document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
-    });
+function toggleMenu(e, id) {
+    e.stopPropagation(); // prevents card click const 
+    menu = document.getElementById('menu-' + id);
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+} // close menu when clicking elsewhere document.
+addEventListener('click', () => {
+    document.querySelectorAll('.menu-dropdown').forEach(m => m.style.display = 'none');
+});
 </script>
 
 <body>
 
     <!-- ALERTS -->
     <?php if (!empty($_SESSION['errors'])): ?>
-        <div class="site-alert error">
-            <?php foreach ($_SESSION['errors'] as $error): ?>
-                <p><?= htmlspecialchars($error) ?></p>
-            <?php endforeach; ?>
-        </div>
-        <?php unset($_SESSION['errors']); ?>
+    <div class="site-alert error">
+        <?php foreach ($_SESSION['errors'] as $error): ?>
+        <p><?= htmlspecialchars($error) ?></p>
+        <?php endforeach; ?>
+    </div>
+    <?php unset($_SESSION['errors']); ?>
     <?php endif; ?>
 
     <?php /* if (!empty($_SESSION['errors'])): ?> <div class="site-alert error">
@@ -69,10 +69,10 @@
 
     <!-- msg Uptades -->
     <?php if (!empty($_SESSION['messages'])): ?> <div class="site-alert success">
-            <?php foreach ($_SESSION['messages'] as $message): ?>
-                <p><?= $message ?></p> <?php endforeach; ?>
-        </div>
-        <?php unset($_SESSION['messages']); ?> <?php endif; ?>
+        <?php foreach ($_SESSION['messages'] as $message): ?>
+        <p><?= $message ?></p> <?php endforeach; ?>
+    </div>
+    <?php unset($_SESSION['messages']); ?> <?php endif; ?>
 
     <!-- COURSES SECTION -->
     <section class="courses">
@@ -122,39 +122,39 @@
             if ($count > 0):
                 while (_fetch($stmt)): ?>
 
-                    <!-- SWIMMING COURSE -->
-                    <div class="course-card">
-                        <div class="course-image-wrapper">
-                            <div class="card-menu">
-                                <!-- was in local like this  <a href="/admin/courses/edit_course?id=<?= $id ?>"> -->
+            <!-- SWIMMING COURSE -->
+            <div class="course-card">
+                <div class="course-image-wrapper">
+                    <div class="card-menu">
+                        <!-- was in local like this  <a href="/admin/courses/edit_course?id=<?= $id ?>"> -->
 
-                                <a href="<?= url('admin/courses/edit_course') ?>?id=<?= $id ?>" class="menu-item">
-                                    Edit
-                                </a>
+                        <a href="<?= url('admin/courses/edit_course') ?>?id=<?= $id ?>" class="menu-item">
+                            Edit
+                        </a>
 
-                                <button type="button" class="menu-item danger" onclick="confirmDelete(
+                        <button type="button" class="menu-item danger" onclick="confirmDelete(
             <?= (int)$id ?>,
             '<?= htmlspecialchars((string)$name, ENT_QUOTES) ?>'
         )">
-                                    Delete
-                                </button>
-                            </div>
-
-
-                            <span class="course-badge"><?= $badge ?></span>
-                            <span class="course-difficulty"><?= $difficulty ?></span>
-
-                            <img src="<?= $image ? asset($image) : asset('course_images/default.jpg') ?>">
-
-
-                            alt="<?= htmlspecialchars((string)$name) ?>" class="course-image">
-                        </div>
-
-                        <div class="course-content">
-                            <h3 class="course-title"><?= $name ?></h3>
-                            <p class="course-description"><?= $description ?></p>
-                        </div>
+                            Delete
+                        </button>
                     </div>
+
+
+                    <span class="course-badge"><?= $badge ?></span>
+                    <span class="course-difficulty"><?= $difficulty ?></span>
+
+                    <img src="<?= $image ? asset($image) : asset('course_images/default.jpg') ?>">
+
+
+                    alt="<?= htmlspecialchars((string)$name) ?>" class="course-image">
+                </div>
+
+                <div class="course-content">
+                    <h3 class="course-title"><?= $name ?></h3>
+                    <p class="course-description"><?= $description ?></p>
+                </div>
+            </div>
 
             <?php endwhile;
             else:
@@ -166,14 +166,14 @@
 
         </div>
         <script>
-            function confirmDelete(id, name) {
-                if (confirm(`Are you sure you want to delete "${name}"?`)) {
-                    window.location.href =
-                        "<?= url('admin/courses/delete_course') ?>" +
-                        "?id=" + id +
-                        "&name=" + encodeURIComponent(name);
-                }
+        function confirmDelete(id, name) {
+            if (confirm(`Are you sure you want to delete this "${name}" course?`)) {
+                window.location.href =
+                    "<?= url('admin/courses/delete_course') ?>" +
+                    "?id=" + id +
+                    "&name=" + encodeURIComponent(name);
             }
+        }
         </script>
 
 

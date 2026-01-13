@@ -63,9 +63,12 @@ difficulty=?",
 
 /* ===== RESULT ===== */
 if ($count > 0) {
-    $_SESSION['messages'][] = "Course added successfully!" . $success;
+    /*   $_SESSION['messages'][] = "Course added successfully!" . $success; */
+    flash('success', 'Course added successfully!');
 } else {
-    $_SESSION['errors'][] = "Course was not saved.";
+    flash('error', 'Course was not saved.');
+    /*    $_SESSION['errors'][] = "Course was not saved."; */
 }
 
 _redirect('/admin/home_admin_ui');
+exit;

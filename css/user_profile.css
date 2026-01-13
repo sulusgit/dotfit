@@ -11,7 +11,8 @@
             background: #ffffff;
             color: #1a1a1a;
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow: visible !important
+            
         }
 
         /* HERO HEADER */
@@ -23,7 +24,8 @@
             padding: 80px 40px;
             background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
             position: relative;
-            overflow: hidden;
+            overflow: visible !important
+            
         }
 
         .profile-hero::before {
@@ -116,12 +118,14 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 40px 120px;
+            overflow: visible !important
         }
 
         /* SECTION STYLES */
         .section {
             margin-bottom: 60px;
             animation: fadeInUp 1s ease;
+            position: relative; /* X товч зөв ажиллахын тулд */
         }
 
         .section-header {
@@ -148,6 +152,7 @@
             letter-spacing: -2px;
         }
 
+        /* EDIT BUTTON */
         .edit-btn {
             background: #000;
             color: #fff;
@@ -194,11 +199,6 @@
 
         .info-row:last-child {
             border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .info-row:first-child {
-            padding-top: 0;
         }
 
         .info-label {
@@ -215,46 +215,56 @@
             color: #000;
         }
 
-/* ACTION BUTTONS WRAPPER */
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
+        /* DELETE ACCOUNT BUTTON LEFT SIDE */
+        .action-buttons {
+            display: flex !important;
+            justify-content: flex-start !important;
+            width: 100%;
+        }
 
-/* BACK BUTTON */
-.back-btn {
-    padding: 10px 20px;
-    font-size: 15px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: #f0f0f0;
-    color: #333;
-    transition: 0.2s ease;
-}
 
-.back-btn:hover {
-    background-color: #e0e0e0;
-}
+        /* X BUTTON (TOP RIGHT) */
+        .close-x {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            background: #f0f0f0;
+            border: none;
+            font-size: 22px;
+            font-weight: 700;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #333;
+            transition: 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Header‑ийн ард орохгүй */
+        }
 
-/* DELETE ACCOUNT BUTTON (TUSDAA CLASS) */
-.delete-account-btn {
-    padding: 10px 20px;
-    font-size: 15px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: #333;
-    color: white;
-    transition: 0.2s ease;
-}
+        .close-x:hover {
+            background: #e0e0e0;
+        }
 
-.delete-account-btn:hover {
-    background-color: #999;
-}
+        /* DELETE ACCOUNT BUTTON */
+        .delete-account-btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            background-color: #333;
+            color: white;
+            transition: 0.2s ease;
+        }
+
+        .delete-account-btn:hover {
+            background-color: #999;
+        }
+
 
 
 

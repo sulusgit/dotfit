@@ -36,8 +36,10 @@ $_SESSION['role']  = $role;
 // 5. redirect by role
 if ($role === 'administrator') {
     _redirect('admin/home_admin_ui');
+    flash('info:', "Welcome you signed in");
 } else {
     _redirect('user/home_user_ui');
+    flash('info:', "Welcome you signed in");
 }
 
 exit;
