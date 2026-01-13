@@ -1,14 +1,20 @@
-/* Container */
+/* PAGE SCROLL ENABLE */
+html, body {
+  height: auto;
+  overflow-y: auto;
+  background: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+}
 
+/* Container */
 .signup-container {
   display: flex;
-  height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
   justify-content: center;
-  align-items: center;
-  background: #f0f0f0;
+  padding: 60px 20px; /* scroll-д зай өгнө */
+  min-height: 100vh; /* height биш min-height */
 }
+
+/* Close button */
 .close-btn {
   position: absolute;
   top: 12px;
@@ -20,7 +26,6 @@
   transition: 0.2s;
   z-index: 10;
 }
-
 
 /* Form section */
 .form-section {
@@ -76,8 +81,7 @@
 }
 
 /* Buttons */
-.signup-button,
-.social-buttons button {
+.signup-button {
   width: 100%;
   padding: 12px;
   background-color: #333;
@@ -105,9 +109,6 @@
   text-decoration: none;
 }
 
-
-
-
 /* ROLE BUTTONS */
 .role-buttons {
   display: flex;
@@ -128,14 +129,12 @@
   font-size: 15px;
 }
 
-/* Hover */
 .role-buttons button:hover {
   background: #e8e8e8;
 }
 
-/* ACTIVE (clicked) — soft grey */
 .role-buttons button.active {
-  background: #999;   /* light grey */
-  border-color: #bfbfbf; /* slightly darker border */
-  color: #333;           /* dark text */
+  background: #999;
+  border-color: #bfbfbf;
+  color: #333;
 }

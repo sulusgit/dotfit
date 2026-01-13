@@ -560,44 +560,30 @@ if ($_SESSION['role'] !== 'user') {
                         <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                     </svg>
                 </button>
-
-<<<<<<< HEAD
-            <div class="filter-menu">
-                <!-- Lowest Price -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Lowest Price
-                </a>
-                <!-- Highest Price -->
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Highest Price
-                </a>
-
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                    Newest First
-                </a>
-                <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                    <div class="checkbox-box"></div>
-                        Oldest First
-                </a>
-        
-=======
                 <div class="filter-menu">
-                    <!-- Lowest Price -->
-                    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                        <div class="checkbox-box"></div>
-                        Lowest Price
-                    </a>
-                    <!-- Highest Price -->
-                    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
-                        <div class="checkbox-box"></div>
-                        Highest Price
-                    </a>
 
-                </div>
->>>>>>> f2dcdbd691239d71d9e7f676b114880381ccda71
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Lowest Price
+    </a>
+
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Highest Price
+    </a>
+
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Newest First
+    </a>
+
+    <a href="javascript:void(0)" class="filter-option" onclick="selectOption(this)">
+        <div class="checkbox-box"></div>
+        Oldest First
+    </a>
+
+</div>
+
             </div>
             <!-- --- END FILTER --- -->
 
