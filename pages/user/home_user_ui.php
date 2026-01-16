@@ -33,9 +33,9 @@
 
 /* ENROLL (default) */
 .enroll-btn.enroll {
-  background: #222;
   color: #fff;
 }
+
 
 .enroll-btn.enroll:hover {
   background: #333;
@@ -43,7 +43,7 @@
 
 /* REQUESTED */
 .enroll-btn.requested {
-  background: #444;
+  background: #333;
   color: #fff;
   cursor: default;
 }
@@ -304,10 +304,10 @@
                                      </button>
 
                                  <?php else: ?>
+                                <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn enroll">
+                                    ENROLL
+                                </a>
 
-                                     <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn">
-                                        ENROLL
-                                     </a>
 
                                  <?php endif; ?>
 
