@@ -1,6 +1,6 @@
 body {
-  background: #0b0f14;
-  color: #eaeaea;
+  background: #000000; /* хар */
+  color: #ffffff;      /* цагаан */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -8,11 +8,13 @@ body {
 .my-courses-wrapper {
   padding: 28px 32px 40px;
 }
+
 /* page title */
 h2 {
   margin: 20px 0;
-  color: #ffffff;
+  color: #ffffff; /* цагаан */
 }
+
 /* header */
 .my-courses-header {
   display: flex;
@@ -33,35 +35,26 @@ h2 {
 
   text-decoration: none;
   font-size: 20px;
-  color: #fff;
+  color: #ffffff; /* цагаан */
 
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
+  background: #111111; /* хар */
+  border: 1px solid #333333; /* саарал */
   transition: all 0.25s ease;
 }
 
 .close-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: #222222; /* арай цайвар хар */
   transform: rotate(90deg);
 }
+
 /* glass card */
 .my-course {
   margin-bottom: 16px;
   padding: 18px 22px;
   border-radius: 16px;
 
-  /* glass effect */
-  background: linear-gradient(
-    135deg,
-    rgba(47, 43, 43, 0.08),
-    rgba(255, 255, 255, 0.02)
-  );
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0d0d0d; /* хатуу хар */
+  border: 1px solid #333333; /* саарал */
   box-shadow:
     0 8px 24px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -72,7 +65,7 @@ h2 {
   margin: 0 0 8px 0;
   font-size: 20px;
   font-weight: 600;
-  color: #ffffff;
+  color: #ffffff; /* цагаан */
 }
 
 /* status */
@@ -82,20 +75,21 @@ h2 {
   margin-bottom: 6px;
 }
 
+/* хатуу, цэвэр өнгө */
 .status.pending {
-  color: #ffb74d;
+  color: #f0c040; /* цагаан */
 }
 
 .status.approved {
-  color: #4caf50;
+  color: #4caf50; /* цагаан */
 }
 
 .status.rejected {
-  color: #ef5350;
+  color: #f44336; /* цагаан */
 }
 
 /* date */
 .my-course p:last-child {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
+  color: #cccccc; /* цайвар саарал */
 }
