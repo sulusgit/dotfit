@@ -28,9 +28,7 @@ include 'header_user.php';
 
         <section class="section" id="profile-section">
 
-            <!-- X BUTTON (TOP RIGHT) -->
-            <button class="close-x" onclick="goBack()">✕</button>
-
+  
             <div class="section-header">
                 <div>
                     <p class="section-label">Personal</p>
@@ -60,6 +58,8 @@ include 'header_user.php';
 
             <!-- DELETE ACCOUNT BUTTON -->
             <div class="action-buttons">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+
                 <form method="POST" action="<?= url('delete_account') ?>"
                     onsubmit="return confirm('Are you sure you want to delete your account?');">
                     <button type="submit" class="delete-account-btn">Delete Account</button>
