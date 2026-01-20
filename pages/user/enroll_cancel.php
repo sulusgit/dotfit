@@ -6,7 +6,6 @@ if (!isset($_SESSION['id'])) {
     exit;
 }
 
-flash('info:',  'Enrollment request cancelled');
 $user_id   = $_SESSION['id'] ?? 0;
 $course_id = (int) ($_POST['course_id'] ?? 0);
 
@@ -22,3 +21,5 @@ _exec(
     [$user_id, $course_id],
     $affected
 );
+flash('info', "You cancelled your pending requist on this course");
+exit;

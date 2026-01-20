@@ -1,7 +1,6 @@
 <?php
 //require ROOT . "header_admin.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,28 +72,7 @@
         </form>
     </div>
 
-    <script>
-        function triggerUpload() {
-            document.getElementById("imageInput").click();
-        }
 
-        document.getElementById("imageInput").addEventListener("change", function(event) {
-            const file = event.target.files[0];
-            const previewBox = document.getElementById("previewBox");
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    previewBox.style.backgroundImage = `url('${e.target.result}')`;
-                    previewBox.style.backgroundSize = 'cover';
-                    previewBox.style.backgroundRepeat = 'no-repeat';
-                    previewBox.style.backgroundPosition = 'center';
-                    previewBox.innerHTML = '';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
 
 </body>
 

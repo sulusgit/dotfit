@@ -43,7 +43,6 @@ if ($count === 0) {
 
 
 
-flash('info:',  'Your enrollment request succesesfully submitted');
+flash('success',  'Your enrollment request succesesfully submitted');
 
 _redirect('user/home_user_ui');
-exit;

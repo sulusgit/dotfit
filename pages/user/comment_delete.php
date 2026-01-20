@@ -13,6 +13,7 @@ _exec(
     $affected
 );
 
-$_SESSION['flash'] = 'Comment deleted';
+//$_SESSION['flash'] = 'Your comment deleted';
+flash('info',  "your comment deleted");
 _redirect('user/learn_more?id=' . $course_id);
 exit;

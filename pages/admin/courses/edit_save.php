@@ -1,5 +1,4 @@
 <?php
-session_start();
 $id          = (int) post('id');
 $course_name = post('course_name', 150);
 $description = post('description');
@@ -15,9 +14,9 @@ $difficulty = $difficulty === '' ? null : $difficulty;
 
 // image not handled yet
 $image = null;
-try {
-    $success = _exec(
-        "UPDATE courses SET
+
+$success = _exec(
+    "UPDATE courses SET
         name=?,
         description=?,
         text_add_info=?,
@@ -26,26 +25,30 @@ try {
         price=?,
         difficulty=?
      WHERE id=?",
-        "sssssdsi",
-        [
-            $course_name,
-            $description,
-            $text_add_info,
-            $duration,
-            $badge,
-            $price,
-            $difficulty,
-            $id
-        ],
-        $count
-    );
-
-    flash('info', 'Course edit saved successfully.');
-} catch (Exception $e) {
-    flash('error', 'An error occurred: ' . $e->getMessage());
-    /*    _redirect('admin/home_admin_ui'); */
-}
+    "sssssdsi",
+    [
+        $course_name,
+        $description,
+        $text_add_info,
+        $duration,
+        $badge,
+        $price,
+        $difficulty,
+        $id
+    ],
+    $count
+);
 _redirect('admin/home_admin_ui');
+
+/* if ($success) {
+    //   flash('info', 'Course edit saved successfully.');
+  
+} else {
+    //   flash('error', 'An error occurred while updating the course. Please try again.');
+} */
+ 
+
+
 /* if ($id <= 0) {
     flash('error', 'Invalid course ID.');
     /*   _redirect('admin/home_admin_ui'); */

@@ -127,13 +127,6 @@ if ($course_id <= 0) {
         </div>
         <?php
 
-
-        /* FLASH MESSAGE */
-        if (!empty($_SESSION['flash'])) {
-            echo '<div class="flash-msg">' . $_SESSION['flash'] . '</div>';
-            unset($_SESSION['flash']);
-        }
-
         /* EDIT MODE */
         $edit_id     = (int) ($_GET['edit'] ?? 0);
         $edit_review = '';

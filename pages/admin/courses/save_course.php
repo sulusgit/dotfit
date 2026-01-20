@@ -1,13 +1,11 @@
 <?php
-session_start();
 
-/* ===== REQUIRED ===== */
 $course_name = post('course_name', 150);
 $description = post('description');
 $duration = post('duration', 100);
 $price = (float) post('price');
 
-/* ===== OPTIONAL (FIXED) ===== */
+
 // must NOT be NULL (DB rule)
 $text_add_info = trim($_POST['text_add_info'] ?? '');
 
@@ -23,32 +21,54 @@ if ($difficulty === '') {
 }
 
 /* ===== IMAGE LOGIC (UNCHANGED) ===== */
-$slug = strtolower(trim($course_name));
-$slug = preg_replace('/[^a-z0-9]+/', '', $slug);
+$courseLower = strtolower(trim($course_name));
 
-$imageDir = $_SERVER['DOCUMENT_ROOT'] . "/course_images";
-$image = "/course_images/default.jpg";
+$baseDir = ROOT . '/course_images';          // ✅ FILESYSTEM
+$webPath = BASE_URL . '/course_images';      // ✅ URL
 
-$images = glob($imageDir . "/" . $slug . "*.{jpg,jpeg,png,webp}", GLOB_BRACE);
-if (!empty($images)) {
-    $image = "/course_images/" . basename($images[array_rand($images)]);
+$imagePath = $webPath . '/default.jpg';
+
+$folders = glob($baseDir . '/*', GLOB_ONLYDIR);
+
+foreach ($folders as $folder) {
+    $folderName = strtolower(basename($folder));
+
+    if (
+        strpos($courseLower, $folderName) !== false ||
+        strpos($folderName, $courseLower) !== false
+    ) {
+        $files = glob(
+            $folder . '/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
+            GLOB_BRACE
+        );
+
+        if (!empty($files)) {
+            $imagePath = $webPath . '/' . $folderName . '/' . basename(
+                $files[array_rand($files)]
+            );
+        }
+        break;
+    }
 }
+
+
+
 
 /* ===== INSERT (YOUR STYLE) ===== */
 $success = _exec(
     "INSERT INTO courses SET
-image=?,
-name=?,
-description=?,
-text_add_info=?,
-duration=?,
-badge=?,
-price=?,
-create_admin_id=?,
-difficulty=?",
+        image=?,
+        name=?,
+        description=?,
+        text_add_info=?,
+        duration=?,
+        badge=?,
+        price=?,
+        create_admin_id=?,
+        difficulty=?",
     "ssssssdis",
     [
-        $image,
+        $imagePath,   // ✅ MUST be imagePath
         $course_name,
         $description,
         $text_add_info,
@@ -61,14 +81,8 @@ difficulty=?",
     $count
 );
 
-/* ===== RESULT ===== */
-if ($count > 0) {
-    /*   $_SESSION['messages'][] = "Course added successfully!" . $success; */
-    flash('success', 'Course added successfully!');
-} else {
-    flash('error', 'Course was not saved.');
-    /*    $_SESSION['errors'][] = "Course was not saved."; */
-}
+//flash('success', 'Course added successfully!');
+//if else was about save not info but no used no notfications
 
 _redirect('/admin/home_admin_ui');
 exit;

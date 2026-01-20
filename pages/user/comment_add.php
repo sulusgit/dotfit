@@ -34,7 +34,7 @@ if ($edit_id > 0) {
         [$review, $stars, $edit_id, $user_id],
         $affected
     );
-    flash('Info: ', 'Comment updated');
+    flash('info', 'Your edited comment');
 } else {
     // INSERT
     _exec(
@@ -44,7 +44,7 @@ if ($edit_id > 0) {
         [$user_id, $course_id, $review, $stars],
         $affected
     );
-    $_SESSION['flash'] = 'Comment added';
+    flash('info',  'You added new comment');
 }
 
 _redirect('user/learn_more?id=' . $course_id);

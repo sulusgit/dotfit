@@ -19,26 +19,11 @@ if (empty($_SESSION['messages'])) {
         pointer-events: none;
     }
 
-    .flash-message {
-        pointer-events: auto;
-    }
+    /* .flash-message {
+    pointer-events: auto;
+}
+ */
 
-
-    /* Types */
-    .flash-success {
-        background: #ecfdf5;
-        color: #065f46;
-    }
-
-    .flash-error {
-        background: #fee2e2;
-        color: #991b1b;
-    }
-
-    .flash-warning {
-        background: #fffbeb;
-        color: #92400e;
-    }
 
     /* --------OLD------------- */
     /* Wrapper fixed under header */

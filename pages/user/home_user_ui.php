@@ -15,81 +15,92 @@
      <style>
          /* ennroll btn status */
 
-/* BASE BUTTON STYLE */
-.enroll-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 20px;
-  border: none;
-  text-decoration: none;
-  white-space: nowrap;
-  line-height: 1;
-  transition: all 0.2s ease;
-}
+         /* BASE BUTTON STYLE */
+         .enroll-btn {
+             display: inline-flex;
+             align-items: center;
+             gap: 6px;
+             font-size: 13px;
+             font-weight: 600;
+             padding: 6px 14px;
+             border-radius: 20px;
+             border: none;
+             text-decoration: none;
+             white-space: nowrap;
+             line-height: 1;
+             transition: all 0.2s ease;
+         }
 
-/* ENROLL (default) */
-.enroll-btn.enroll {
-  color: #fff;
-}
+         /* ENROLL (default) */
+         .enroll-btn.enroll {
+             color: #fff;
+         }
 
 
-.enroll-btn.enroll:hover {
-  background: #333;
-}
+         .enroll-btn.enroll:hover {
+             background: #333;
+         }
 
-/* REQUESTED */
-.enroll-btn.requested {
-  background: #333;
-  color: #fff;
-  cursor: default;
-}
+         /* REQUESTED */
+         .enroll-btn.requested {
+             background: #333;
+             color: #fff;
+             cursor: default;
+         }
 
-.enroll-btn.requested .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #999;
-  animation: pulse 1.5s infinite;
-}
+         .enroll-btn.requested .dot {
+             width: 8px;
+             height: 8px;
+             border-radius: 50%;
+             background: #999;
+             animation: pulse 1.5s infinite;
+         }
 
-/* ENROLLED */
-.enroll-btn.enrolled {
-  background: #333;
-  color: #ccc;
-  cursor: default;
-}
+         /* ENROLLED */
+         .enroll-btn.enrolled {
+             background: #333;
+             color: #ccc;
+             cursor: default;
+         }
 
-.enroll-btn.enrolled .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #666;
-}
+         .enroll-btn.enrolled .dot {
+             width: 8px;
+             height: 8px;
+             border-radius: 50%;
+             background: #666;
+         }
 
-/* PULSE ANIMATION */
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.4); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.6; }
-}
+         /* PULSE ANIMATION */
+         @keyframes pulse {
+             0% {
+                 transform: scale(1);
+                 opacity: 0.6;
+             }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-  .enroll-btn {
-    font-size: 12px;
-    padding: 5px 12px;
-    gap: 4px;
-  }
+             50% {
+                 transform: scale(1.4);
+                 opacity: 1;
+             }
 
-  .enroll-btn .dot {
-    width: 6px;
-    height: 6px;
-  }
-}
+             100% {
+                 transform: scale(1);
+                 opacity: 0.6;
+             }
+         }
+
+         /* MOBILE RESPONSIVE */
+         @media (max-width: 768px) {
+             .enroll-btn {
+                 font-size: 12px;
+                 padding: 5px 12px;
+                 gap: 4px;
+             }
+
+             .enroll-btn .dot {
+                 width: 6px;
+                 height: 6px;
+             }
+         }
 
          .comments-overlay {
              position: fixed;
@@ -186,7 +197,7 @@
                     _select(
                         $stmt,
                         $count,
-                        "SELECT id, name, description, duration, badge, price, difficulty
+                        "SELECT id, name, image, description, duration, badge, price, difficulty
                     FROM courses
                     WHERE name LIKE ?
                     ORDER BY created_at DESC",
@@ -194,18 +205,21 @@
                         ["%$search%"],
                         $id,
                         $name,
+                        $image,
                         $description,
                         $duration,
                         $badge,
                         $price,
                         $difficulty
                     );
-                } else {_select(
+                } else {
+                    _select(
                         $stmt,
                         $count,
                         "SELECT
         c.id,
         c.name,
+        c.image,
         c.description,
         c.duration,
         c.badge,
@@ -221,6 +235,7 @@
                         [$user_id],
                         $id,
                         $name,
+                        $image,
                         $description,
                         $duration,
                         $badge,
@@ -252,8 +267,8 @@
                      <div class="course-card">
                          <div class="course-image-wrapper">
                              <a href="<?= url('user/learn_more?id=' . $id) ?> id=<?= $id ?>" class="course-image-wrapper">
-                                 <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop"
-                                     alt="<?= $name ?>" class="course-image">
+                                 <img src="<?= $image ?>" alt="course_images" class="course-image">
+
                              </a>
                              <span class="course-badge"><?= $badge ?></span>
                              <span class="course-difficulty"><?= $difficulty ?></span>
@@ -304,9 +319,9 @@
                                      </button>
 
                                  <?php else: ?>
-                                <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn enroll">
-                                    ENROLL
-                                </a>
+                                     <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn enroll">
+                                         ENROLL
+                                     </a>
 
 
                                  <?php endif; ?>
@@ -336,9 +351,7 @@
      </div>
 
      <!-- search  end-->
-     <!-- CTA SECTION -->
-     <section class="cta-section"> <a href="#" class="cta-button">View All Courses</a>
-     </section>
+
      <?php require ROOT . '../pages/footer.php'; ?>
      <!-- for entroll btn controll -->
 
