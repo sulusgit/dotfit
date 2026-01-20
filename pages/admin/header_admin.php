@@ -5,6 +5,8 @@ if ($_SESSION['role'] !== 'administrator') {
     _redirect('sign_in');
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -17,6 +19,9 @@ if ($_SESSION['role'] !== 'administrator') {
     <link rel="stylesheet" href="<?= asset('css/header_admin.css') ?>">
 
 </head>
+
+
+
 
 <body>
     <header class="header">
@@ -126,6 +131,7 @@ if ($_SESSION['role'] !== 'administrator') {
             </div>
         </div>
     </header>
+
 
     <script>
         // Toggle profile dropdown

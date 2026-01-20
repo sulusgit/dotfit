@@ -38,6 +38,17 @@ function dd($arr)
     print_r($arr);
     # exit;
 }
+function getIpAddress()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) // check ip from share internet
+    {
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) // to check ip is pass from proxy
+    {
+        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+    return $_SERVER['REMOTE_ADDR'];
+}
 /* 3. function flash(string $type, string $message): void
 {
     if (!isset($_SESSION['messages'])) {

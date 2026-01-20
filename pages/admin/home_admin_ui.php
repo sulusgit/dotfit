@@ -1,5 +1,5 @@
    <?php require "header_admin.php";
-    $admin_id = (int) $_SESSION['id'];
+    $admin_id = $_SESSION['id'];
     ?>
    <!-- HTML -->
    <!DOCTYPE html>
@@ -27,10 +27,39 @@
            });
        </script>
    </head>
+   <style>
+       .errorss {
+           background-color: aqua;
+       }
+   </style>
 
 
 
    <body>
+
+       <div class="errorss">
+           <?php if (!empty($_SESSION['errors'])): ?>
+               <div class="alert alert-danger" role="alert">
+                   <ul class="mb-0">
+                       <?php foreach ($_SESSION['errors'] as $error): ?>
+                           <li><?= $error ?></li>
+                       <?php endforeach; ?>
+                   </ul>
+               </div>
+           <?php unset($_SESSION['errors']);
+            endif; ?>
+
+           <?php if (!empty($_SESSION['messages'])): ?>
+               <div class="alert alert-primary" role="alert">
+                   <ul class="mb-0">
+                       <?php foreach ($_SESSION['messages'] as $message): ?>
+                           <li><?= $message ?></li>
+                       <?php endforeach; ?>
+                   </ul>
+               </div>
+           <?php unset($_SESSION['messages']);
+            endif; ?>
+       </div>
 
        <!-- COURSES SECTION -->
        <section class="courses">

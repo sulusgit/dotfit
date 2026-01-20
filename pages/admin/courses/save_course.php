@@ -23,8 +23,8 @@ if ($difficulty === '') {
 /* ===== IMAGE LOGIC (UNCHANGED) ===== */
 $courseLower = strtolower(trim($course_name));
 
-$baseDir = ROOT . '/course_images';          // ✅ FILESYSTEM
-$webPath = BASE_URL . '/course_images';      // ✅ URL
+$baseDir = ROOT . '/course_images';
+$webPath = BASE_URL . '/course_images';
 
 $imagePath = $webPath . '/default.jpg';
 
@@ -54,7 +54,7 @@ foreach ($folders as $folder) {
 
 
 
-/* ===== INSERT (YOUR STYLE) ===== */
+/* ===== INSERT  ===== */
 $success = _exec(
     "INSERT INTO courses SET
         image=?,
@@ -68,7 +68,7 @@ $success = _exec(
         difficulty=?",
     "ssssssdis",
     [
-        $imagePath,   // ✅ MUST be imagePath
+        $imagePath,
         $course_name,
         $description,
         $text_add_info,
@@ -80,9 +80,33 @@ $success = _exec(
     ],
     $count
 );
-
 //flash('success', 'Course added successfully!');
 //if else was about save not info but no used no notfications
+/* } catch (Exception $e) {
+    echo "aldaa garlla" . $e->getMessage();
+    // echo $e->getMessage();
+    // flash('error', 'Error occured could you try again?');
+      $_SESSION['error'] = [$e->getMessage()];
+    exit;
+}
+ */
+/* } finally {
+    //write to db about finally worked the end
+    _exec(
+        "INSERT INTO error set 
+        date_time=?,
+        ip=?, 
+        error_code=?,
+        error=?,
+        file=?,
+        line=?,
+        site_usr_adm=? ",
+        'sisssis',
+        [getIpAddress(), $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine()],
+        $count
+    );
+} */
+
+
 
 _redirect('/admin/home_admin_ui');
-exit;
