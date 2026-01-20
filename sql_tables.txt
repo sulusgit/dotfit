@@ -91,4 +91,13 @@ CREATE TABLE enroll_requests (
 ALTER TABLE enroll_requests
 ADD UNIQUE KEY uniq_user_course (user_id, course_id);
 
-////---------------
+////---------errir table: ------
+Create table error(
+id int not null primary key AUTO_INCREMENT comment 'primary key', date_time datetime,
+    ip VARCHAR(15), [ip address //not write this part]
+    error_code integer,
+    error varchar(500),
+    file varchar(300),
+    line integer,
+    site_usr_adm varchar(10)
+    ) DEFAULT CHARSET=utf8mb4 COMMENT='';
