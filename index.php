@@ -7,7 +7,7 @@ require ROOT . '/inc/helper.php';
 require ROOT . '/inc/conf.php';
 require ROOT . '/inc/db.php';
 require ROOT . '/inc/flash.php';
-require ROOT . '/inc/auth.php';
+//require ROOT . '/inc/auth.php';
 
 /* FRONT CONTROL TO URL LOOK BETTER */
 $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

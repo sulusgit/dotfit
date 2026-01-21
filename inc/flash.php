@@ -19,27 +19,7 @@ if (empty($_SESSION['messages'])) {
         pointer-events: none;
     }
 
-    /* .flash-message {
-    pointer-events: auto;
-}
- */
 
-
-    /* --------OLD------------- */
-    /* Wrapper fixed under header */
-    /*     .flash-bar {
-        position: fixed;
-        top: 80px;
-
-        left: 0;
-        width: 100%;
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        pointer-events: none;
-        
-        backdrop-filter: blur(6px);
-    } */
 
     /* Base flash message style */
     /* Container floats ABOVE everything */
@@ -113,12 +93,7 @@ if (empty($_SESSION['messages'])) {
         }
     }
 </style>
-<?php
-/* function flash_show(): void
-{
-    if (empty($_SESSION['messages']) || !is_array($_SESSION['messages'])) {
-        return;
-    } */ ?>
+
 
 <div class="flash-container">
     <?php if (!empty($_SESSION['messages']) && is_array($_SESSION['messages'])): ?>
@@ -134,7 +109,7 @@ if (empty($_SESSION['messages'])) {
 </div>
 
 <?php
-// Remove messages so they show only once
+// unsed session message -so they show only once
 unset($_SESSION['messages']);
 
 ?>
@@ -160,4 +135,4 @@ flash('error',   'Something went wrong');
 flash('warning', 'You already requested this course');
 flash('info',    'Request is pending approval');
 
-php flash_show();?> */
+ */

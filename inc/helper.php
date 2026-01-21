@@ -34,58 +34,61 @@ function _redirect(string $path): void
 /**
  * Build a public URL for links and forms
  *
- * ✅ USE FOR:
+ *  USE FOR:
  *   <a href="<?= url('sign_in') ?>">
-* <form action="<?= url('user/comment_add') ?>">
-    *
-    * ❌ DO NOT USE FOR:
-    * redirects directly (use _redirect)
-    */
+ * <form action="<?= url('user/comment_add') ?>">
+ *
+ * DO NOT USE FOR:
+ * redirects directly (use _redirect)
+ */
     /* function url(string $path = ''): string
     {
     return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/');
     }
     */
-    /**
-    * Build URL for static assets (CSS, JS, images)
-    *
-    * ✅ USE FOR:
-    *
-    *
-    *
-    *
-    *
-    <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
-    * <img src="<?= asset('course_images/pic.jpg') ?>">
-    */
+/**
+ * Build URL for static assets (CSS, JS, images)
+ *
+ * USE FOR:
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+
+ * <img src="<?= asset('course_images/pic.jpg') ?>">
+ */
     /* function asset(string $path): string
     {
     return url($path);
     }
     */
-    /**
-    * Redirect to a route (NOT a file path)
-    *
-    * ✅ USE:
-    * _redirect('sign_in');
-    * _redirect('user/learn_more');
-    *
-    * ❌ NEVER DO:
-    * _redirect(url('sign_in'));
-    */
+/**
+ * Redirect to a route (NOT a file path)
+ *
+ * USE:
+ * _redirect('sign_in');
+ * _redirect('user/learn_more');
+ *
+ * NEVER DO:
+ * _redirect(url('sign_in'));
+ */
     /* function _redirect(string $path): void
     {
     header('Location: ' . url($path));
     exit;
     } */
 
-    /**
-    * Safe POST value getter
-    *
-    * ✅ USE:
-    * $email = post('email', 100);
-    * $comment = post('comment');
-    */
+/**
+ * Safe POST value getter
+ *
+ * USE:
+ * $email = post('email', 100);
+ * $comment = post('comment');
+ */
     /* function post(string $key, int $maxLength = null): ?string
     {
     if (!isset($_POST[$key])) {
@@ -101,13 +104,13 @@ function _redirect(string $path): void
     return $value;
     }
     */
-    /**
-    * Safe GET value getter
-    *
-    * ✅ USE:
-    * $id = get('id');
-    * $page = get('page', 50);
-    */
+/**
+ * Safe GET value getter
+ *
+ * USE:
+ * $id = get('id');
+ * $page = get('page', 50);
+ */
     /* function get(string $key, int $maxLength = null): ?string
     {
     if (!isset($_GET[$key])) {
@@ -123,12 +126,12 @@ function _redirect(string $path): void
     return $value;
     } */
 
-    /**
-    * Debug helper (development only)
-    *
-    * ✅ USE:
-    * dd($_POST);
-    */
+/**
+ * Debug helper (development only)
+ *
+ * USE:
+ * dd($_POST);
+ */
     /* function dd($data): void
     {
     echo '

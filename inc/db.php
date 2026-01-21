@@ -60,7 +60,7 @@ function _close()
 function _exec($sql, $types, $sqlParams, &$count)
 { //exec = ecequite
     global $con;
-    //mysqli_report(MYSQLI_REPORT_ALL);
+    //mysqli_report(MYSQLI_REPORT_ALL); // to see all errors use this super
     $stmt = mysqli_prepare($con, $sql);
     //---
     if (!$stmt) {
