@@ -236,16 +236,7 @@
     }
 </style>
 
-<!-- COMMENT POPUP -->
-<!-- <div id="commentPopup" class="comment-popup">
-    <h3>Comments</h3>
 
-    <div id="commentContent" class="comment-content">
-       
-    </div>
-
-    <button class="close-comment" onclick="closeComments()">Close</button>
-</div>  -->
 </body>
 
 </html>

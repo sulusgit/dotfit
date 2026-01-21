@@ -3,8 +3,8 @@ $stmt  = null;
 $count = 0;
 
 // 1. get input
-$inputemail = post('email');
-$password   = post('password');
+$inputemail = post('email', 120);
+$password   = post('password', 255);
 
 // 2. get user from DB
 _selectRow(
@@ -36,10 +36,8 @@ $_SESSION['role']  = $role;
 // 5. redirect by role
 if ($role === 'administrator') {
     _redirect('admin/home_admin_ui');
-    flash('info:', "Welcome you signed in");
 } else {
     _redirect('user/home_user_ui');
-    flash('info:', "Welcome you signed in");
 }
 
 exit;

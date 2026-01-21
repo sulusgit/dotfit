@@ -1,5 +1,5 @@
 <?php
-
+/* NOT DELETING ACCOUNT
 if (!isset($_SESSION['user']['id'])) {
     flash('error', 'You must be logged in.');
     _redirect('sign_in');
@@ -25,4 +25,4 @@ try {
     flash('error', "Your account couldn't be deleted, try again.");
 }
 
-_redirect('home');
+_redirect('home'); */

@@ -11,7 +11,7 @@
 
     <div class="signup-container">
         <div class="form-section">
-            <!-- <div class="close-btn" onclick="closeSignup()"> X </div> -->
+
             <span class="close-btn" onclick="window.location.href='home'">×</span>
             <h2>Sign In</h2>
 
@@ -30,17 +30,7 @@
                     </button>
                 </div>
 
-                <!-- <div class="role-buttons">
-                    <input type="hidden" name="role" id="role" value="user" />
 
-                    <button type="button" id="User-btn" class="active" onclick="selectRole('User')">
-                        User
-                    </button>
-
-                    <button type="button" id="Administrator-btn" onclick="selectRole('Administrator')">
-                        Admin
-                    </button>
-                </div> -->
                 <?php if (!empty($_SESSION['errors'])): //here errors show 
                 ?>
                     <ul>
@@ -81,15 +71,6 @@
 
             document.getElementById(role + '-btn').classList.add('active');
         }
-
-        /*     function selectRole(role) {
-                document.getElementById('role').value = role;
-
-                document.getElementById('User-btn').classList.remove('active');
-                document.getElementById('Administrator-btn').classList.remove('active');
-
-                document.getElementById(role + '-btn').classList.add('active');
-            } */
     </script>
 
     <script>

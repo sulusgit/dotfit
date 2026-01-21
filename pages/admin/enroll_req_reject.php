@@ -1,31 +1,11 @@
-<?php $id = (int)($_POST['id'] ?? 0);
-$reason = trim($_POST['reason'] ?? '');
+<?php
+$req_id = (int) ($_GET['id'] ?? 0);
 
-_exec(
-    "UPDATE enroll_requests
+if ($req_id <= 0) {
+    _redirect('admin/home_admin_ui');
+}
+_exec("UPDATE enroll_requests
      SET status='rejected'
-     WHERE id=?",
-    "i",
-    [$id],
-    $affected
-);
-
-/* optional: save reason or send email */
-flash('info', 'Request rejected');
-?>
-<script>
-    document.querySelectorAll('.btn-reject').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const reason = prompt('Reason for rejection:');
-            if (!reason) return;
-
-            fetch('<?= url("admin/enroll_reject") ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: 'id=' + btn.dataset.id + '&reason=' + encodeURIComponent(reason)
-            }).then(() => location.reload());
-        });
-    });
-</script>
+     WHERE id=?", "i", [$req_id], $affected);
+//flash('info', 'Enrollment rejected');
+_redirect('admin/home_admin_ui');

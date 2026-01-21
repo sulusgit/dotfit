@@ -147,9 +147,9 @@
 
   .course-image-wrapper {
     position: relative;
-    height: 260px;      /* fixed image area */
+    height: 260px;      
     overflow: hidden;
-    /* flex-shrink: 0;  */    /* 🔑 do NOT grow */
+    /* flex-shrink: 0;  */   
 }
 
 
@@ -164,7 +164,44 @@
     .course-card:hover .course-image {
         transform: scale(1.08);
     }
- 
+ /* ONLY NEW BADGE */
+ .course-image-wrapper {
+  position: relative;
+}
+
+/* NEW badge */
+.course-badge.new {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 24px;
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+}
+
+/* difficulty badge default position */
+.course-difficulty {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 24px;
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+}
+
+/* if NEW exists → push difficulty down */
+.course-image-wrapper.has-new .course-difficulty {
+  top: 42px;
+}
+
 /* DEFAULT BADGE */
 .course-badge {
   position: absolute;
@@ -194,11 +231,11 @@
 
 
 /* difficulty always exists */
-.course-difficulty {
+/* .course-difficulty {
   position: absolute;
   top: 42px;
   left: 12px;
-  background: rgba(255, 255, 255, 0.12); /* тунгалаг цагаан */
+  background: rgba(255, 255, 255, 0.12); 
   color: #fff;
   padding: 6px 14px;
   border-radius: 24px;
@@ -206,16 +243,16 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  backdrop-filter: blur(6px); /* 🔥 glass effect */
+  backdrop-filter: blur(6px); 
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: background 0.3s ease;
 }
 
-
+ */
 /* if NO badge → difficulty moves up */
-.course-badge:empty + .course-difficulty {
+/* .course-badge:empty + .course-difficulty {
   top: 12px;
-}
+} */
 
 
 

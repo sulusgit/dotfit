@@ -348,7 +348,7 @@
     <!-- HERO SECTION (Nagłówek) -->
     <div class="profile-hero">
         <div class="hero-content">
-            
+
             <!-- Ikona/Avatar administratora -->
             <h1 class="profile-name">Enrollment Requests</h1>
             <div class="profile-role">Dashboard Overview</div>
@@ -399,9 +399,9 @@
                 );
 
                 ?>
-                
 
-                
+
+
                 <h2 class="course-title">
                     Enrollment Requests – <?= $course_name ?>
                 </h2>
@@ -431,13 +431,15 @@
                     </div>
 
                     <div class="request-actions">
-                        <a href="<?= url('admin/enroll_accept?id=' . $req_id) ?>" class="btn btn-accept">
+                        <a href="<?= url('admin/enroll_req_accept?id=' . $req_id) ?>" class="btn btn-accept">
                             Accept
                         </a>
 
-                        <button class="btn btn-reject" data-id="<?= $req_id ?>">
+                        <a href="<?= url('admin/enroll_req_reject?id=' . $req_id) ?>" class="btn btn-reject">
                             Reject
-                        </button>
+                        </a>
+
+
                     </div>
 
                 </div>
@@ -451,8 +453,8 @@
                 ← Back to Previous Page
             </a> -->
 
-            <button class="back-btn" onclick="history.back();">← Back</button>
-                
+                <button class="back-btn" onclick="history.back();">← Back</button>
+
             </div>
 
 </body>

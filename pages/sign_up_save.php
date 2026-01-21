@@ -1,13 +1,12 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
+/* if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
+ */
 $errors = [];
 
-/* =====================
-   1. GET & SANITIZE INPUT
-   ===================== */
+
+//   1. GET & SANITIZE INPUT 
 $name     = post('name', 150);
 $email    = post('email', 150);
 $password = post('password');
@@ -17,9 +16,9 @@ $role = (post('role') === 'Administrator')
     ? 'administrator'
     : 'user';
 
-/* =====================
-   2. VALIDATION
-   ===================== */
+
+//  2. VALIDATION
+
 
 // name
 if (!$name || mb_strlen($name) < 2) {
@@ -86,19 +85,13 @@ if (!$errors) {
     $_SESSION['name']  = $name;
     $_SESSION['email'] = $email;
     $_SESSION['role']  = $role;
-    /* After sing up direct to home pages of user/adin ??? or back to sign?? */
-    /*   if ($role === 'administrator') {
-        _redirect('/admin/home_admin_ui');
-    } else {
-        _redirect('/user/home_user_ui');
-    } */
-    // if sign up with user/admin  that user/admin btn checked
+
     _redirect('sign_in');
 }
 
-/* =====================
-   6. ON ERROR → BACK
-   ===================== */
+
+//6. ON ERROR → BACK
+
 $_SESSION['errors'] = $errors;
 
 _redirect('sign_up');

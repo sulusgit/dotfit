@@ -8,6 +8,7 @@ require ROOT . '/inc/conf.php';
 require ROOT . '/inc/db.php';
 require ROOT . '/inc/flash.php';
 require ROOT . '/inc/auth.php';
+
 /* FRONT CONTROL TO URL LOOK BETTER */
 $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $base = rtrim(BASE_URL, '/');
@@ -30,38 +31,14 @@ if (file_exists($file)) {
     require ROOT . '/pages/404.php';
 }
 
-
-//debug function 
+//debug function print array
 function dd($arr)
 {
     echo '<pre>';
     print_r($arr);
-    # exit;
+    #exit;
 }
-function getIpAddress()
-{
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) // check ip from share internet
-    {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) // to check ip is pass from proxy
-    {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }
-    return $_SERVER['REMOTE_ADDR'];
-}
-/* 3. function flash(string $type, string $message): void
-{
-    if (!isset($_SESSION['messages'])) {
-        $_SESSION['messages'] = [];
-    }
 
-    $_SESSION['messages'][$type][] = $message;
-} */
-
-/*1.  function flash(string $type, string $message): void
-{
-    $_SESSION['messages'][$type][] = $message;
-} */
 function flash(string $type, string $message): void
 {
     if (!isset($_SESSION['messages'])) {
@@ -76,15 +53,15 @@ function flash(string $type, string $message): void
 }
 
 
-/* POST GET FUNC !!!!! */
+/* POST GET FUNC  */
 //Prevention to valid date type POST; sign_up.php d :: if inputs to long trim etc 
 function post($name, $length = null) // if that len is longer than our name's length so it is sth wierd so to prevent this
 {
     if (!isset($_POST[$name])) {
-        return null; // 🔑 key fix
+        return null;
     }
     $value = $_POST[$name];
-    $value = addslashes($value); //!!DIDN"T WORk if Ann's$ => Ann's
+    $value = addslashes($value); // WORk if Ann's$ => Ann's
     if (! is_null($length) && mb_strlen($value) > $length) {
         $value = mb_substr($value, 0, $length); // mb_substr does if that input for value is too long it just cut until the our setted length not extra things
 
@@ -93,8 +70,7 @@ function post($name, $length = null) // if that len is longer than our name's le
     }
     return $value;
 }
-//func for GET clean/trip etc.
-
+//func for GET clean/trip etc. we don't used much
 function get($name, $length = null) // if that len is longer than our name's length so it is sth wierd so to prevent this
 {
     $value = $_GET[$name];

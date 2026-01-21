@@ -1,162 +1,465 @@
-<?php
-$user_id = $_SESSION['id'] ?? 0;
-if ($user_id === 0) {
-    die('Login required');
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
+ <?php
+    include 'header_user.php';
+    ?>
+ <!DOCTYPE html>
+ <html lang="pl">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= asset('css/home_user_ui.css') ?>">
-    <script src="<?= asset('css/favorites.js') ?>"></script>
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>.Fit - Transform Your Life</title> <!-- HOME PAGE CSS -->
+     <link rel="stylesheet" href="<?= asset('css/home_user_ui.css') ?>">
+     <!-- FOR ICON-BTNS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+     <!-- This styke for for comment scrool  -->
+     <style>
+         /* ennroll btn status */
 
-    <title>My Favorites</title>
-</head>
-<script>
-    document.querySelectorAll('.fav-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
+         /* BASE BUTTON STYLE */
+         .enroll-btn {
+             display: inline-flex;
+             align-items: center;
+             gap: 6px;
+             font-size: 13px;
+             font-weight: 600;
+             padding: 6px 14px;
+             border-radius: 20px;
+             border: none;
+             text-decoration: none;
+             white-space: nowrap;
+             line-height: 1;
+             transition: all 0.2s ease;
+         }
 
-            const icon = this.querySelector('i');
-            const courseId = this.dataset.id;
+         /* ENROLL (default) */
+         .enroll-btn.enroll {
+             color: #fff;
+         }
 
-            // toggle UI immediately
-            icon.classList.toggle('fa-regular');
-            icon.classList.toggle('fa-solid');
 
-            // save to backend
-            fetch('user/add_to_fevo.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                credentials: 'same-origin',
-                body: 'id=' + courseId
-            });
-        });
-    });
-</script>
+         .enroll-btn.enroll:hover {
+             background: #333;
+         }
 
-<body>
+         /* REQUESTED */
+         .enroll-btn.requested {
+             background: #333;
+             color: #fff;
+             cursor: default;
+         }
 
-    <section class="courses">
+         .enroll-btn.requested .dot {
+             width: 8px;
+             height: 8px;
+             border-radius: 50%;
+             background: #999;
+             animation: pulse 1.5s infinite;
+         }
 
-        <div class="section-header">
-            <h2>My Favorite Courses</h2>
-        </div>
+         /* ENROLLED */
+         .enroll-btn.enrolled {
+             background: #333;
+             color: #ccc;
+             cursor: default;
+         }
 
-        <?php
-        $user_id = $_SESSION['id'] ?? 0;
+         .enroll-btn.enrolled .dot {
+             width: 8px;
+             height: 8px;
+             border-radius: 50%;
+             background: #666;
+         }
 
-        _select(
-            $stmt,
-            $count,
-            "SELECT
+         /* PULSE ANIMATION */
+         @keyframes pulse {
+             0% {
+                 transform: scale(1);
+                 opacity: 0.6;
+             }
+
+             50% {
+                 transform: scale(1.4);
+                 opacity: 1;
+             }
+
+             100% {
+                 transform: scale(1);
+                 opacity: 0.6;
+             }
+         }
+
+         /* MOBILE RESPONSIVE */
+         @media (max-width: 768px) {
+             .enroll-btn {
+                 font-size: 12px;
+                 padding: 5px 12px;
+                 gap: 4px;
+             }
+
+             .enroll-btn .dot {
+                 width: 6px;
+                 height: 6px;
+             }
+         }
+
+         .comments-overlay {
+             position: fixed;
+             inset: 0;
+             background: rgba(0, 0, 0, 0.7);
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             z-index: 9999;
+         }
+
+         .comments-overlay.hidden {
+             display: none;
+         }
+
+         .comments-box {
+             background: #2b2b2b;
+             color: #fff;
+             width: 420px;
+             max-height: 80vh;
+             border-radius: 16px;
+             padding: 20px;
+             display: flex;
+             flex-direction: column;
+         }
+
+         .comments-list {
+             flex: 1;
+             /* take remaining space */
+             overflow-y: auto;
+             /* scroll INSIDE popup */
+             margin: 15px 0;
+         }
+
+         .comment-item {
+             background: #3a3a3a;
+             border-radius: 12px;
+             padding: 12px;
+             margin-bottom: 10px;
+         }
+
+         .comment-user {
+             font-weight: 600;
+         }
+
+         .comment-stars {
+             color: gold;
+             font-size: 14px;
+         }
+
+         .comment-date {
+             font-size: 12px;
+             opacity: 0.6;
+         }
+
+         .close-btn {
+             border: none;
+             background: #d6d3c8;
+             color: #000;
+             padding: 10px;
+             border-radius: 20px;
+             cursor: pointer;
+         }
+     </style>
+ </head>
+
+
+ <body>
+     <!-- COURSES SECTION -->
+     <!--start  search try -->
+     <section class="courses">
+         <div class="section-header">
+
+             <h2 class="section-title">Your Fevorited Courses </h2>
+
+         </div>
+         <div class="courses-grid">
+             <!-- last 4 gets new badge -->
+             <?php
+                $newCourseIds = [];
+
+                _selectAll(
+                    $stmtNew,
+                    $cntNew,
+                    "SELECT id
+     FROM courses
+     ORDER BY created_at DESC
+     LIMIT 4",
+                    $new_id
+                );
+
+                while (_fetch($stmtNew)) {
+                    $newCourseIds[] = $new_id;
+                }
+
+                _close_stmt($stmtNew);
+                ?>
+
+             <?php
+                $search  = trim($_GET['search'] ?? '');
+                $user_id = (int) ($_SESSION['id'] ?? 0);
+
+                /*
+ | Build SQL for favorites page
+ | - ALWAYS favorites only (INNER JOIN)
+ | - Optional search
+ */
+                $sql = "
+    SELECT
         c.id,
         c.name,
+        c.image,
         c.description,
         c.duration,
         c.badge,
         c.price,
-        c.difficulty,
-        f.id AS fav_id
-     FROM courses c
-     LEFT JOIN favorites f
+        c.difficulty
+    FROM courses c
+    INNER JOIN favorites f
         ON f.course_id = c.id
        AND f.user_id = ?
-     ORDER BY c.created_at DESC",
-            "i",
-            [$user_id],
-            $id,
-            $name,
-            $description,
-            $duration,
-            $badge,
-            $price,
-            $difficulty,
-            $fav_id
-        );
+";
 
-        ?>
+                $params = [$user_id];
+                $types  = 'i';
 
-        <div class="courses-grid">
-            <?php if ($count > 0): ?>
-                <?php while (_fetch($stmt)): ?>
-                    <div class="course-card">
+                if ($search !== '') {
+                    $sql .= " AND c.name LIKE ? ";
+                    $params[] = "%$search%";
+                    $types   .= 's';
+                }
 
-                        <div class="course-image-wrapper">
-                            <a href="<?= url('user/learn_more?id=' . $id) ?>">
-                                <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop"
-                                    alt="<?= htmlspecialchars((string)$name) ?>" class="course-image">
-                            </a>
-                            <span class="course-badge"><?= htmlspecialchars($badge) ?></span>
-                            <span class="course-difficulty"><?= htmlspecialchars((string)$difficulty) ?></span>
-                        </div>
+                $sql .= " ORDER BY c.created_at DESC";
 
-                        <div class="course-content">
-                            <h3 class="course-title"><?= htmlspecialchars((string)$name) ?></h3>
-                            <p class="course-description"><?= htmlspecialchars((string)$description) ?></p>
+                /* run query */
+                _select(
+                    $stmt,
+                    $count,
+                    $sql,
+                    $types,
+                    $params,
+                    $id,
+                    $name,
+                    $image,
+                    $description,
+                    $duration,
+                    $badge,
+                    $price,
+                    $difficulty
+                );
+                ?>
 
-                            <div class="meta-actions">
+             <?php if ($count > 0): ?>
+                 <?php while (_fetch($stmt)): ?>
+                     <?php $is_new = in_array($id, $newCourseIds); ?>
 
-                                <a href="<?= url('user/learn_more?id=' . $id) ?>" class="learn-more">
-                                    LEARN MORE →
-                                </a>
+                     <?php
+                        /* check enroll status */
+                        $enroll_status = null;
 
-                                <!-- FAVORITE (always solid on this page) -->
-                                <a href="#" class="icon-btn fav-btn" data-id="<?= $id ?>">
-                                    <i class="fa-solid fa-heart"></i>
-                                </a>
+                        _selectRow(
+                            $stmt2,
+                            $count2,
+                            "SELECT status FROM enroll_requests WHERE user_id=? AND course_id=?",
+                            "ii",
+                            [$user_id, $id],
+                            $status
+                        );
 
-                                <a href="<?= url('user/comment_scroll?id=' . $id) ?>" class="icon-btn">
-                                    <i class="fa-regular fa-comment"></i>
-                                </a>
+                        if ($count2 > 0) {
+                            $enroll_status = $status; // pending | approved | rejected
+                        }
+                        ?>
 
-                                <a href="<?= url('user/add_to_enroll?id=' . $id) ?>" class="icon-btn">
-                                    <i class="fa-solid fa-circle-plus"></i>
-                                    <span class="tooltip">Enroll</span>
-                                </a>
 
-                            </div>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>No favorite courses yet.</p>
-            <?php endif; ?>
-        </div>
 
-        <?php _close_stmt($stmt); ?>
+                     <!-- TO CHECK EVERY COURSE ENROLLS -->
 
-    </section>
 
-    <!-- ONE JS SCRIPT (outside loop) -->
-    <script>
-        document.querySelectorAll('.fav-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
+                     <!-- COURSE CARD -->
+                     <div class="course-card">
 
-                const card = this.closest('.course-card');
-                const courseId = this.dataset.id;
+                         <div class="course-image-wrapper <?= $is_new ? 'has-new' : '' ?>">
+                             <a href="<?= url('user/learn_more?id=' . $id) ?> id=<?= $id ?>" class="course-image-wrapper">
+                                 <img src="<?= $image ?>" alt="course_images" class="course-image">
+                             </a>
 
-                fetch('/user/add_to_fevo.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    credentials: 'same-origin',
-                    body: 'id=' + courseId
-                }).then(() => {
-                    // remove card from favorites page
-                    card.remove();
-                });
-            });
-        });
-    </script>
+                             <?php if ($is_new): ?>
+                                 <span class="course-badge new">NEW</span>
+                             <?php endif; ?>
 
-</body>
+                             <span class="course-difficulty">
+                                 <?= $difficulty ?>
+                             </span>
 
-</html>
+                         </div>
+
+                         <div class="course-content">
+                             <h3 class="course-title"><?= $name ?></h3>
+                             <p class="course-description"> <?= $description ?> </p>
+
+
+                             <div class="meta-actions">
+
+                                 <a href="<?= url('user/learn_more?id=' . $id) ?>" class="learn-more">
+                                     LEARN MORE →
+                                 </a>
+
+                                 <!-- FEVO WITH ACTION -->
+                                 <a href="javascript:void(0)" class="icon-btn fav-btn active" data-id="<?= (int)$id ?>">
+                                     <i class="fa-solid fa-heart"></i>
+                                 </a>
+
+                                 <!--comment btn -->
+                                 <a href="javascript:void(0)" class="icon-btn comment-btn" data-course="<?= $id ?>">
+                                     <i class="fa-regular fa-comment"></i>
+                                 </a>
+                                 <!-- ENTROLL BTN WITH STATUS -->
+                                 <?php if ($enroll_status === 'pending'): ?>
+
+                                     <button class="enroll-btn requested" data-course="<?= $id ?>">
+                                         Requested
+                                     </button>
+
+                                 <?php elseif ($enroll_status === 'approved'): ?>
+
+                                     <button class="enroll-btn approved" disabled>
+                                         Enrolled
+                                     </button>
+
+                                 <?php else: ?>
+                                     <a href="<?= url('user/add_to_enroll?course_id=' . $id) ?>" class="enroll-btn enroll">
+                                         ENROLL
+                                     </a>
+                                 <?php endif; ?>
+
+                             </div>
+                         </div>
+                     </div>
+             <?php endwhile;
+                else:
+                    echo "NO COURSES FOUND";
+                endif;
+                _close_stmt($stmt);
+                ?>
+         </div>
+     </section>
+     <!-- for comments scrool -->
+     <div id="commentsModal" class="comments-overlay hidden">
+         <div class="comments-box">
+             <h3>Comments</h3>
+             <div id="commentsList" class="comments-list"></div>
+             <button id="closeComments" class="close-btn">Close</button>
+         </div>
+     </div>
+     <!-- search  end-->
+     <?php require ROOT . '../pages/footer.php'; ?>
+
+     <!-- for entroll btn controll -->
+
+     <script>
+         document.addEventListener('DOMContentLoaded', () => {
+             document.querySelectorAll('.enroll-btn.requested').forEach(btn => {
+                 btn.addEventListener('click', () => {
+                     if (!confirm('Cancel enrollment request?')) return;
+
+                     fetch('<?= url("user/enroll_cancel") ?>', {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/x-www-form-urlencoded'
+                             },
+                             body: 'course_id=' + btn.dataset.course
+                         })
+                         .then(() => location.reload());
+                 });
+             });
+         });
+     </script>
+
+     <!-- script for comment btn -->
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+
+             const modal = document.getElementById('commentsModal');
+             const box = modal.querySelector('.comments-box');
+             const list = document.getElementById('commentsList');
+             const close = document.getElementById('closeComments');
+
+             function openModal(html) {
+                 list.innerHTML = html;
+                 modal.classList.remove('hidden');
+                 document.body.style.overflow = 'hidden'; // disable scroll background
+             }
+
+             function closeModal() {
+                 modal.classList.add('hidden');
+                 document.body.style.overflow = ''; // restore scroll bground
+             }
+
+             // open comments
+             document.querySelectorAll('.comment-btn').forEach(btn => {
+                 btn.addEventListener('click', function(e) {
+                     e.preventDefault();
+
+                     const courseId = this.dataset.course;
+                     if (!courseId) return;
+
+                     fetch('<?= url("user/comment_scroll") ?>?course_id=' + courseId)
+                         .then(res => res.text())
+                         .then(html => openModal(html))
+                         .catch(err => console.error(err));
+                 });
+             });
+
+             // close via button
+             close.addEventListener('click', closeModal);
+
+             // close when clicking outside the popup
+             modal.addEventListener('click', function() {
+                 closeModal();
+             });
+
+             // prevent closing when clicking inside the popup
+             box.addEventListener('click', function(e) {
+                 e.stopPropagation();
+             });
+
+         });
+     </script>
+
+
+     <!-- script for fevo btn -->
+     <script>
+         document.addEventListener('DOMContentLoaded', () => {
+             document.querySelectorAll('.fav-btn').forEach(btn => {
+                 btn.addEventListener('click', e => {
+                     e.preventDefault();
+
+                     fetch('<?= url("user/toggle_fevo_btn") ?>', {
+                             method: 'POST',
+                             headers: {
+                                 'Content-Type': 'application/x-www-form-urlencoded'
+                             },
+                             body: 'course_id=' + btn.dataset.id
+                         })
+                         .then(res => res.text())
+                         .then(result => {
+                             if (result === 'added') {
+                                 btn.classList.add('active');
+                             }
+                             if (result === 'removed') {
+                                 btn.classList.remove('active');
+                             }
+                         });
+                 });
+             });
+         });
+     </script>
+
+ </body>
+
+ </html>

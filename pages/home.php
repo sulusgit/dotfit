@@ -33,6 +33,27 @@ include 'header.php';
             <p class="section-description">Expert-led programs designed to help you achieve your fitness goals</p>
         </div>
         <div class="courses-grid">
+            <!-- last 4 gets new badge -->
+            <?php
+            $newCourseIds = [];
+
+            _selectAll(
+                $stmtNew,
+                $cntNew,
+                "SELECT id
+     FROM courses
+     ORDER BY created_at DESC
+     LIMIT 4",
+                $new_id
+            );
+
+            while (_fetch($stmtNew)) {
+                $newCourseIds[] = $new_id;
+            }
+
+            _close_stmt($stmtNew);
+            ?>
+
 
             <?php
             $search = trim($_GET['search'] ?? '');
@@ -73,85 +94,54 @@ include 'header.php';
                     $price,
                     $difficulty
                 );
-                /*   this one abit problems _selectAll(
-                    $stmt,
-                    $count,
-                    "SELECT id, name, description, duration, badge, price, difficulty
-                    FROM courses
-                    WHERE name LIKE ?
-                    ORDER BY created_at DESC",
-                    $id,
-                    $name,
-                    $description,
-                    $duration,
-                    $badge,
-                    $price,
-                    $difficulty
-                ); */
             }
 
             if ($count > 0):
                 while (_fetch($stmt)): ?>
-            <!-- COURSE CARD -->
-            <div class="course-card">
-                <div class="course-image-wrapper">
-                    <a href="<?= url('sign_in') ?>" class="course-image-wrapper">
-                        <img src="<?= $image ?>" alt="course_images" class="course-image">
+                    <?php $is_new = in_array($id, $newCourseIds); ?>
+                    <!-- COURSE CARD -->
+                    <div class="course-card">
+                        <div class="course-image-wrapper <?= $is_new ? 'has-new' : '' ?>">
+                            <a href="<?= url('sign_in') ?>" class="course-image-wrapper">
+                                <img src="<?= $image ?>" alt="course_images" class="course-image">
 
-                    </a>
-                    <span class="course-badge"><?= $badge ?></span>
-                    <span class="course-difficulty"><?= $difficulty ?></span>
-                </div>
+                            </a>
+                            <?php if ($is_new): ?>
+                                <span class="course-badge new">NEW</span>
+                            <?php endif; ?>
 
-                <div class="course-content">
-                    <h3 class="course-title"><?= $name ?></h3>
-                    <p class="course-description"> <?= $description ?> </p>
+                            <span class="course-difficulty">
+                                <?= $difficulty ?>
+                            </span>
+                        </div>
+
+                        <div class="course-content">
+                            <h3 class="course-title"><?= $name ?></h3>
+                            <p class="course-description"> <?= $description ?> </p>
 
 
-                    <div class="meta-actions">
+                            <div class="meta-actions">
+                                <!-- btn learn more -->
+                                <a href="<?= url('sign_in') ?>" class="learn-more">
+                                    LEARN MORE →
+                                </a>
+                                <!-- btn fevo -->
+                                <a href="<?= url('sign_in') ?>">
+                                    <i class="fa-solid fa-heart"></i>
+                                </a>
 
-                        <a href="<?= url('sign_in') ?>" class="learn-more">
-                            LEARN MORE →
-                        </a>
+                                <!-- btn comment -->
+                                <a href="<?= url('sign_in') ?>" class="icon-btn">
+                                    <i class="fa-regular fa-comment"></i>
+                                </a>
+                                <!-- btn-view-details == ENROLL btn -->
+                                <a href="<?= url('sign_in') ?>" class="icon-btn">
+                                    <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
+                                </a>
 
-                        <a href="<?= url('sign_in') ?>" class="icon-btn fav-btn" data-id="<?= $id ?>">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                        <script>
-                        document.querySelectorAll('.fav-btn').forEach(btn => {
-                            btn.addEventListener('click', function(e) {
-                                e.preventDefault(); // STOP redirect
-
-                                const icon = this.querySelector('i');
-                                const courseId = this.dataset.id;
-
-                                // toggle heart visually
-                                icon.classList.toggle('fa-regular');
-                                icon.classList.toggle('fa-solid');
-
-                                // save in backend
-                                fetch('sign_in.php', { //!!!!!!!!!!!!!!!
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/x-www-form-urlencoded'
-                                    },
-                                    body: 'id=' + courseId
-                                });
-                            });
-                        });
-                        </script>
-
-                        <a href="<?= url('sign_in') ?>" class="icon-btn">
-                            <i class="fa-regular fa-comment"></i>
-                        </a>
-                        <!-- btn-view-details == ENROLL btn -->
-                        <a href="<?= url('sign_in') ?>" class="icon-btn">
-                            <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
-                        </a>
-
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
             <?php endwhile;
             else:
                 echo "NO COURSES FOUND";
@@ -163,9 +153,6 @@ include 'header.php';
     </section>
 
     <!-- search try  end-->
-
-
-
 
     <!-- CTA SECTION -->
     <section class="cta-section"> <a href="#" class="cta-button">View All Courses</a> </section>
