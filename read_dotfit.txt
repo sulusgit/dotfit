@@ -1,7 +1,5 @@
 :::virtual host setings::::
 
-
-
 :::::FOLDERS::::
 _inc: folder for include to use using inlcude like header, footer.
 _conf.php: settings file (tohirgooni file)
@@ -17,32 +15,3 @@ _sign_up_save.php => for save new user's info
 _sing_in_do.php => for check user's info to sign in 
 _list_review.php => is for comments lists
 _my_fevo_lists.php => user can see the fevorite/liked courses (on the header heart btn)
-
-
-usefl sth:
-href="/admin/courses/delete_course?id=<?= $id ?>"
-
-  <a onclick="confirmDelete(<?= $id ?>,  '<?= $name  ?>')">
-                            <button class="menu-item danger">
-                                Delete</button>
-                        </a> 
-
-
-btn view all may not needs:
-<section class="cta-section"> <a href="#" class="cta-button">View All Courses</a>
-     </section>
-
-     ----image--
-      <img src="<?= $image ? asset($image) : asset('course_images/default.jpg') ?>">
-
-
-                            alt="<?= htmlspecialchars((string)$name) ?>" class="course-image">
-
-                             <img src="<?= $image ? asset($image) : asset('course_images/default.jpg') ?>"
-                                   alt="<?= htmlspecialchars((string)$name) ?>" class="course-image">
-
-      ------user's before-----
-       <img src="<?= $image ? asset($image) : asset('course_images/default.jpg') ?>"
-                             alt="<?= htmlspecialchars((string)$name) ?>" class="course-image">
-                         <!-- <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=600&fit=crop"
-                                     alt="<?= $name ?>" class="course-image"> -->

@@ -22,7 +22,6 @@ if ($page === '') {
     require ROOT . '/pages/home.php';
     exit;
 }
-
 $file = ROOT . '/pages/' . $page . '.php';
 /* if not find that file it will show 404 page */
 if (file_exists($file)) {
