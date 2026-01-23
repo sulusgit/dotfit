@@ -1,3 +1,4 @@
+home.php
 <?php
 include 'header.php';
 ?>
@@ -98,50 +99,50 @@ include 'header.php';
 
             if ($count > 0):
                 while (_fetch($stmt)): ?>
-                    <?php $is_new = in_array($id, $newCourseIds); ?>
-                    <!-- COURSE CARD -->
-                    <div class="course-card">
-                        <div class="course-image-wrapper <?= $is_new ? 'has-new' : '' ?>">
-                            <a href="<?= url('sign_in') ?>" class="course-image-wrapper">
-                                <img src="<?= $image ?>" alt="course_images" class="course-image">
+            <?php $is_new = in_array($id, $newCourseIds); ?>
+            <!-- COURSE CARD -->
+            <div class="course-card">
+                <div class="course-image-wrapper <?= $is_new ? 'has-new' : '' ?>">
+                    <a href="<?= url('sign_in') ?>" class="course-image-wrapper">
+                        <img src="<?= $image ?>" alt="course_images" class="course-image">
 
-                            </a>
-                            <?php if ($is_new): ?>
-                                <span class="course-badge new">NEW</span>
-                            <?php endif; ?>
+                    </a>
+                    <?php if ($is_new): ?>
+                    <span class="course-badge new">NEW</span>
+                    <?php endif; ?>
 
-                            <span class="course-difficulty">
-                                <?= $difficulty ?>
-                            </span>
-                        </div>
+                    <span class="course-difficulty">
+                        <?= $difficulty ?>
+                    </span>
+                </div>
 
-                        <div class="course-content">
-                            <h3 class="course-title"><?= $name ?></h3>
-                            <p class="course-description"> <?= $description ?> </p>
+                <div class="course-content">
+                    <h3 class="course-title"><?= $name ?></h3>
+                    <p class="course-description"> <?= $description ?> </p>
 
 
-                            <div class="meta-actions">
-                                <!-- btn learn more -->
-                                <a href="<?= url('sign_in') ?>" class="learn-more">
-                                    LEARN MORE →
-                                </a>
-                                <!-- btn fevo -->
-                                <a href="<?= url('sign_in') ?>">
-                                    <i class="fa-solid fa-heart"></i>
-                                </a>
+                    <div class="meta-actions">
+                        <!-- btn learn more -->
+                        <a href="<?= url('sign_in') ?>" class="learn-more">
+                            LEARN MORE →
+                        </a>
+                        <!-- btn fevo -->
+                        <a href="<?= url('sign_in') ?>">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
 
-                                <!-- btn comment -->
-                                <a href="<?= url('sign_in') ?>" class="icon-btn">
-                                    <i class="fa-regular fa-comment"></i>
-                                </a>
-                                <!-- btn-view-details == ENROLL btn -->
-                                <a href="<?= url('sign_in') ?>" class="icon-btn">
-                                    <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
-                                </a>
+                        <!-- btn comment -->
+                        <a href="<?= url('sign_in') ?>" class="icon-btn">
+                            <i class="fa-regular fa-comment"></i>
+                        </a>
+                        <!-- btn-view-details == ENROLL btn -->
+                        <a href="<?= url('sign_in') ?>" class="icon-btn">
+                            <i class="fa-solid fa-circle-plus"></i> <span class="tooltip">Enroll</span>
+                        </a>
 
-                            </div>
-                        </div>
                     </div>
+                </div>
+            </div>
             <?php endwhile;
             else:
                 echo "NO COURSES FOUND";
