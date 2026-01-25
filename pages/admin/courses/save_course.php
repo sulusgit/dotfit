@@ -8,7 +8,7 @@ $price = (float) post('price');
 
 // must NOT be NULL (DB rule)
 $text_add_info = trim($_POST['text_add_info'] ?? '');
- 
+
 // badge is NOT decided now → DB logic later
 $badge = '';
 
@@ -19,12 +19,12 @@ if ($difficulty === '') {
 } else {
     $difficulty = strtolower($difficulty);
 }
- 
+
 /* ===== IMAGE LOGIC (UNCHANGED) ===== */
 $courseLower = strtolower(trim($course_name));
 
-$baseDir = ROOT . '/course_images';          // ✅ FILESYSTEM
-$webPath = BASE_URL . '/course_images';      // ✅ URL
+$baseDir = ROOT . '/course_images';
+$webPath = BASE_URL . '/course_images';
 
 $imagePath = $webPath . '/default.jpg';
 
@@ -54,7 +54,7 @@ foreach ($folders as $folder) {
 
 
 
-/* ===== INSERT (YOUR STYLE) ===== */
+// ===== INSERT 
 $success = _exec(
     "INSERT INTO courses SET
 image=?,
@@ -81,8 +81,4 @@ difficulty=?",
     $count
 );
 
-//flash('success', 'Course added successfully!');
-//if else was about save not info but no used no notfications
-
 _redirect('/admin/home_admin_ui');
-exit;

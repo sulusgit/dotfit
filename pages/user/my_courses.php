@@ -5,8 +5,9 @@ if (!isset($_SESSION['id'])) {
     return;
 }
 
-$user_id = (int) $_SESSION['id'];
+$user_id = $_SESSION['id'];
 $myCourses = [];
+
 
 _select(
     $stmt,
@@ -57,13 +58,13 @@ while (_fetch($stmt)) {
         </div>
 
         <?php foreach ($myCourses as $course): ?>
-            <div class="my-course">
-                <h3><?= $course['course_name'] ?></h3>
-                <p class="status <?= $course['status'] ?>">
-                    <?= $course['status'] ?>
-                </p>
-                <p><?= $course['created_at'] ?></p>
-            </div>
+        <div class="my-course">
+            <h3><?= $course['course_name'] ?></h3>
+            <p class="status <?= $course['status'] ?>">
+                <?= $course['status'] ?>
+            </p>
+            <p><?= $course['created_at'] ?></p>
+        </div>
         <?php endforeach; ?>
 
     </div>

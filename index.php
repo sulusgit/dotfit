@@ -30,7 +30,7 @@ if (file_exists($file)) {
     require ROOT . '/pages/404.php';
 }
 
-//debug function print array
+//debug function
 function dd($arr)
 {
     echo '<pre>';
